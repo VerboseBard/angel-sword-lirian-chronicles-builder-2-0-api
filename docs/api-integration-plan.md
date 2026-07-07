@@ -133,6 +133,24 @@ The easiest API response shape is:
 
 The mapper also accepts a looser response where the top level directly contains `version`, `races`, `classes`, etc. The official payload should still include stable IDs and names for every record.
 
+Two shape rules that are easy to miss:
+
+- `data` requires all six collections as arrays: `races`, `ancestries`, `classes`, `abilities`, `breakthroughs`, `items`.
+- `detailData` requires only three collections: `races`, `ancestries`, `classes` — richer records carrying `descriptionHtml`, `descriptionText`, `lineageChoices`, `keyAbility`, and detailed `abilities`. This intentionally differs from the summary shape; the bundled detail data has never carried the other three collections.
+
+## Testing The Contract Locally (No Official API Needed)
+
+This build ships a working reference implementation of the expected endpoint plus tooling to verify a candidate payload:
+
+- **Mock endpoint**: `npm start`, then `GET /builder/game-data` on the local server returns the full expected payload built from the bundled data. `?version=<id>` serves any locally bundled rules version; unknown versions return a 404 with the available list. See `handleMockGameData` in `scripts/server.mjs`.
+- **Sample payload**: `docs/sample-api-payload.json` is a truncated, readable example (regenerate with `npm run api:sample`).
+- **Validator**: `node scripts/validate-api-payload.mjs <url-or-file> [--compare-local]` checks any payload with the app's own mapper plus id/name/duplicate checks, and can diff entry counts and id sets against the bundled data. `npm run api:validate -- <url>` also works.
+- **Regression tests**: `npm test` includes an API-mode pass against the mock endpoint (proving API data drives the app, including detail data survival) and a static-fallback pass against a missing endpoint.
+
+## Known Mismatch With The Existing Public API
+
+The provider expects ONE aggregate endpoint. The existing public API at `api.angelssword.com/ttrpg/...` serves each resource separately (`/ttrpg/{version}/classes`, `/ttrpg/{version}/items`, and so on). An official integration must either build the aggregate endpoint server-side (recommended — the mock endpoint is the reference) or extend `src/js/api-data-provider.js` to fetch and aggregate the per-resource endpoints client-side, reusing the field mapping already proven in `scripts/pull-angels-sword-data.js`. `AI_INTEGRATION_TASK.md` spells out both options with acceptance criteria.
+
 ## What The API Can Safely Handle First
 
 Good first API targets:

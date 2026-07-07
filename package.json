@@ -9,6 +9,8 @@
     "start": "node scripts/server.mjs",
     "serve": "node scripts/server.mjs",
     "audit:minmax": "node scripts/audit-minmax-cascades.mjs",
+    "api:validate": "node scripts/validate-api-payload.mjs",
+    "api:sample": "node scripts/generate-sample-api-payload.mjs",
     "test": "npm run build && node scripts/test-cross-browser.mjs"
   },
   "devDependencies": {

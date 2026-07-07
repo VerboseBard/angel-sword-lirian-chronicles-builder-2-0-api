@@ -4,3 +4,9 @@ Includes the Beta 1.6 disabled-by-default API provider handoff layer.
 Includes a disabled-by-default security placeholder for future official backend/auth work.
 Focus: preserve the 1.9 crafting and gathering workflows while preparing the build
 for later official API integration without breaking static/local use.
+
+API handoff kit (2026-07-07): local mock of the expected official endpoint
+(/builder/game-data on the dev server), payload validator and sample payload,
+API-mode + static-fallback regression tests, AI_INTEGRATION_TASK.md task brief,
+docs/api-mode-ownership-map.md, and a data-mapper fix so valid detail data
+(races/ancestries/classes shape) is no longer discarded in API mode.

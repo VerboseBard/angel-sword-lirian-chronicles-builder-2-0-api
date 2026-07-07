@@ -46,7 +46,26 @@ npm start
 
 ## Where API Integration Starts
 
-Read this first:
+If your goal is connecting the official API, the fastest path is the
+self-contained task brief:
+
+```text
+AI_INTEGRATION_TASK.md
+```
+
+You can try API mode locally today, without any official endpoint:
+
+1. `npm start` — the dev server exposes a mock of the expected endpoint at
+   `/builder/game-data` (add `?version=<id>` for other bundled versions).
+2. `node scripts/validate-api-payload.mjs <url-or-file>` — checks any
+   candidate payload against exactly what the app accepts.
+3. `npm test` — includes regression tests for API mode against the mock and
+   for static fallback when the endpoint is unreachable.
+4. `docs/sample-api-payload.json` — a truncated, readable payload example.
+5. `docs/api-mode-ownership-map.md` — which parts of this project are
+   scraping/update workarounds that a real API integration replaces.
+
+For the full design, read:
 
 ```text
 docs/api-integration-plan.md

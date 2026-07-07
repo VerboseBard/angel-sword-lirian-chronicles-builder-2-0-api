@@ -244,6 +244,102 @@ const browsers = [
     await page.reload({ waitUntil: 'load' });
   }
 
+  function buildTestApiConfigScript(overrides = {}) {
+    const config = {
+      schema: 1,
+      mode: 'api',
+      enabled: true,
+      apiBaseUrl: `http://127.0.0.1:${PORT}`,
+      gameDataPath: '/builder/game-data',
+      timeoutMs: 8000,
+      fallbackToStatic: true,
+      strict: false,
+      ...overrides
+    };
+    return `window.LYRIAN_API_CONFIG = ${JSON.stringify(config)};`;
+  }
+
+  // Boots the app with API mode enabled against the local mock official-API
+  // endpoint and asserts the API-provided data actually drives the app:
+  // provider status reports "api", the rules version comes from the payload,
+  // detail data keeps its detail-only fields (lineageChoices guards against
+  // the mapper discarding valid detail data), and the builder renders.
+  async function runApiProviderModeAssertion(browser) {
+    console.log('   Running API provider mode assertion against the mock /builder/game-data endpoint...');
+    const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    const page = await context.newPage();
+    try {
+      await page.route('**/assets/api-config.js', (route) => route.fulfill({
+        contentType: 'text/javascript; charset=utf-8',
+        body: buildTestApiConfigScript()
+      }));
+      await page.goto(targetUrl, { waitUntil: 'load', timeout: 15000 });
+      await page.waitForFunction(() => Boolean(window.LYRIAN_DATA_PROVIDER_STATUS)
+        && document.querySelectorAll('#builder-step-content .builder-option-card').length > 0, { timeout: 15000 });
+      const result = await page.evaluate(() => ({
+        provider: window.LYRIAN_DATA_PROVIDER_STATUS?.provider || '',
+        mode: window.LYRIAN_DATA_PROVIDER_STATUS?.mode || '',
+        ok: Boolean(window.LYRIAN_DATA_PROVIDER_STATUS?.ok),
+        dataVersion: window.LYRIAN_DATA?.version || '',
+        detailKeepsLineageChoices: (window.LYRIAN_DETAIL_DATA?.races || [])
+          .some((race) => race && typeof race === 'object' && 'lineageChoices' in race),
+        manifestStatus: window.LYRIAN_VERSION_MANIFEST?.versions?.[0]?.status || '',
+        cardCount: document.querySelectorAll('#builder-step-content .builder-option-card').length
+      }));
+      if (
+        result.provider !== 'api' ||
+        result.mode !== 'api' ||
+        !result.ok ||
+        result.dataVersion !== '0.13.0' ||
+        !result.detailKeepsLineageChoices ||
+        result.manifestStatus !== 'api' ||
+        result.cardCount === 0
+      ) {
+        throw new Error(`API provider mode regression failed: ${JSON.stringify(result)}`);
+      }
+    } finally {
+      await closeWithTimeout(context, 'API provider mode context');
+    }
+  }
+
+  // Boots the app with API mode enabled against a missing endpoint and asserts
+  // the static fallback promise holds: the app must still start and render
+  // from bundled data, with the provider status reporting the fallback.
+  async function runApiProviderFallbackAssertion(browser) {
+    console.log('   Running API provider static-fallback assertion (missing endpoint)...');
+    const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    const page = await context.newPage();
+    try {
+      await page.route('**/assets/api-config.js', (route) => route.fulfill({
+        contentType: 'text/javascript; charset=utf-8',
+        body: buildTestApiConfigScript({ gameDataPath: '/builder/game-data-missing' })
+      }));
+      await page.goto(targetUrl, { waitUntil: 'load', timeout: 15000 });
+      await page.waitForFunction(() => Boolean(window.LYRIAN_DATA_PROVIDER_STATUS)
+        && document.querySelectorAll('#builder-step-content .builder-option-card').length > 0, { timeout: 15000 });
+      const result = await page.evaluate(() => ({
+        provider: window.LYRIAN_DATA_PROVIDER_STATUS?.provider || '',
+        mode: window.LYRIAN_DATA_PROVIDER_STATUS?.mode || '',
+        ok: Boolean(window.LYRIAN_DATA_PROVIDER_STATUS?.ok),
+        dataVersion: window.LYRIAN_DATA?.version || '',
+        versionOptionCount: document.querySelectorAll('#game-version-select option').length,
+        cardCount: document.querySelectorAll('#builder-step-content .builder-option-card').length
+      }));
+      if (
+        result.provider !== 'static' ||
+        result.mode !== 'static-fallback' ||
+        result.ok !== false ||
+        result.dataVersion !== '0.13.0' ||
+        result.versionOptionCount < 3 ||
+        result.cardCount === 0
+      ) {
+        throw new Error(`API provider static-fallback regression failed: ${JSON.stringify(result)}`);
+      }
+    } finally {
+      await closeWithTimeout(context, 'API provider fallback context');
+    }
+  }
+
   async function runRulesRegressionAssertions(page) {
     await runSpreadsheetVisibleGridImportAssertion(page);
     await runCraftingOutcomeResolutionAssertion(page);
@@ -2466,6 +2562,8 @@ const browsers = [
 
           if (browserInfo.name.startsWith('Chromium') && vp.name === 'Desktop') {
             await runRulesRegressionAssertions(page);
+            await runApiProviderModeAssertion(browser);
+            await runApiProviderFallbackAssertion(browser);
           }
 
           // Take screenshot

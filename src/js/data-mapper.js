@@ -1,11 +1,21 @@
 const REQUIRED_COLLECTIONS = ["races", "ancestries", "classes", "abilities", "breakthroughs", "items"];
+// Detail data intentionally carries fewer collections than summary data: the
+// bundled assets/lyrian-detail-data.js shape only provides races, ancestries,
+// and classes (with rich fields such as descriptionHtml and lineageChoices).
+// Requiring all six summary collections here would silently reject valid
+// detail payloads and fall back to summary data.
+const REQUIRED_DETAIL_COLLECTIONS = ["races", "ancestries", "classes"];
 
 function asObject(value) {
   return value && typeof value === "object" && !Array.isArray(value) ? value : null;
 }
 
+function hasCollections(payload, keys) {
+  return keys.every((key) => Array.isArray(payload?.[key]));
+}
+
 function hasRequiredCollections(payload) {
-  return REQUIRED_COLLECTIONS.every((key) => Array.isArray(payload?.[key]));
+  return hasCollections(payload, REQUIRED_COLLECTIONS);
 }
 
 function normalizeGameData(payload, fallbackVersion = "") {
@@ -21,7 +31,7 @@ function normalizeGameData(payload, fallbackVersion = "") {
 
 function normalizeDetailData(payload, fallbackData) {
   const detail = asObject(payload);
-  if (detail && hasRequiredCollections(detail)) {
+  if (detail && hasCollections(detail, REQUIRED_DETAIL_COLLECTIONS)) {
     return {
       ...detail,
       version: String(detail.version || fallbackData.version || "api").trim()

@@ -5,6 +5,7 @@ import path from "node:path";
 import { execFile } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { discoverOfficialVersions, planVersionUpdate, readLocalManifest } from "./update-lyrian-version.mjs";
+import { buildApiPayload } from "./lyrian-bundled-data.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = process.env.LYRIAN_PROJECT_ROOT ? path.resolve(process.env.LYRIAN_PROJECT_ROOT) : path.resolve(__dirname, "..");
@@ -105,6 +106,32 @@ async function handleApi(request, response, pathname) {
   return sendJson(response, 404, { ok: false, message: "Unknown local API endpoint." });
 }
 
+// Mock of the official game-data endpoint the app's API provider expects.
+// Serves the bundled rules data in the exact payload shape described in
+// docs/api-integration-plan.md, so API mode can be exercised locally and an
+// official implementation has a working reference to diff against.
+// Supports ?version=<id> for any locally bundled rules version.
+const mockGameDataCache = new Map();
+
+async function handleMockGameData(url, response) {
+  const versionId = url.searchParams.get("version") || "";
+  try {
+    if (!mockGameDataCache.has(versionId)) {
+      mockGameDataCache.set(versionId, await buildApiPayload(PROJECT_ROOT, versionId));
+    }
+    return sendJson(response, 200, mockGameDataCache.get(versionId));
+  } catch (error) {
+    if (error?.code === "UNKNOWN_VERSION") {
+      return sendJson(response, 404, {
+        ok: false,
+        message: error.message,
+        availableVersions: error.availableVersions || []
+      });
+    }
+    return sendJson(response, 500, { ok: false, message: error?.message || "Mock game-data endpoint error." });
+  }
+}
+
 function compareVersionStrings(a, b) {
   const left = String(a || "").match(/\d+/g)?.map(Number) || [];
   const right = String(b || "").match(/\d+/g)?.map(Number) || [];
@@ -151,6 +178,10 @@ function createServer() {
   return http.createServer(async (request, response) => {
     try {
       const url = new URL(request.url, `http://${request.headers.host || `${HOST}:${START_PORT}`}`);
+      if (url.pathname === "/builder/game-data") {
+        await handleMockGameData(url, response);
+        return;
+      }
       if (url.pathname.startsWith("/api/")) {
         await handleApi(request, response, url.pathname);
         return;
@@ -204,6 +235,7 @@ async function start() {
       await listenOnPort(server, port);
       const url = `http://${HOST}:${port}/`;
       console.log(`Lyrian Beta 2.0 API Build running at ${url}`);
+      console.log(`Mock official API endpoint: ${url}builder/game-data (add ?version=<id> for other bundled versions)`);
       console.log("Close this terminal window to stop the local development server.");
       openBrowser(url);
       return;

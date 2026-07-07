@@ -32,9 +32,15 @@ window.LYRIAN_VERSION_MANIFEST
 
 If the official API has a different shape, `src/js/data-mapper.js` must translate it.
 
+This is now testable without an official API: the local server mocks the expected endpoint at `/builder/game-data`, `scripts/validate-api-payload.mjs` checks any candidate payload, and `npm test` covers API mode and static fallback. Note the existing public API is per-resource, not aggregate — see the "Known Mismatch" section of `docs/api-integration-plan.md`.
+
 ### Version Updates
 
 The current update system is local/GitHub-style. Official hosting may need a different version and release process.
+
+`docs/api-mode-ownership-map.md` lists, file by file, which systems (the scrape scripts, the local updater, the bundled data pipeline) an official API integration replaces or demotes to dev-only tooling.
+
+Concrete known edge: in API mode, loading a saved character pinned to an older rules version can pull LOCAL bundled version data in over the API data for that session. Treat API mode as single-version until version-aware fetching is implemented (details in the ownership map).
 
 ## Rules Risks
 

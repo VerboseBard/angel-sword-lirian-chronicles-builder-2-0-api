@@ -26,6 +26,9 @@ Even if the official Angel's Sword site keeps its own interface, this project is
 
 ## Read Order
 
+0. `README.md` (front door) — and if your task is connecting the official
+   API, go straight to `AI_INTEGRATION_TASK.md`, which is a self-contained
+   task brief with acceptance criteria.
 1. `BETA_1.5_TO_1.9_RELEASE_NOTES_AND_AI_HANDOFF.md`
 2. `API_HANDOFF_README.md`
 3. `docs/api-integration-plan.md`
@@ -44,6 +47,8 @@ Even if the official Angel's Sword site keeps its own interface, this project is
 
 | If you want to... | Start with... | Then inspect... |
 | --- | --- | --- |
+| Connect the official API to this app | `AI_INTEGRATION_TASK.md` | `docs/sample-api-payload.json`, `scripts/validate-api-payload.mjs`, the mock endpoint in `scripts/server.mjs` |
+| Know which systems an API integration replaces | `docs/api-mode-ownership-map.md` | `scripts/pull-angels-sword-data.js`, `scripts/update-lyrian-version.mjs` |
 | Give this project to another AI or official integrator | `docs/ai-integration-scrape-notes.md` | `API_HANDOFF_README.md`, `docs/reusable-systems-map.md`, `scripts/test-cross-browser.mjs` |
 | Understand API integration | `docs/api-integration-plan.md` | `assets/api-config.js`, `src/js/data-provider.js`, `src/js/api-data-provider.js`, `src/js/data-mapper.js` |
 | Understand disabled security/auth placeholder | `assets/security-config.js` | `docs/api-integration-plan.md`, `docs/known-risks-and-questions.md` |

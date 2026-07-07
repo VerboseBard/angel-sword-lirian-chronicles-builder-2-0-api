@@ -1,0 +1,1022 @@
+{
+  "_sample": {
+    "note": "TRUNCATED EXAMPLE: each collection is cut to the first 3 entries so this file stays readable. The app requires the full collections. For a full reference payload, run \"npm start\" and open /builder/game-data on the local server.",
+    "generatedBy": "scripts/generate-sample-api-payload.mjs",
+    "fullEntryCounts": {
+      "races": 5,
+      "ancestries": 43,
+      "classes": 180,
+      "abilities": 931,
+      "breakthroughs": 88,
+      "items": 206
+    },
+    "validateWith": "node scripts/validate-api-payload.mjs <your-endpoint-url>"
+  },
+  "ok": true,
+  "schema": 1,
+  "source": "sample-api-payload",
+  "generatedAt": "2026-07-07T22:53:40.942Z",
+  "data": {
+    "version": "0.13.0",
+    "races": [
+      {
+        "id": "chimera",
+        "name": "Chimera",
+        "attributes": "You gain +1 in toughness and +1 in awareness.",
+        "skills": "You gain +5 skill points in either Magic, Survival, Animal Husbandry, Perception, Insight, Linguistics or Artifice.",
+        "proficiencies": "You can speak, read and write Common as well as the special dialect of your sub-race.",
+        "description": "Chimera are creatures that have been mutated due to magic and have gained sentience. Almost all Chimera can be traced back to areas of high magical concentration and a lifeform that was mutated. Despite being quite varied in physical characteristics, all Chimera are effectively the same race at their core. It is unknown how arcane magic was able to pattern itself in such a way&\n\nFrom Slime Chimera to the more common Feline Chimeras, there are varied sub-races that can be found throughout the world. And those sub-races can vary widely, even within the same phenotypes. Coloration, ear and tail shapes, and even number of physical characteristics. These widely varying phenotypes are broadly categorized in two ways: kanolith and zoalith.\n\nKanolith chimera have limited physical characteristics. Most kanoliths will have ears, tails, or both corresponding to their sub-race. Kanoliths are the most common type of chimera overall and what most will think of when imagining a chimera of any sub-race.\n\nZoalith chimera have exaggerated or prevalent physical characteristics. Fur, scales, replaced or altered limbs, and animalistic face shapes are all examples of zoalith features. This often leads to zoalith chimera having a far more \"bestial\" appearance which can sometimes bring social challenges. While zoalith chimera are overall rarer than kanolith, there are some sub-races that this trend is reversed. Centaurs, harpies, lamiafolk, and slimefolk are all examples of sub-races which trend toward zoalith.",
+        "abilities": [
+          "Fight or Flight"
+        ]
+      },
+      {
+        "id": "demon",
+        "name": "Demon",
+        "attributes": "You gain +1 in Power and +1 in Reason.",
+        "skills": "You gain +5 skill points in either Common Knowledge, Magic, Religion, History, Flight, Artifice.",
+        "proficiencies": "You can speak, read, write Common and Sorthen. You also gain proficiency in one common weapon or +5 skill points in a skill relating to your demon clan.",
+        "description": "In Demon lore, they were the descendants of Angels who had rebelled against providence. Losing their angelic wings and methods to absorb the Divine might of Light, they've adapted techniques to burn their own life force to temporarily tap into their powers. The dangerous technique called Divine Release, is highly praised as the pinnacle of a demon's powers.\n\nWhile originally slandered as \"demons\" by humans and the angels of old, the demons have embraced the name as proof of their rebellion.\n\nDemons appear as humanoids, and but have varying secondary characteristics. Some have tiny wings that are devoid of the providence absorbing \"feathers\", while some have various kinds of horns or eye patterns. Some even have pointed ears like the fae.\n\nThe Demon city of Sorthen exists as an aristocratic meritocracy, where the power balance shifts, houses die and new ones are born based on their contribution to society. These Demon houses all grant their offspring a middle name, this name referencing their roles in society from servants to soldiers to scholars. Each family passes down the techniques of their role, specializing for the greatest efficiency. None of these roles are looked down upon, and it is considered an honor to fulfill your purpose to the highest capability. While the tradition of adhering to house societal roles, they are not inflexible. It is not unusual for an individual to carve out a new life path if they demonstrate exceptional merit, and straying from that assigned family role would then not be viewed negatively.\n\nSize: Medium",
+        "abilities": [
+          "Divine Release",
+          "Demonblood Regeneration"
+        ]
+      },
+      {
+        "id": "fae",
+        "name": "Fae",
+        "attributes": "You gain +1 in Agility and +1 in Cunning.",
+        "skills": "You gain +5 skill points in either Magic, Medicine, Negotiation, Intimidation, Insight.",
+        "proficiencies": "You can speak, read and write Sylvan, as well as Common.",
+        "description": "The Fae are widely considered the first people that populated Lyra. They are beings that were born from the will of nature and the world itself. Faeries can be quite varied in culture and demeanor, some using their age immortality to achieve great wisdom-- while others might use it to laze about and be merry.\n\nThe most common type of Fae are the High Fae which appear as youthful humanoids with pointed ears and eyes that come in various colors and patterns",
+        "abilities": [
+          "Faerie Flash"
+        ]
+      }
+    ],
+    "ancestries": [
+      {
+        "id": "ancient-marionette",
+        "name": "Ancient Marionette",
+        "description": "Ancient Marionettes: Lost to time and sea, the Ancient Marionettes stand as enigmatic remnants of a past long forgotten. Once components of the colossal arcane superweapon known as a \"Divine Arms\", these constructs now serve as hosts to sentient magic, giving life and consciousness to their once dormant forms. Rescued from the wreckage of a bygone vessel that met its fate in the waters surrounding the Isle of Kirara, these inert marionettes were left on the enchanted shore, their purpose and power seemingly lost to the ages. However, the island's potent, ambient magic, a phenomenon that gives birth to the unique entities known as youkai, saw in these Ancient Marionettes an opportunity - bodies ready to house their formless essence. As the island's pervasive magic seeped into the marionettes, they awoke from their lifeless slumber. The youkai spirits, now housed in these ancient bodies, began to stir, imbuing them with a consciousness that mirrored their own. Thus, the Ancient Marionettes were reborn, not as weapons of war but as sentient beings in their own right, the symbiosis of ancient technology and living magic. Physically, Ancient Marionettes resemble their former selves - intricate, humanoid forms, wrought from an alloy seemingly immune to the ravages of time and sea. Strange, arcane symbols adorn their bodies, pulsating with a soft, ethereal glow that intensifies when they harness their magical abilities. Their eyes, once empty and hollow, now shine with the vibrant spark of sentient life. Despite their imposing exterior, these reborn constructs possess an inherent gentleness, a testament to the youkai spirit within them. They are beings of thought and contemplation, bound by a curiosity of their new existence, their strange past, and the world they find themselves in. The Ancient Marionettes stand as a testament to the transformative power of magic, a symbol of a union between the ancient and the new, and a unique addition to the diverse inhabitants of the Isle of Kirara.\n\nSize: Medium\n\nWinner of the 2023 Alpha Race Creation Contest (Constructs) by PurpleXCompleX."
+      },
+      {
+        "id": "anubis",
+        "name": "Anubis",
+        "description": "The Anubis are a unique race of Fae from the southwestern region of Telsin, known for their deep respect for life, death, and the natural order. With dark hair, bronze skin, and their unique Jackal-like ears, the Anubis see themselves as guardians of the living and the dead alike. While their own lifespans are exceptionally long, they hold a profound reverence for the brief lives of other beings, viewing them as precious gifts to be treasured even beyond death. This belief extends to the Anubis’ role in mediating spiritual affairs and protecting the deceased from desecration.\n\nRenowned for their honesty and strong sense of karma, the Anubis possess an almost supernatural ability to discern lies, making them respected yet sometimes avoided as arbiters. Their ceremonial attire includes light-colored clothing, adorned with golden jewelry and polished river stones—symbols of lineage often passed down or given as offerings to the deceased.\n\nSkilled at laying disturbed spirits to rest, they hold a complex relationship with necromancy, respecting it when practiced with reverence. Anubis Necromancers act as graveyard caretakers and conduct important funerary rites, roles woven into their cultural fabric and essential to their purpose across the region, which has garnered respect in spiritual circles even as far as Northi.\n\nSize: Medium"
+      },
+      {
+        "id": "bearfolk",
+        "name": "Bearfolk",
+        "description": "Bearfolk are a proud and enduring branch of the Chimera, towering humanoids with dense fur, heavy frames, and deep, resonant voices. Most stand a head taller than the average human and carry the strength to match it, yet behind their massive build lies a quiet and thoughtful nature. Bearfolk are often the last to speak up and do so in short sentences, not speaking any more words than are necessary.\n\nTheir culture prizes food, patience, community, and comfort. To a bearfolk, food shared is a sacred bond. Most live in small family holds scattered through the colder reaches of Northi. Their settlements, half-buried in snow and stone, are renowned for their hospitality.\n\nDespite their imposing nature, bearfolk often display surprising cunning. They are famous, perhaps infamous, for their uncanny ability to blend into society. Through sheer confidence or a kind of cosmic absurdity, a bearfolk in a robe and hat can convince entire villages that they are \"definitely not a bear.\" Scholars call this phenomenon Bear Shock, and no one has yet figured out how or why it works.\n\nBearfolk have an uncomplicated and big love for food. To them, a good meal is one of life's purest pleasures and a sign of prosperity hard-earned through long winters and heavy labor. They'll eat nearly anything that fills the belly, but they have an undeniable fondness for sweets: honey, candied fruits, and rare confections that melt on the tongue. Many bearfolk adventurers quietly hoard local delicacies from the regions they visit, trading stories and bites of food with the same enthusiasm others reserve for treasure.\n\nBearfolk adventurers are often wanderers who leave their homes to test their might or seek rare foods from distant lands. Some serve as guardians and caravan escorts, others simply follow their instincts wherever they lead. Their role in parties is usually that of a frontliner, delivering heavy blows with their paws.\n\n\"Full belly, calm heart.\"\n\nSize: M"
+      }
+    ],
+    "classes": [
+      {
+        "id": "abjurer",
+        "name": "Abjurer",
+        "tier": 2,
+        "role1": "Defender",
+        "role2": "",
+        "difficulty": 3,
+        "requirements": "Arcane Barrier learned, must possess at least 1 spell that deals damage.",
+        "heart": "You gain +1 to Fitness, Reason or Awareness.",
+        "soul": "You gain +1 to Focus, Agility or Toughness.",
+        "skills": "You gain +5 skill points in Athletics, Medicine, Magic, Religion, History, Flight, Artifice or Common Knowledge. You can exchange any skill point for 2 expertise points, but must spend them in these skills.",
+        "description": "Every initiate mage learns early on that the first fundamental of magic is defense. But for Abjurers, this lesson became their mantra. These Mages took their masters' teachings to heart and mastered the art of defensive magic.\n\nAbjurers are incredibly durable, and they don't just keep that strength to themselves—they can extend it to their allies, making everyone around them tougher in battle. Their focus is unmatched, allowing them to control space and protect others, even without relying on weapons.\n\nDespite their power, Abjurers are often underestimated. But when the heat of battle comes, they prove their worth, showing remarkable resilience under fire. It's this unshakeable defense that makes them indispensable in the chaos of war.",
+        "guide": "Abjurer's are frontline spellcasters that oftentimes don't wear armor. To help with the durability, you have Mana Shield. Mana Shield gives you a small amount of temporary HP every turn. It's good for reducing a small amount of damage every turn, but will not protect from a large burst turn.\n\nMana Shield also lets you cast spells while engaged by enemies if they are challenged by you, which can be accomplished by the Spell Challenge key ability. AoE spells can be used to inflict Challenge on many enemies, though they won't apply it if they miss or are fully blocked as many of them do not target the enemy, but an area. Single target spells will always apply it however.\n\nYour best tool for doing so when engaged by an enemy is Abjurer's Blast, which is a short range spell that can be used multiple times per turn, but doesn't provoke. This lets you set up challenge safely on enemies even if you lost the initiative.\n\nTo protect your allies and disrupt enemies that go for them, you have Arcane Pull. Arcane Pull is effective in keeping your backline safe from melee enemies, but it can be useless if there's not enough distance between you and your allies.\n\nFinally, Arcane Barrier II is a simple upgrade on the normal arcane barrier, letting you add your guard to the guard of the barrier.",
+        "keyAbility": "Spell Challenge",
+        "abilities": [
+          "Abjurer's Blast",
+          "Mana Shield",
+          "Arcane Barrier II",
+          "Arcane Pull"
+        ]
+      },
+      {
+        "id": "acolyte",
+        "name": "Acolyte",
+        "tier": 1,
+        "role1": "Healer",
+        "role2": "Support",
+        "difficulty": 3,
+        "requirements": "None.",
+        "heart": "You gain +1 to Presence.",
+        "soul": "You gain +1 to either Power or Toughness.",
+        "skills": "You gain +5 skill points to spend in Appraise, Medicine, Religion, Magic, History, Insight, Negotiation, Intimidation or Common Knowledge. You can exchange any skill point for 2 expertise points, but must spend them in these skills.",
+        "description": "Acolytes are practitioners of the mysterious power known as Faith, which is believed to be the oldest form of magic. In a world where The Church of Kari reigns as the most dominant religion, most Acolytes, about 95%, are Human, and nearly all of them, around 99%, belong to the Church.\n\nAcolytes are people with a special calling, blessed with the power to perform miracles thanks to their deep faith. They're part of a bigger community that includes other Acolytes, priests, and sometimes even Paladins. Because of this, they can usually find a safe place to rest and get help in churches and temples wherever they go.\n\nWith their healing and protective abilities, Acolytes are essential members of any party, making sure their friends stay safe and well during tough battles.",
+        "guide": "Acolytes are the main healers of groups of new adventurers, being the only tier 1 class with the capability to heal others.\n\nTheir primary tool for this is Cure Touch. The mana cost is high, but it is still more efficient (and cheaper) than drinking a potion. Keep in mind that it does provoke attacks of opportunity, so position yourself behind the ally you're healing if they are in melee combat.\n\nLight's Care is some efficient after combat healing. It heals for the same amount as Cure Touch for a fraction of the mana cost. It also has the benefit of allowing the target to prevent an injury to themselves if they went down in combat.\n\nWhat makes an acolyte truly valuable for a newbie group is Angel's Embrace. It has no mana cost and reduces the damage an ally takes by a large amount. The range is short, so most acolyte's prefer a melee weapon. Since you are using your RP to help others, be wary that you don't put yourself in a position where the enemy can focus you as your RP dwindles.\n\nMiracle: Sanctuary creates a small but durable barrier that can be used both offensively and defensively. When used defensively, it can give your allies a moment of reprieve, letting them drink a potion before going for a round two. It can also be used to trap an enemy inside the barrier, isolating it from its allies while your own allies wail on it.",
+        "keyAbility": "Acolyte's Journey",
+        "abilities": [
+          "Cure Touch",
+          "Light's Care",
+          "Angel's Embrace",
+          "Miracle: Sanctuary"
+        ]
+      },
+      {
+        "id": "adventurer",
+        "name": "Adventurer",
+        "tier": 1,
+        "role1": "Utility",
+        "role2": "Striker",
+        "difficulty": 1,
+        "requirements": "None",
+        "heart": "You gain +1 to Fitness, Cunning, Reason, Awareness or Presence.",
+        "soul": "You gain +1 to Focus, Power, Agility or Toughness.",
+        "skills": "You gain +5 skill points to spend on any non crafting skill. You can exchange any skill point for 2 expertise points, but must spend them in these skills.",
+        "description": "Legends have it that Fayto Zhelti was the first true adventurer, a spirited young girl from a humble town in the Kingdom of Alpinum. Her Father was an explorer and Fayto dreamed of following in his footsteps.\n\nYet, as childhood began to fade away, a painful realization crawled within her heart: the incredibly physical feats of strength her father effortlessly performed always lay just beyond grasp. No amount of blood, sweat or tears could overcome the anguish of her physical reality. She watched her younger brothers surpass her in strength, joining their father on this expeditions she yearned for. Loneliness began to infect her heart that ached for adventure, but fate had cruelly denied her that path.\n\nStill she persisted, even in her pain... tirelessly striking the same tree day after day for years.\n\nHumans barely had the lifespan to master the arcane arts—which at the time were incredibly complex without shortcuts. Her Mother, an arcane practitioner, taught her daughter the methods of utilizing magic for mundane tasks: heating water kettles and stirring up a gentle whirlpool to do laundry. While practicing these humble homecrafts, Fayto remembered that feeling, the tingling surge that ran through her limbs.\n\nOne day, as she swung her dulled blade against that ancient tree, she poured every ounce of her yearning and willpower into her strike. The familiar surge ran through her as the explosive energy flooded her body, exactly as it had done alongside her Mother. In a thunderous crash, the mighty tree toppled.\n\nFrom that day forward, she pursued that elusive feeling. She trained relentlessly until she mastered the art of \"internal magic\" which would be known later as ki. Soon after that she joined her father's adventures at last, growing and developing until she embarked on her own journeys, making a name for herself wherever she went \"Fayto, the female adventurer.\"\n\nTo this day, adventurers still practice the skills Fayto Zhelti perfected long ago—a martial art born of determination and control of ones self, leveling the playing field for all who practice it. Following Fayto's example, Adventurers continue to train—leaping to extraordinary heights, molding mana to extend their reach, projecting their aura like iron... all while maintaining perfect composure. Although the ancient martial art remains nameless, its teaches are diligently passed down to every aspiring adventurer, serving as a solid foundation for future development.",
+        "guide": "The adventurer is a generalist class that has a bit of everything. One of the main draws of the adventurer is their options in picking their proficiencies, being the only tier 1 class that can choose a specialized weapon and heavy armor.\n\nPower Jump is an anti-air tool that lets you hit enemies in the air even if you only have melee weapons. It is even better if you can fly, as you can use power jump as a cheap way to gain altitude.\n\nMana Razor gives you increased range on your attacks. If you're using a melee weapon with this, you'll need to be aware that turning your attacks into ranged attacks does mean you'll provoke attacks of opportunity. It only affects your basic melee attacks, but you can still use your abilities on enemies within your normal range.\n\nSteel Aura is a defensive tool that can be very powerful when attacked by a large group of grunts. With 3 additional guard, you will most likely take only 1 damage from light attacks from those enemies, though you'll still need to be wary of heavy attacks.\n\nYour Secret Art: Efficient Spirit Control is a simple mana reduction ability. If you do not have any other secret arts yet, then don't be afraid to use this whenever you would spend 2 or more mana on something.",
+        "keyAbility": "Adventurer Essentials",
+        "abilities": [
+          "Power Jump",
+          "Mana Razor",
+          "Steel Aura",
+          "Secret Art: Efficient Spirit Control"
+        ]
+      }
+    ],
+    "items": [
+      {
+        "id": "adjustable-lens-refractor-gun",
+        "name": "Adjustable Lens Refractor Gun",
+        "type": "Artifice",
+        "subType": "Weapon",
+        "cost": "Original Weapon + 3000",
+        "burden": "Original Weapon",
+        "activationCost": "-",
+        "fuelUsage": "1 shell per encounter",
+        "craftingType": "Artificing",
+        "description": "An artifice gun with cartridges that lets it fire blasts of arcane energy through a series of lenses rather than bullets. Attacks with this weapon deal Arcane damage.\n\nBy spending 1 AP per lens, the user may adjust the strength of the gun at the cost of accuracy. Each lens adjusted for power lets the user treat their attacks with the weapon as if their power was 1 higher than it actually is, at the cost of their focus being treated as 1 lower than it actually is. Up to 3 lenses can be modified in this way.\n\nExists in Musket and Sniper Rifle variants.\n\nMods:\n\nAlso takes normal musket and sniper rifle mods.\n\n- A mods:- Elemental Lens (10 points): Instead of Arcane, the weapon may deal a different element of your choosing\n\n- B mods:- None",
+        "imageSmUrl": "assets/item-images/0.13.0/6a06299f6be32fced493058c-sm.webp",
+        "imageLgUrl": "assets/item-images/0.13.0/6a06299f6be32fced493058c-lg.webp",
+        "imageAlignment": "middle"
+      },
+      {
+        "id": "advanced-surgery-kit",
+        "name": "Advanced Surgery Kit",
+        "type": "Adventuring Essentials",
+        "subType": "Kit",
+        "cost": "1500 Clim",
+        "burden": "2",
+        "activationCost": "",
+        "fuelUsage": "",
+        "craftingType": "",
+        "description": "Surgery kits contain stitches, bandages and other items used for more serious wounds.\n\nRest Action: You perform minor surgery on an ally or yourself. Requires at least 5 points in Medicine (or a relevant expertise in Medicine) to use. Make a medicine check against DC 15. On success you can negate the effect of one injury suffered this campaign until the end of the campaign. An injury can only be negated once by this effect, and one person can only have one negated injury at a time. The injury must still be dealt with after the campaign ends.\n\nWith an advanced surgery kit, you can heal two injuries from a single person instead of just one. The DC to heal two injuries is DC30.",
+        "imageSmUrl": "assets/item-images/0.13.0/6a06299f6be32fced49305ef-sm.webp",
+        "imageLgUrl": "assets/item-images/0.13.0/6a06299f6be32fced49305ef-lg.webp",
+        "imageAlignment": "middle"
+      },
+      {
+        "id": "adventurer-s-kit",
+        "name": "Adventurer's Kit",
+        "type": "Adventuring Essentials",
+        "subType": "Kit",
+        "cost": "100 Clim",
+        "burden": "1",
+        "activationCost": "-",
+        "fuelUsage": "-",
+        "craftingType": "",
+        "description": "Adventuring kits contain all of the basic tools for adventuring. Included in the kit: Backpack, Flint and steel, Rope, Notebook, Pen, Compass, Bedroll, Torches, Hand Mirror.\n\nEffect: You can use the items for their various purposes within reason. Can store up to 5 burden of Adventuring Essentials, a Northi Lantern or items included in this kit in a combat ready state for 0 burden and contains a torch/lantern holster for hands off torch/lantern use for light purposes. Cannot store kits or other burden reducing items in this combat ready state.",
+        "imageSmUrl": "assets/item-images/0.13.0/6a06299f6be32fced49305bd-sm.webp",
+        "imageLgUrl": "assets/item-images/0.13.0/6a06299f6be32fced49305bd-lg.webp",
+        "imageAlignment": "middle"
+      }
+    ],
+    "breakthroughs": [
+      {
+        "id": "8-eyes--spiderfolk-",
+        "name": "8 Eyes (Spiderfolk)",
+        "cost": "100",
+        "requirements": "Must be a spiderfolk.",
+        "description": "You may have up to 8 Mystic Eyes instead of the regular 2."
+      },
+      {
+        "id": "angelblooded--human---restricted-",
+        "name": "Angelblooded (Human) (Restricted)",
+        "cost": "0",
+        "requirements": "Must be a human and only a human. Requires GM Approval",
+        "description": "You have the blood of angels in you. You may purchase the Angelblooded class."
+      },
+      {
+        "id": "arachne--spiderfolk-",
+        "name": "Arachne (Spiderfolk)",
+        "cost": "0",
+        "requirements": "Must be a spiderfolk. Can only be taken at character creation.",
+        "description": "You lose your extra arms racial ability. In exchange, you become Large size and your max burden is increased by 2. When attempting to move through 5ft wide spaces, it is considered difficult terrain for you and many humanoid buildings will struggle to accommodate you. You also suffer a -10 penalty to swimming checks, but you may climb through your spider climb ability at your normal speed instead of half speed.\n\nIn addition, you count as mounted for the purposes of abilities that require you to be mounted. This does not let you be a mount to other creatures."
+      }
+    ],
+    "abilities": [
+      {
+        "id": "abjurer-s-blast",
+        "name": "Abjurer's Blast",
+        "costLabel": "1 AP",
+        "apCost": "1",
+        "rpCost": "",
+        "manaCost": "",
+        "otherCosts": "",
+        "range": "10ft",
+        "requirement": "",
+        "keywords": [
+          "Rapid",
+          "Spell"
+        ],
+        "description": "You make a Light (1 AP), Heavy (2 AP) or Precise (2 AP) attack against the target that deals Arcane damage. This spell does not provoke attacks of opportunity."
+      },
+      {
+        "id": "absorb-ice",
+        "name": "Absorb Ice",
+        "costLabel": "1 RP",
+        "apCost": "",
+        "rpCost": "1",
+        "manaCost": "",
+        "otherCosts": "",
+        "range": "Self",
+        "requirement": "You're about to take Frost Damage.",
+        "keywords": [
+          "Rapid"
+        ],
+        "description": "You gain Absorb Ice, which gives you Damage Reduction 100 Frost against the triggering damage. After the damage resolves, if the caster is not you, someone allied to you or from an effect made by you or an ally, you gain Temporary HP until the end of the encounter equal to the amount of damage this ability reduces.\n\nAny on hit effects from the damage do not apply if you took 0 damage from it because of your DR."
+      },
+      {
+        "id": "accelerando",
+        "name": "Accelerando",
+        "costLabel": "",
+        "apCost": "",
+        "rpCost": "",
+        "manaCost": "",
+        "otherCosts": "",
+        "range": "120ft",
+        "requirement": "",
+        "keywords": [
+          "Encounter Start"
+        ],
+        "description": "Grant yourself or an ally +4 initiative."
+      }
+    ]
+  },
+  "detailData": {
+    "version": "0.13.0",
+    "races": [
+      {
+        "id": "chimera",
+        "name": "Chimera",
+        "descriptionText": "Chimera are creatures that have been mutated due to magic and have gained sentience. Almost all Chimera can be traced back to areas of high magical concentration and a lifeform that was mutated. Despite being quite varied in physical characteristics, all Chimera are effectively the same race at their core. It is unknown how arcane magic was able to pattern itself in such a way&\n\nFrom Slime Chimera to the more common Feline Chimeras, there are varied sub-races that can be found throughout the world. And those sub-races can vary widely, even within the same phenotypes. Coloration, ear and tail shapes, and even number of physical characteristics. These widely varying phenotypes are broadly categorized in two ways: kanolith and zoalith.\n\nKanolith chimera have limited physical characteristics. Most kanoliths will have ears, tails, or both corresponding to their sub-race. Kanoliths are the most common type of chimera overall and what most will think of when imagining a chimera of any sub-race.\n\nZoalith chimera have exaggerated or prevalent physical characteristics. Fur, scales, replaced or altered limbs, and animalistic face shapes are all examples of zoalith features. This often leads to zoalith chimera having a far more \"bestial\" appearance which can sometimes bring social challenges. While zoalith chimera are overall rarer than kanolith, there are some sub-races that this trend is reversed. Centaurs, harpies, lamiafolk, and slimefolk are all examples of sub-races which trend toward zoalith.",
+        "descriptionHtml": "<p>Chimera are creatures that have been mutated due to magic and have gained sentience. &nbsp;Almost all Chimera can be traced back to areas of high magical concentration and a lifeform that was mutated. &nbsp;Despite being quite varied in physical characteristics, all Chimera are effectively the same race at their core. &nbsp;It is unknown how arcane magic was able to pattern itself in such a way&</p><p>From Slime Chimera to the more common Feline Chimeras, there are varied sub-races that can be found throughout the world. And those sub-races can vary widely, even within the same phenotypes. Coloration, ear and tail shapes, and even number of physical characteristics. These widely varying phenotypes are broadly categorized in two ways: kanolith and zoalith.</p><p>Kanolith chimera have limited physical characteristics. Most kanoliths will have ears, tails, or both corresponding to their sub-race. Kanoliths are the most common type of chimera overall and what most will think of when imagining a chimera of any sub-race.</p><p>Zoalith chimera have exaggerated or prevalent physical characteristics. Fur, scales, replaced or altered limbs, and animalistic face shapes are all examples of zoalith features. This often leads to zoalith chimera having a far more \u001cbestial\u001d appearance which can sometimes bring social challenges. While zoalith chimera are overall rarer than kanolith, there are some sub-races that this trend is reversed. Centaurs, harpies, lamiafolk, and slimefolk are all examples of sub-races which trend toward zoalith.</p>",
+        "attributes": "You gain +1 in toughness and +1 in awareness.",
+        "proficiencies": "You can speak, read and write Common as well as the special dialect of your sub-race.",
+        "skills": "You gain +5 skill points in either Magic, Survival, Animal Husbandry, Perception, Insight, Linguistics or Artifice.",
+        "imageSmUrl": "https://cdn.angelssword.com/ttrpg/assets/1bf33da4-b9ac-44cf-ae53-ce85f84ee58f-Slime_GIrl_New_raw_1.sm.webp",
+        "imageLgUrl": "https://cdn.angelssword.com/ttrpg/assets/233b3142-f3b0-4e82-8b41-3b6fe33a7da7-Slime_GIrl_New_raw_1.lg.webp",
+        "imageAlignment": "top",
+        "abilities": [
+          {
+            "id": "fight-or-flight",
+            "name": "Fight or Flight",
+            "descriptionText": "Fight: You immediately gain 2 AP that can be used on basic abilities, but lose 1 RP.\n\nFlight: You immediately gain 1 RP, but recover 2 less AP on your next turn.\n\nYou regain the use of this ability after the Encounter Conclusion phase.",
+            "descriptionHtml": "<p><strong>Fight: </strong>You immediately gain 2 AP that can be used on basic abilities, but lose 1 RP.</p><p><strong>Flight:</strong> You immediately gain 1 RP, but recover 2 less AP on your next turn.</p><p>You regain the use of this ability after the Encounter Conclusion phase.</p>",
+            "costLabel": "0 RP",
+            "apCost": "",
+            "rpCost": "0",
+            "manaCost": "",
+            "otherCosts": "",
+            "range": "Self",
+            "keywords": "Rage",
+            "requirement": ""
+          }
+        ],
+        "lineageChoices": {
+          "wi": {
+            "code": "WI",
+            "title": "",
+            "note": "",
+            "text": "",
+            "ability": "",
+            "abilityRef": null
+          },
+          "lir": {
+            "code": "LIR",
+            "title": "",
+            "note": "",
+            "text": "",
+            "ability": "",
+            "abilityRef": null
+          },
+          "d": {
+            "code": "D",
+            "title": "",
+            "note": "",
+            "text": "",
+            "ability": "",
+            "abilityRef": null
+          },
+          "ar": {
+            "code": "AR",
+            "title": "",
+            "note": "",
+            "text": "",
+            "ability": "",
+            "abilityRef": null
+          },
+          "lu": {
+            "code": "LU",
+            "title": "",
+            "note": "",
+            "text": "",
+            "ability": "",
+            "abilityRef": null
+          },
+          "ni": {
+            "code": "NI",
+            "title": "",
+            "note": "",
+            "text": "",
+            "ability": "",
+            "abilityRef": null
+          },
+          "un": {
+            "code": "UN",
+            "title": "",
+            "note": "",
+            "text": "",
+            "ability": "",
+            "abilityRef": null
+          },
+          "vi": {
+            "code": "VI",
+            "title": "",
+            "note": "",
+            "text": "",
+            "ability": "",
+            "abilityRef": null
+          },
+          "none": {
+            "code": "NONE",
+            "title": "",
+            "note": "",
+            "text": "",
+            "ability": "",
+            "abilityRef": null
+          }
+        }
+      },
+      {
+        "id": "demon",
+        "name": "Demon",
+        "descriptionText": "In Demon lore, they were the descendants of Angels who had rebelled against providence. Losing their angelic wings and methods to absorb the Divine might of Light, they've adapted techniques to burn their own life force to temporarily tap into their powers. The dangerous technique called Divine Release, is highly praised as the pinnacle of a demon's powers.\n\nWhile originally slandered as \"demons\" by humans and the angels of old, the demons have embraced the name as proof of their rebellion.\n\nDemons appear as humanoids, and but have varying secondary characteristics. Some have tiny wings that are devoid of the providence absorbing \"feathers\", while some have various kinds of horns or eye patterns. Some even have pointed ears like the fae.\n\nThe Demon city of Sorthen exists as an aristocratic meritocracy, where the power balance shifts, houses die and new ones are born based on their contribution to society. These Demon houses all grant their offspring a middle name, this name referencing their roles in society from servants to soldiers to scholars. Each family passes down the techniques of their role, specializing for the greatest efficiency. None of these roles are looked down upon, and it is considered an honor to fulfill your purpose to the highest capability. While the tradition of adhering to house societal roles, they are not inflexible. It is not unusual for an individual to carve out a new life path if they demonstrate exceptional merit, and straying from that assigned family role would then not be viewed negatively.\n\nSize: Medium",
+        "descriptionHtml": "<p>In Demon lore, they were the descendants of Angels who had rebelled against providence.&nbsp; Losing their angelic wings and methods to absorb the Divine might of Light, they\u0019ve adapted techniques to burn their own life force to temporarily tap into their powers.&nbsp; The dangerous technique called&nbsp;<strong>Divine Release</strong>, is highly praised as the pinnacle of a demon\u0019s powers.</p><p>While originally slandered as \u001cdemons\u001d by humans and the angels of old, the demons have embraced the name as proof of their rebellion.&nbsp;</p><p>Demons appear as humanoids, and but have varying secondary characteristics.&nbsp; Some have tiny wings that are devoid of the providence absorbing \u001cfeathers\u001d, while some have various kinds of horns or eye patterns.&nbsp; Some even have pointed ears like the fae.</p><p>The Demon city of Sorthen exists as an aristocratic meritocracy, where the power balance shifts, houses die and new ones are born based on their contribution to society. &nbsp;These Demon houses all grant their offspring a middle name, this name referencing their roles in society from servants to soldiers to scholars. &nbsp;Each family passes down the techniques of their role, specializing for the greatest efficiency. None of these roles are looked down upon, and it is considered an honor to fulfill your purpose to the highest capability. &nbsp;While the tradition of adhering to house societal roles, they are not inflexible. &nbsp;It is not unusual for an individual to carve out a new life path if they demonstrate exceptional merit, and straying from that assigned family role would then not be viewed negatively.</p><p><strong>Size</strong>: Medium</p>",
+        "attributes": "You gain +1 in Power and +1 in Reason.",
+        "proficiencies": "You can speak, read, write Common and Sorthen. You also gain proficiency in one common weapon or +5 skill points in a skill relating to your demon clan.",
+        "skills": "You gain +5 skill points in either Common Knowledge, Magic, Religion, History, Flight, Artifice.",
+        "imageSmUrl": "https://cdn.angelssword.com/ttrpg/assets/7a2206e1-b5dc-433d-bc13-ee552982d128-Demon_Portrait_New_raw.sm.webp",
+        "imageLgUrl": "https://cdn.angelssword.com/ttrpg/assets/fdd1d9a1-6201-4957-a01c-8b2b822ed8d1-Demon_Portrait_New_raw.lg.webp",
+        "imageAlignment": "middle",
+        "abilities": [
+          {
+            "id": "divine-release",
+            "name": "Divine Release",
+            "descriptionText": "Demons can feed on their own lifeforce to release a brilliant display of divine powers. Horns can elongate, fangs might grow, eyes glow and even wings can sprout as the Demon realizes their Divine Roots.\n\nUpkeep: 11 HP\n\nYou transform into your new form and take 11 true damage. You may end this form at any time by spending 0 RP. While the form lasts you gain the following benefits:\n\nFallen Guard: When you take the Block basic action, you gain an additional +5 to guard.\nFallen Alacrity: You gain +5 movement speed and the ability to fly.\nFallen Might: You gain +1 AP at the start of your turn.\nFallen Conviction: When you are reduced to 0 HP, you do not enter the downed state. You still receive the wounded status. While at or below 0 HP, the upkeep for this ability is increased to 16. If you end this ability while at or below 0 HP, you are immediately placed into the downed state. If your HP become equal to or lower than your negative maximum HP, you are immediately incapacitated and this ability ends.\n\nOnce you use this ability, you cannot do so again until you finish an interlude rest phase.",
+            "descriptionHtml": "<p><i>Demons can feed on their own lifeforce to release a brilliant display of divine powers.&nbsp;Horns can elongate, fangs might grow, eyes glow and even wings can sprout as the Demon realizes their Divine Roots.</i></p><p>Upkeep: 11 HP</p><p>You transform into your new form and take 11 true damage.&nbsp;You may end this form at any time by spending 0 RP. While the form lasts you gain the following benefits:</p><p><strong>Fallen Guard:</strong> When you take the Block basic action, you gain an additional +5 to guard.<br><strong>Fallen Alacrity:</strong> You gain +5 movement speed and the ability to fly.<br><strong>Fallen Might:</strong> You gain +1 AP at the start of your turn.<br><strong>Fallen Conviction: </strong>When you are reduced to 0 HP, you do not enter the downed state. You still receive the wounded status. While at or below 0 HP, the upkeep for this ability is increased to 16. If you end this ability while at or below 0 HP, you are immediately placed into the downed state. If your HP become equal to or lower than your negative maximum HP, you are immediately incapacitated and this ability ends.</p><p>Once you use this ability, you cannot do so again until you finish an interlude rest phase.</p>",
+            "costLabel": "0 AP",
+            "apCost": "0",
+            "rpCost": "",
+            "manaCost": "",
+            "otherCosts": "",
+            "range": "Self",
+            "keywords": "Transformation,Rage",
+            "requirement": ""
+          },
+          {
+            "id": "demonblood-regeneration",
+            "name": "Demonblood Regeneration",
+            "descriptionText": "You heal faster than those of other races. You gain the following benefits:\n\n- When using Grit, you heal for 6 HP instead.\n- When using Second Wind, you heal for an additional 3 HP.",
+            "descriptionHtml": "<p>You heal faster than those of other races. You gain the following benefits:</p><ul><li>When using Grit, you heal for 6 HP instead.</li><li>When using Second Wind, you heal for an additional 3 HP.</li></ul>",
+            "costLabel": "",
+            "apCost": "",
+            "rpCost": "",
+            "manaCost": "",
+            "otherCosts": "",
+            "range": "",
+            "keywords": "",
+            "requirement": ""
+          }
+        ],
+        "lineageChoices": {
+          "wi": {
+            "code": "WI",
+            "title": "Saboteurs",
+            "note": "You gain proficiency with Saboteur Thread Daggers in addition to the ability below. You may also enter the Saboteur class at no experience cost.",
+            "text": "Saboteurs - You gain proficiency with Saboteur Thread Daggers in addition to the ability below. You may also enter the Saboteur class at no experience cost.",
+            "ability": "1e26e66c-34c5-49dc-b99f-68b157be8aee",
+            "abilityRef": null
+          },
+          "lir": {
+            "code": "LIR",
+            "title": "Oracles",
+            "note": "",
+            "text": "Oracles",
+            "ability": "95a005b4-b06e-4596-9c6b-8e53c36ec258",
+            "abilityRef": null
+          },
+          "d": {
+            "code": "D",
+            "title": "Soldiers",
+            "note": "",
+            "text": "Soldiers",
+            "ability": "9ddbe44c-4360-46a3-9903-45f90f53f059",
+            "abilityRef": null
+          },
+          "ar": {
+            "code": "AR",
+            "title": "Tacticians",
+            "note": "",
+            "text": "Tacticians",
+            "ability": "69b2d823-7c91-4ea6-96ab-a4a5e195a09f",
+            "abilityRef": null
+          },
+          "lu": {
+            "code": "LU",
+            "title": "Mages",
+            "note": "",
+            "text": "Mages",
+            "ability": "d27cabd1-f73b-4651-8658-5f4d92657ea7",
+            "abilityRef": null
+          },
+          "ni": {
+            "code": "NI",
+            "title": "Engineers and Airship staff",
+            "note": "",
+            "text": "Engineers and Airship staff",
+            "ability": "fbcd4a2a-8a87-465f-b5d6-66436daffccd",
+            "abilityRef": null
+          },
+          "un": {
+            "code": "UN",
+            "title": "Maids and Butlers",
+            "note": "You may enter the Maid class at no experience cost.",
+            "text": "Maids and Butlers - You may enter the Maid class at no experience cost.",
+            "ability": "fd369348-a806-47d8-9d62-0c2230771ae6",
+            "abilityRef": null
+          },
+          "vi": {
+            "code": "VI",
+            "title": "Medical and Healers",
+            "note": "You may enter the Medic class at no experience cost.",
+            "text": "Medical and Healers - You may enter the Medic class at no experience cost.",
+            "ability": "0e2cca4a-edc5-4f1a-a64b-6508cf7df15c",
+            "abilityRef": null
+          },
+          "none": {
+            "code": "NONE",
+            "title": "Those without family skills",
+            "note": "",
+            "text": "Those without family skills",
+            "ability": "e5913b8b-9a90-4cdc-b82f-1d7659c26639",
+            "abilityRef": null
+          }
+        }
+      },
+      {
+        "id": "fae",
+        "name": "Fae",
+        "descriptionText": "The Fae are widely considered the first people that populated Lyra. They are beings that were born from the will of nature and the world itself. Faeries can be quite varied in culture and demeanor, some using their age immortality to achieve great wisdom-- while others might use it to laze about and be merry.\n\nThe most common type of Fae are the High Fae which appear as youthful humanoids with pointed ears and eyes that come in various colors and patterns",
+        "descriptionHtml": "<p>The Fae are widely considered the first people that populated Lyra.&nbsp; They are beings that were born from the will of nature and the world itself.&nbsp; Faeries can be quite varied in culture and demeanor, some using their age immortality to achieve great wisdom-- while others might use it to laze about and be merry.</p><p>The most common type of Fae are the High Fae which appear as youthful humanoids with pointed ears and eyes that come in various colors and patterns</p>",
+        "attributes": "You gain +1 in Agility and +1 in Cunning.",
+        "proficiencies": "You can speak, read and write Sylvan, as well as Common.",
+        "skills": "You gain +5 skill points in either Magic, Medicine, Negotiation, Intimidation, Insight.",
+        "imageSmUrl": "https://cdn.angelssword.com/ttrpg/assets/42158447-1039-4c70-992b-00b67e562492-Dryad_raw.sm.webp",
+        "imageLgUrl": "https://cdn.angelssword.com/ttrpg/assets/1ca62b85-ac72-431a-8b1b-9d7219cbd96e-Dryad_raw.lg.webp",
+        "imageAlignment": "top",
+        "abilities": [
+          {
+            "id": "faerie-flash",
+            "name": "Faerie Flash",
+            "descriptionText": "You Teleport up to twice your Speed to an unoccupied space that you can see. Can only be used once per encounter.",
+            "descriptionHtml": "<p>You Teleport up to twice your Speed to an unoccupied space that you can see. Can only be used once per encounter.</p>",
+            "costLabel": "1 AP, 1 Mana",
+            "apCost": "1",
+            "rpCost": "",
+            "manaCost": "1",
+            "otherCosts": "",
+            "range": "-",
+            "keywords": "Teleport,Rage",
+            "requirement": "-"
+          }
+        ],
+        "lineageChoices": {
+          "wi": {
+            "code": "WI",
+            "title": "",
+            "note": "",
+            "text": "",
+            "ability": "",
+            "abilityRef": null
+          },
+          "lir": {
+            "code": "LIR",
+            "title": "",
+            "note": "",
+            "text": "",
+            "ability": "",
+            "abilityRef": null
+          },
+          "d": {
+            "code": "D",
+            "title": "",
+            "note": "",
+            "text": "",
+            "ability": "",
+            "abilityRef": null
+          },
+          "ar": {
+            "code": "AR",
+            "title": "",
+            "note": "",
+            "text": "",
+            "ability": "",
+            "abilityRef": null
+          },
+          "lu": {
+            "code": "LU",
+            "title": "",
+            "note": "",
+            "text": "",
+            "ability": "",
+            "abilityRef": null
+          },
+          "ni": {
+            "code": "NI",
+            "title": "",
+            "note": "",
+            "text": "",
+            "ability": "",
+            "abilityRef": null
+          },
+          "un": {
+            "code": "UN",
+            "title": "",
+            "note": "",
+            "text": "",
+            "ability": "",
+            "abilityRef": null
+          },
+          "vi": {
+            "code": "VI",
+            "title": "",
+            "note": "",
+            "text": "",
+            "ability": "",
+            "abilityRef": null
+          },
+          "none": {
+            "code": "NONE",
+            "title": "",
+            "note": "",
+            "text": "",
+            "ability": "",
+            "abilityRef": null
+          }
+        }
+      }
+    ],
+    "ancestries": [
+      {
+        "id": "ancient-marionette",
+        "name": "Ancient Marionette",
+        "primaryRace": "Youkai",
+        "descriptionText": "Ancient Marionettes: Lost to time and sea, the Ancient Marionettes stand as enigmatic remnants of a past long forgotten. Once components of the colossal arcane superweapon known as a \"Divine Arms\", these constructs now serve as hosts to sentient magic, giving life and consciousness to their once dormant forms. Rescued from the wreckage of a bygone vessel that met its fate in the waters surrounding the Isle of Kirara, these inert marionettes were left on the enchanted shore, their purpose and power seemingly lost to the ages. However, the island's potent, ambient magic, a phenomenon that gives birth to the unique entities known as youkai, saw in these Ancient Marionettes an opportunity - bodies ready to house their formless essence. As the island's pervasive magic seeped into the marionettes, they awoke from their lifeless slumber. The youkai spirits, now housed in these ancient bodies, began to stir, imbuing them with a consciousness that mirrored their own. Thus, the Ancient Marionettes were reborn, not as weapons of war but as sentient beings in their own right, the symbiosis of ancient technology and living magic. Physically, Ancient Marionettes resemble their former selves - intricate, humanoid forms, wrought from an alloy seemingly immune to the ravages of time and sea. Strange, arcane symbols adorn their bodies, pulsating with a soft, ethereal glow that intensifies when they harness their magical abilities. Their eyes, once empty and hollow, now shine with the vibrant spark of sentient life. Despite their imposing exterior, these reborn constructs possess an inherent gentleness, a testament to the youkai spirit within them. They are beings of thought and contemplation, bound by a curiosity of their new existence, their strange past, and the world they find themselves in. The Ancient Marionettes stand as a testament to the transformative power of magic, a symbol of a union between the ancient and the new, and a unique addition to the diverse inhabitants of the Isle of Kirara.\n\nSize: Medium\n\nWinner of the 2023 Alpha Race Creation Contest (Constructs) by PurpleXCompleX.",
+        "descriptionHtml": "<p>Ancient Marionettes: Lost to time and sea, the Ancient Marionettes stand as enigmatic remnants of a past long forgotten. Once components of the colossal arcane superweapon known as a \"Divine Arms\", these constructs now serve as hosts to sentient magic, giving life and consciousness to their once dormant forms. Rescued from the wreckage of a bygone vessel that met its fate in the waters surrounding the Isle of Kirara, these inert marionettes were left on the enchanted shore, their purpose and power seemingly lost to the ages. However, the island's potent, ambient magic, a phenomenon that gives birth to the unique entities known as youkai, saw in these Ancient Marionettes an opportunity - bodies ready to house their formless essence. As the island's pervasive magic seeped into the marionettes, they awoke from their lifeless slumber. The youkai spirits, now housed in these ancient bodies, began to stir, imbuing them with a consciousness that mirrored their own. Thus, the Ancient Marionettes were reborn, not as weapons of war but as sentient beings in their own right, the symbiosis of ancient technology and living magic. Physically, Ancient Marionettes resemble their former selves - intricate, humanoid forms, wrought from an alloy seemingly immune to the ravages of time and sea. Strange, arcane symbols adorn their bodies, pulsating with a soft, ethereal glow that intensifies when they harness their magical abilities. Their eyes, once empty and hollow, now shine with the vibrant spark of sentient life. Despite their imposing exterior, these reborn constructs possess an inherent gentleness, a testament to the youkai spirit within them. They are beings of thought and contemplation, bound by a curiosity of their new existence, their strange past, and the world they find themselves in. The Ancient Marionettes stand as a testament to the transformative power of magic, a symbol of a union between the ancient and the new, and a unique addition to the diverse inhabitants of the Isle of Kirara.</p><p><strong>Size</strong>: Medium<br><br><i>Winner of the 2023 Alpha Race Creation Contest (Constructs) by PurpleXCompleX.</i></p>",
+        "imageSmUrl": "https://cdn.angelssword.com/ttrpg/assets/5209e9d5-9bea-4b26-91ec-093be7d3e7e2-Marionette_new_2_hand_doll_work_start.sm.webp",
+        "imageLgUrl": "https://cdn.angelssword.com/ttrpg/assets/1a4009a7-048e-449e-bed8-104aaaaf95e1-Marionette_new_2_hand_doll_work_start.lg.webp",
+        "traits": [
+          {
+            "id": "thermal-vision",
+            "name": "Thermal Vision",
+            "descriptionText": "You can perfectly see and detect heat sources up to 120ft away, including stealthed creatures. This cannot detect things hidden by magical means. You can no longer discern a difference in heat once something reaches freezing temperatures.",
+            "descriptionHtml": "<p>You can perfectly see and detect heat sources up to 120ft away, including stealthed creatures. This cannot detect things hidden by magical means. You can no longer discern a difference in heat once something reaches freezing temperatures.</p>",
+            "costLabel": "",
+            "apCost": "",
+            "rpCost": "",
+            "manaCost": "",
+            "otherCosts": "",
+            "range": "",
+            "keywords": "",
+            "requirement": ""
+          },
+          {
+            "id": "mana_eater",
+            "name": "Mana Eater",
+            "descriptionText": "You cannot consume biological food and instead consume equal monetary value of Magical Fuel for sustenance. You do not need to breathe.",
+            "descriptionHtml": "",
+            "costLabel": "",
+            "apCost": "",
+            "rpCost": "",
+            "manaCost": "",
+            "otherCosts": "",
+            "range": "",
+            "keywords": "",
+            "requirement": ""
+          },
+          {
+            "id": "adaptive-defense",
+            "name": "Adaptive Defense",
+            "descriptionText": "You take the Block Action. You then gain 4 Adaptive Defense (Type) which grants you Damage Reduction 4 against that damage type until the end of your next turn. You can only have one instance of Adaptive Defense at a time.",
+            "descriptionHtml": "<p>You take the Block Action. You then gain 4 Adaptive Defense (Type) which grants you Damage Reduction 4 against that damage type until the end of your next turn. You can only have one instance of Adaptive Defense at a time.</p>",
+            "costLabel": "1 RP, 2 Mana",
+            "apCost": "",
+            "rpCost": "1",
+            "manaCost": "2",
+            "otherCosts": "",
+            "range": "Self",
+            "keywords": "Rapid",
+            "requirement": "-"
+          }
+        ]
+      },
+      {
+        "id": "anubis",
+        "name": "Anubis",
+        "primaryRace": "Fae",
+        "descriptionText": "The Anubis are a unique race of Fae from the southwestern region of Telsin, known for their deep respect for life, death, and the natural order. With dark hair, bronze skin, and their unique Jackal-like ears, the Anubis see themselves as guardians of the living and the dead alike. While their own lifespans are exceptionally long, they hold a profound reverence for the brief lives of other beings, viewing them as precious gifts to be treasured even beyond death. This belief extends to the Anubis’ role in mediating spiritual affairs and protecting the deceased from desecration.\n\nRenowned for their honesty and strong sense of karma, the Anubis possess an almost supernatural ability to discern lies, making them respected yet sometimes avoided as arbiters. Their ceremonial attire includes light-colored clothing, adorned with golden jewelry and polished river stones—symbols of lineage often passed down or given as offerings to the deceased.\n\nSkilled at laying disturbed spirits to rest, they hold a complex relationship with necromancy, respecting it when practiced with reverence. Anubis Necromancers act as graveyard caretakers and conduct important funerary rites, roles woven into their cultural fabric and essential to their purpose across the region, which has garnered respect in spiritual circles even as far as Northi.\n\nSize: Medium",
+        "descriptionHtml": "<p>The Anubis are a unique race of Fae from the southwestern region of Telsin, known for their deep respect for life, death, and the natural order. With dark hair, bronze skin, and their unique Jackal-like ears, the Anubis see themselves as guardians of the living and the dead alike. While their own lifespans are exceptionally long, they hold a profound reverence for the brief lives of other beings, viewing them as precious gifts to be treasured even beyond death. This belief extends to the Anubis’ role in mediating spiritual affairs and protecting the deceased from desecration.</p><p>Renowned for their honesty and strong sense of karma, the Anubis possess an almost supernatural ability to discern lies, making them respected yet sometimes avoided as arbiters. Their ceremonial attire includes light-colored clothing, adorned with golden jewelry and polished river stones—symbols of lineage often passed down or given as offerings to the deceased.</p><p>Skilled at laying disturbed spirits to rest, they hold a complex relationship with necromancy, respecting it when practiced with reverence. Anubis Necromancers act as graveyard caretakers and conduct important funerary rites, roles woven into their cultural fabric and essential to their purpose across the region, which has garnered respect in spiritual circles even as far as Northi.</p><p><strong>Size</strong>: Medium</p>",
+        "imageSmUrl": "https://cdn.angelssword.com/ttrpg/assets/bfaa0f98-412d-4e53-b69a-75c8093b4539-Anubis_Female_2_-_Copy.sm.webp",
+        "imageLgUrl": "https://cdn.angelssword.com/ttrpg/assets/ced79a6b-a5d7-4a14-9513-67109727b6c4-Anubis_Female_2_-_Copy.lg.webp",
+        "traits": [
+          {
+            "id": "last-rites",
+            "name": "Last Rites",
+            "descriptionText": "You deal +1 damage to undead creatures. This is increased to a +2 bonus on Heavy attacks.",
+            "descriptionHtml": "<p>You deal +1 damage to undead creatures. This is increased to a +2 bonus on Heavy attacks.</p>",
+            "costLabel": "",
+            "apCost": "",
+            "rpCost": "",
+            "manaCost": "",
+            "otherCosts": "",
+            "range": "",
+            "keywords": "",
+            "requirement": ""
+          },
+          {
+            "id": "weighing-the-heart",
+            "name": "Weighing the Heart",
+            "descriptionText": "You get a +5 Expertise bonus to insight checks when looking to discern if someone is lying to you.",
+            "descriptionHtml": "<p>You get a +5 Expertise bonus to insight checks when looking to discern if someone is lying to you.</p>",
+            "costLabel": "",
+            "apCost": "",
+            "rpCost": "",
+            "manaCost": "",
+            "otherCosts": "",
+            "range": "",
+            "keywords": "",
+            "requirement": ""
+          },
+          {
+            "id": "speak_with_dead",
+            "name": "Speak with dead",
+            "descriptionText": "You attempt to communicate with the soul of a person who has died recently. This requires you to perform a ritual that takes an hour, that must be performed next to the corpse or where the person died. You must be aware of the identity of the person you’re trying to contact. Finally, you must have a tool such as an ouija board that allows the spirit to communicate with you.\n\nEven if the ritual succeeds, the spirit is not forced to answer your questions if hostile to you or it might answer in cryptic ways.",
+            "descriptionHtml": "",
+            "costLabel": "1 Mana",
+            "apCost": "",
+            "rpCost": "",
+            "manaCost": "1",
+            "otherCosts": "",
+            "range": "-",
+            "keywords": "",
+            "requirement": "Special"
+          }
+        ]
+      },
+      {
+        "id": "bearfolk",
+        "name": "Bearfolk",
+        "primaryRace": "Chimera",
+        "descriptionText": "Bearfolk are a proud and enduring branch of the Chimera, towering humanoids with dense fur, heavy frames, and deep, resonant voices. Most stand a head taller than the average human and carry the strength to match it, yet behind their massive build lies a quiet and thoughtful nature. Bearfolk are often the last to speak up and do so in short sentences, not speaking any more words than are necessary.\n\nTheir culture prizes food, patience, community, and comfort. To a bearfolk, food shared is a sacred bond. Most live in small family holds scattered through the colder reaches of Northi. Their settlements, half-buried in snow and stone, are renowned for their hospitality.\n\nDespite their imposing nature, bearfolk often display surprising cunning. They are famous, perhaps infamous, for their uncanny ability to blend into society. Through sheer confidence or a kind of cosmic absurdity, a bearfolk in a robe and hat can convince entire villages that they are \"definitely not a bear.\" Scholars call this phenomenon Bear Shock, and no one has yet figured out how or why it works.\n\nBearfolk have an uncomplicated and big love for food. To them, a good meal is one of life's purest pleasures and a sign of prosperity hard-earned through long winters and heavy labor. They'll eat nearly anything that fills the belly, but they have an undeniable fondness for sweets: honey, candied fruits, and rare confections that melt on the tongue. Many bearfolk adventurers quietly hoard local delicacies from the regions they visit, trading stories and bites of food with the same enthusiasm others reserve for treasure.\n\nBearfolk adventurers are often wanderers who leave their homes to test their might or seek rare foods from distant lands. Some serve as guardians and caravan escorts, others simply follow their instincts wherever they lead. Their role in parties is usually that of a frontliner, delivering heavy blows with their paws.\n\n\"Full belly, calm heart.\"\n\nSize: M",
+        "descriptionHtml": "<p>Bearfolk are a proud and enduring branch of the Chimera, towering humanoids with dense fur, heavy frames, and deep, resonant voices. Most stand a head taller than the average human and carry the strength to match it, yet behind their massive build lies a quiet and thoughtful nature. Bearfolk are often the last to speak up and do so in short sentences, not speaking any more words than are necessary.</p><p>Their culture prizes food, patience, community, and comfort. To a bearfolk, food shared is a sacred bond. Most live in small family holds scattered through the colder reaches of Northi. Their settlements, half-buried in snow and stone, are renowned for their hospitality.</p><p>Despite their imposing nature, bearfolk often display surprising cunning. They are famous, perhaps infamous, for their uncanny ability to blend into society. Through sheer confidence or a kind of cosmic absurdity, a bearfolk in a robe and hat can convince entire villages that they are \u001cdefinitely not a bear.\u001d Scholars call this phenomenon&nbsp;<i>Bear Shock</i>, and no one has yet figured out how or why it works.</p><p>Bearfolk have an uncomplicated and big love for food. To them, a good meal is one of life\u0019s purest pleasures and a sign of prosperity hard-earned through long winters and heavy labor. They\u0019ll eat nearly anything that fills the belly, but they have an undeniable fondness for sweets: honey, candied fruits, and rare confections that melt on the tongue. Many bearfolk adventurers quietly hoard local delicacies from the regions they visit, trading stories and bites of food with the same enthusiasm others reserve for treasure.</p><p>Bearfolk adventurers are often wanderers who leave their homes to test their might or seek rare foods from distant lands. Some serve as guardians and caravan escorts, others simply follow their instincts wherever they lead. Their role in parties is usually that of a frontliner, delivering heavy blows with their paws.</p><p><i>\u001cFull belly, calm heart.\u001d</i></p><p>Size: M</p>",
+        "imageSmUrl": "https://cdn.angelssword.com/ttrpg/assets/5a23f930-a766-4d5b-9221-1b542a366145-Bearfolk.sm.webp",
+        "imageLgUrl": "https://cdn.angelssword.com/ttrpg/assets/d557cd46-9074-44b6-871f-47f03c4bd57f-Bearfolk.lg.webp",
+        "traits": [
+          {
+            "id": "hibernate",
+            "name": "Hibernate",
+            "descriptionText": "When you take the rest IP action, the temporary HP gained is doubled. When you rest during the night as a rest action, you recover an additional toughness HP.",
+            "descriptionHtml": "<p>When you take the rest IP action, the temporary HP gained is doubled. When you rest during the night as a rest action, you recover an additional toughness HP.</p>",
+            "costLabel": "",
+            "apCost": "",
+            "rpCost": "",
+            "manaCost": "",
+            "otherCosts": "",
+            "range": "",
+            "keywords": "",
+            "requirement": ""
+          },
+          {
+            "id": "bear-shock",
+            "name": "Bear Shock",
+            "descriptionText": "You gain a +20 bonus to Deception checks when disguising yourself as something other than a bearfolk.",
+            "descriptionHtml": "<p>You gain a +20 bonus to Deception checks when disguising yourself as something other than a bearfolk.</p>",
+            "costLabel": "",
+            "apCost": "",
+            "rpCost": "",
+            "manaCost": "",
+            "otherCosts": "",
+            "range": "",
+            "keywords": "",
+            "requirement": ""
+          },
+          {
+            "id": "bear-maul",
+            "name": "Bear Maul",
+            "descriptionText": "You swing your paw at the target and make a Heavy attack against it that deals maximum damage. If the target dodges, this attack automatically misses.\n\nYou are considered proficient in unarmed attacks for this attack, even if you normally wouldn’t be.",
+            "descriptionHtml": "<p>You swing your paw at the target and make a Heavy attack against it that deals maximum damage. If the target dodges, this attack automatically misses.</p><p>You are considered proficient in unarmed attacks for this attack, even if you normally wouldn’t be.</p>",
+            "costLabel": "2 AP, 1 Mana",
+            "apCost": "2",
+            "rpCost": "",
+            "manaCost": "1",
+            "otherCosts": "",
+            "range": "5ft",
+            "keywords": "Unarmed Strike",
+            "requirement": ""
+          }
+        ]
+      }
+    ],
+    "classes": [
+      {
+        "id": "abjurer",
+        "name": "Abjurer",
+        "descriptionText": "Every initiate mage learns early on that the first fundamental of magic is defense. But for Abjurers, this lesson became their mantra. These Mages took their masters' teachings to heart and mastered the art of defensive magic.\n\nAbjurers are incredibly durable, and they don't just keep that strength to themselves—they can extend it to their allies, making everyone around them tougher in battle. Their focus is unmatched, allowing them to control space and protect others, even without relying on weapons.\n\nDespite their power, Abjurers are often underestimated. But when the heat of battle comes, they prove their worth, showing remarkable resilience under fire. It's this unshakeable defense that makes them indispensable in the chaos of war.",
+        "descriptionHtml": "<p>Every initiate mage learns early on that the first fundamental of magic is defense. But for Abjurers, this lesson became their mantra. These Mages took their masters' teachings to heart and mastered the art of defensive magic.</p><p>Abjurers are incredibly durable, and they don't just keep that strength to themselves—they can extend it to their allies, making everyone around them tougher in battle. Their focus is unmatched, allowing them to control space and protect others, even without relying on weapons.</p><p>Despite their power, Abjurers are often underestimated. But when the heat of battle comes, they prove their worth, showing remarkable resilience under fire. It's this unshakeable defense that makes them indispensable in the chaos of war.</p>",
+        "guideText": "Abjurer's are frontline spellcasters that oftentimes don't wear armor. To help with the durability, you have Mana Shield. Mana Shield gives you a small amount of temporary HP every turn. It's good for reducing a small amount of damage every turn, but will not protect from a large burst turn.\n\nMana Shield also lets you cast spells while engaged by enemies if they are challenged by you, which can be accomplished by the Spell Challenge key ability. AoE spells can be used to inflict Challenge on many enemies, though they won't apply it if they miss or are fully blocked as many of them do not target the enemy, but an area. Single target spells will always apply it however.\n\nYour best tool for doing so when engaged by an enemy is Abjurer's Blast, which is a short range spell that can be used multiple times per turn, but doesn't provoke. This lets you set up challenge safely on enemies even if you lost the initiative.\n\nTo protect your allies and disrupt enemies that go for them, you have Arcane Pull. Arcane Pull is effective in keeping your backline safe from melee enemies, but it can be useless if there's not enough distance between you and your allies.\n\nFinally, Arcane Barrier II is a simple upgrade on the normal arcane barrier, letting you add your guard to the guard of the barrier.",
+        "guideHtml": "<p>Abjurer's are frontline spellcasters that oftentimes don't wear armor. To help with the durability, you have Mana Shield. Mana Shield gives you a small amount of temporary HP every turn. It's good for reducing a small amount of damage every turn, but will not protect from a large burst turn.</p><p>Mana Shield also lets you cast spells while engaged by enemies if they are challenged by you, which can be accomplished by the Spell Challenge key ability. AoE spells can be used to inflict Challenge on many enemies, though they won't apply it if they miss or are fully blocked as many of them do not target the enemy, but an area. Single target spells will always apply it however.</p><p>Your best tool for doing so when engaged by an enemy is Abjurer's Blast, which is a short range spell that can be used multiple times per turn, but doesn't provoke. This lets you set up challenge safely on enemies even if you lost the initiative.&nbsp;</p><p>To protect your allies and disrupt enemies that go for them, you have Arcane Pull. Arcane Pull is effective in keeping your backline safe from melee enemies, but it can be useless if there's not enough distance between you and your allies.</p><p>Finally, Arcane Barrier II is a simple upgrade on the normal arcane barrier, letting you add your guard to the guard of the barrier.<br>&nbsp;</p>",
+        "difficulty": "3",
+        "role1": "Defender",
+        "role2": "",
+        "requirements": "Arcane Barrier learned, must possess at least 1 spell that deals damage.",
+        "skills": "You gain +5 skill points in Athletics, Medicine, Magic, Religion, History, Flight, Artifice or Common Knowledge. You can exchange any skill point for 2 expertise points, but must spend them in these skills.",
+        "heart": "You gain +1 to Fitness, Reason or Awareness.",
+        "soul": "You gain +1 to Focus, Agility or Toughness.",
+        "tier": "2",
+        "imageSmUrl": "https://cdn.angelssword.com/ttrpg/assets/73d39508-bfba-4247-903a-8d0d1496b812-Abjurer New - Copy.lg.webp",
+        "imageLgUrl": "https://cdn.angelssword.com/ttrpg/assets/73d39508-bfba-4247-903a-8d0d1496b812-Abjurer New - Copy.lg.webp",
+        "imageAlignment": "top",
+        "keyAbility": {
+          "name": "Spell Challenge",
+          "benefit1": "When targeting or damaging an enemy with a spell, you may choose to inflict Challenge on them until the end of your next turn.",
+          "benefit2": "When an enemy that is Challenged by you provokes an attack of opportunity from you, you may instead use Abjurer's Blast against them. The heavy and precise version of this cost 1 RP, while the light version costs 0 RP.",
+          "benefit3": "",
+          "benefit4": ""
+        },
+        "abilities": [
+          {
+            "id": "abjurer-s-blast",
+            "name": "Abjurer's Blast",
+            "descriptionText": "You make a Light (1 AP), Heavy (2 AP) or Precise (2 AP) attack against the target that deals Arcane damage. This spell does not provoke attacks of opportunity.",
+            "descriptionHtml": "<p>You make a Light (1 AP), Heavy (2 AP) or Precise (2 AP) attack against the target that deals Arcane damage. This spell does not provoke attacks of opportunity.</p>",
+            "costLabel": "1 AP",
+            "apCost": "1",
+            "rpCost": "",
+            "manaCost": "",
+            "otherCosts": "",
+            "range": "10ft",
+            "keywords": "Rapid,Spell",
+            "requirement": ""
+          },
+          {
+            "id": "mana-shield",
+            "name": "Mana Shield",
+            "descriptionText": "You use your Encounter Start action to give yourself Mana Shield, which gives you Temporary HP equal to your Toughness + 3 or Focus + 3 (whichever is higher).\n\nWearing armor reduces this to 2/3rd, 1/3rd or 0 if wearing Light, Medium or Heavy Armor respectively. While Mana Shield is active, you do not provoke attacks of opportunity from casting Spells from enemies that are Challenged by you.\n\nUntil the end of the encounter, at the start of your turn you may spend 1 mana to restore your Mana Shield to its maximum value. (With similarly reduced values for wearing armor)\n\nIf you did not use this as an encounter start, you may also spend 1 AP and 1 Mana to activate this.",
+            "descriptionHtml": "<p>You use your Encounter Start action to give yourself <strong>Mana Shield,</strong> which gives you Temporary HP equal to your Toughness + 3 or Focus + 3 (whichever is higher).&nbsp;</p><p>Wearing armor reduces this to 2/3rd, 1/3rd or 0 if wearing Light, Medium or Heavy Armor respectively. While Mana Shield is active, you do not provoke attacks of opportunity from casting Spells from enemies that are Challenged by you.</p><p>Until the end of the encounter, at the start of your turn you may spend 1 mana to restore your Mana Shield to its maximum value. (With similarly reduced values for wearing armor)</p><p>If you did not use this as an encounter start, you may also spend 1 AP and 1 Mana to activate this.</p>",
+            "costLabel": "",
+            "apCost": "",
+            "rpCost": "",
+            "manaCost": "",
+            "otherCosts": "",
+            "range": "Self",
+            "keywords": "Encounter Start",
+            "requirement": ""
+          },
+          {
+            "id": "arcane-barrier-ii",
+            "name": "Arcane Barrier II",
+            "descriptionText": "You create a Magical Barrier that absorbs damage until it breaks.\n\nThe barrier has HP equal to 15 + your Focus. The barrier has a Guard of 0 + your guard and any damage it takes is subtracted from the barrier’s HP. When the barrier breaks, any remaining damage is subtracted from your HP. The barrier otherwise lasts until the start of your next turn or until you take any action other than the Block action. If using the Block action while the barrier is active, the guard of the barrier also increases.\n\nThis spell does not provoke attacks of opportunity and does not protect against true damage.",
+            "descriptionHtml": "<p>You create a Magical Barrier that absorbs damage until it breaks.&nbsp;</p><p>The barrier has HP equal to 15 + your Focus. The barrier has a Guard of 0 + your guard and any damage it takes is subtracted from the barrier’s HP. When the barrier breaks, any remaining damage is subtracted from your HP. The barrier otherwise lasts until the start of your next turn or until you take any action other than the Block action. If using the Block action while the barrier is active, the guard of the barrier also increases.&nbsp;</p><p>This spell does not provoke attacks of opportunity and does not protect against true damage.</p>",
+            "costLabel": "1 RP, 1 Mana",
+            "apCost": "",
+            "rpCost": "1",
+            "manaCost": "1",
+            "otherCosts": "",
+            "range": "Self",
+            "keywords": "Shield, Spell",
+            "requirement": "You're about to take damage."
+          },
+          {
+            "id": "arcane-pull",
+            "name": "Arcane Pull",
+            "descriptionText": "You pull the target to an empty square next to you. This movement does not provoke attacks of opportunity. Your next Block or Dodge action against the target before the start of your next turn costs 0 RP. This Spell does not provoke attacks of opportunity.",
+            "descriptionHtml": "<p>You pull the target to an empty square next to you. This movement does not provoke attacks of opportunity. Your next Block or Dodge action against the target before the start of your next turn costs 0 RP. This Spell does not provoke attacks of opportunity.</p>",
+            "costLabel": "1 RP",
+            "apCost": "",
+            "rpCost": "1",
+            "manaCost": "",
+            "otherCosts": "",
+            "range": "40ft",
+            "keywords": "Spell",
+            "requirement": "Target is challenged by you and attacking someone that isn't you."
+          }
+        ]
+      },
+      {
+        "id": "acolyte",
+        "name": "Acolyte",
+        "descriptionText": "Acolytes are practitioners of the mysterious power known as Faith, which is believed to be the oldest form of magic. In a world where The Church of Kari reigns as the most dominant religion, most Acolytes, about 95%, are Human, and nearly all of them, around 99%, belong to the Church.\n\nAcolytes are people with a special calling, blessed with the power to perform miracles thanks to their deep faith. They're part of a bigger community that includes other Acolytes, priests, and sometimes even Paladins. Because of this, they can usually find a safe place to rest and get help in churches and temples wherever they go.\n\nWith their healing and protective abilities, Acolytes are essential members of any party, making sure their friends stay safe and well during tough battles.",
+        "descriptionHtml": "<p>Acolytes are practitioners of the mysterious power known as Faith, which is believed to be the oldest form of magic. In a world where The Church of Kari reigns as the most dominant religion, most Acolytes, about 95%, are Human, and nearly all of them, around 99%, belong to the Church.</p><p>Acolytes are people with a special calling, blessed with the power to perform miracles thanks to their deep faith. They're part of a bigger community that includes other Acolytes, priests, and sometimes even Paladins. Because of this, they can usually find a safe place to rest and get help in churches and temples wherever they go.</p><p>With their healing and protective abilities, Acolytes are essential members of any party, making sure their friends stay safe and well during tough battles.</p>",
+        "guideText": "Acolytes are the main healers of groups of new adventurers, being the only tier 1 class with the capability to heal others.\n\nTheir primary tool for this is Cure Touch. The mana cost is high, but it is still more efficient (and cheaper) than drinking a potion. Keep in mind that it does provoke attacks of opportunity, so position yourself behind the ally you're healing if they are in melee combat.\n\nLight's Care is some efficient after combat healing. It heals for the same amount as Cure Touch for a fraction of the mana cost. It also has the benefit of allowing the target to prevent an injury to themselves if they went down in combat.\n\nWhat makes an acolyte truly valuable for a newbie group is Angel's Embrace. It has no mana cost and reduces the damage an ally takes by a large amount. The range is short, so most acolyte's prefer a melee weapon. Since you are using your RP to help others, be wary that you don't put yourself in a position where the enemy can focus you as your RP dwindles.\n\nMiracle: Sanctuary creates a small but durable barrier that can be used both offensively and defensively. When used defensively, it can give your allies a moment of reprieve, letting them drink a potion before going for a round two. It can also be used to trap an enemy inside the barrier, isolating it from its allies while your own allies wail on it.",
+        "guideHtml": "<p>Acolytes are the main healers of groups of new adventurers, being the only tier 1 class with the capability to heal others.</p><p>Their primary tool for this is Cure Touch. The mana cost is high, but it is still more efficient (and cheaper) than drinking a potion. Keep in mind that it does provoke attacks of opportunity, so position yourself behind the ally you're healing if they are in melee combat.</p><p>Light's Care is &nbsp;some efficient after combat healing. It heals for the same amount as Cure Touch for a fraction of the mana cost. It also has the benefit of allowing the target to prevent an injury to themselves if they went down in combat.</p><p>What makes an acolyte truly valuable for a newbie group is Angel's Embrace. It has no mana cost and reduces the damage an ally takes by a large amount. The range is short, so most acolyte's prefer a melee weapon. Since you are using your RP to help others, be wary that you don't put yourself in a position where the enemy can focus you as your RP dwindles.</p><p>Miracle: Sanctuary creates a small but durable barrier that can be used both offensively and defensively. When used defensively, it can give your allies a moment of reprieve, letting them drink a potion before going for a round two. It can also be used to trap an enemy inside the barrier, isolating it from its allies while your own allies wail on it.</p>",
+        "difficulty": "3",
+        "role1": "Healer",
+        "role2": "Support",
+        "requirements": "None.",
+        "skills": "You gain +5 skill points to spend in Appraise, Medicine, Religion, Magic, History, Insight, Negotiation, Intimidation or Common Knowledge. You can exchange any skill point for 2 expertise points, but must spend them in these skills.",
+        "heart": "You gain +1 to Presence.",
+        "soul": "You gain +1 to either Power or Toughness.",
+        "tier": "1",
+        "imageSmUrl": "https://cdn.angelssword.com/ttrpg/assets/efec0f3f-6170-4e61-87d6-3efcb7c6eec7-Acolyte New - Copy.lg.webp",
+        "imageLgUrl": "https://cdn.angelssword.com/ttrpg/assets/efec0f3f-6170-4e61-87d6-3efcb7c6eec7-Acolyte New - Copy.lg.webp",
+        "imageAlignment": "top",
+        "keyAbility": {
+          "name": "Acolyte's Journey",
+          "benefit1": "You gain proficiency in light armor, shields and a single common group of weapons. This group may include Channeling Weapons, even though they aren't consider common weapons. (But you only get 1 of the possible channeling weapons).",
+          "benefit2": "You gain +5 skill points in the Religion skill.",
+          "benefit3": "You are welcome at establishments for your religion and they are obligated to help you with lodging, advice, food and sometimes equipment.",
+          "benefit4": ""
+        },
+        "abilities": [
+          {
+            "id": "cure-touch",
+            "name": "Cure Touch",
+            "descriptionText": "You heal the target for 11 + Power x 2",
+            "descriptionHtml": "<p>You heal the target for 11 + Power x 2</p>",
+            "costLabel": "2 AP, 3 Mana",
+            "apCost": "2",
+            "rpCost": "",
+            "manaCost": "3",
+            "otherCosts": "",
+            "range": "Touch",
+            "keywords": "Healing, Spell",
+            "requirement": "-"
+          },
+          {
+            "id": "light-s-care",
+            "name": "Light's Care",
+            "descriptionText": "At the end of combat you may use 1 Encounter Conclusion action to heal a single target for 11 + Power x 2 and grant them First Aid. First Aid: The target can expend an Encounter Conclusion Action to prevent one injury to themself.",
+            "descriptionHtml": "<p>At the end of combat you may use 1 Encounter Conclusion action to heal a single target for 11 + Power x 2 and grant them First Aid. First Aid: The target can expend an Encounter Conclusion Action to prevent one injury to themself.</p>",
+            "costLabel": "1 Mana",
+            "apCost": "",
+            "rpCost": "",
+            "manaCost": "1",
+            "otherCosts": "",
+            "range": "Touch",
+            "keywords": "Encounter Conclusion,Healing",
+            "requirement": "-"
+          },
+          {
+            "id": "angel-s-embrace",
+            "name": "Angel's Embrace",
+            "descriptionText": "You grant the target ally Angel’s Embrace, which grants a Shield against the triggering attack that blocks damage equal to 5 + (2 x Toughness). This Spell does not provoke attacks of opportunity.",
+            "descriptionHtml": "<p>You grant the target ally <strong>Angel’s Embrace</strong>, which grants a Shield against the triggering attack that blocks damage equal to 5 + (2 x Toughness). This Spell does not provoke attacks of opportunity.</p>",
+            "costLabel": "1 RP",
+            "apCost": "",
+            "rpCost": "1",
+            "manaCost": "",
+            "otherCosts": "",
+            "range": "15ft",
+            "keywords": "Shield,Spell,Aid",
+            "requirement": "A creature other than you is attacked."
+          },
+          {
+            "id": "miracle--sanctuary",
+            "name": "Miracle: Sanctuary",
+            "descriptionText": "You create an immobile sphere of protection in a 5ft radius that prevents all entry into and out of it. The Shield has health points equal to 20 + Toughness x 8. Attacks and Magical Effects cannot be casted out of or into the Sanctuary, which functions as line-of-sight blocking for the purposes of abilities. Sanctuary lasts until the start of your next turn unless you pay Upkeep (1 Mana). The Spell also ends when the Shield’s health points are reduced to zero. This spell does not provoke attacks of opportunity.",
+            "descriptionHtml": "<p>You create an immobile sphere of protection in a 5ft radius that prevents all entry into and out of it. The Shield has health points equal to 20 + Toughness x 8. Attacks and Magical Effects cannot be casted out of or into the Sanctuary, which functions as line-of-sight blocking for the purposes of abilities. Sanctuary lasts until the start of your next turn unless you pay Upkeep (1 Mana). The Spell also ends when the Shield’s health points are reduced to zero. This spell does not provoke attacks of opportunity.</p>",
+            "costLabel": "2 AP, 2 Mana",
+            "apCost": "2",
+            "rpCost": "",
+            "manaCost": "2",
+            "otherCosts": "",
+            "range": "5ft radius centered on self",
+            "keywords": "Concentration, Miracle,Spell,Upkeep",
+            "requirement": "-"
+          }
+        ]
+      },
+      {
+        "id": "adventurer",
+        "name": "Adventurer",
+        "descriptionText": "Legends have it that Fayto Zhelti was the first true adventurer, a spirited young girl from a humble town in the Kingdom of Alpinum. Her Father was an explorer and Fayto dreamed of following in his footsteps.\n\nYet, as childhood began to fade away, a painful realization crawled within her heart: the incredibly physical feats of strength her father effortlessly performed always lay just beyond grasp. No amount of blood, sweat or tears could overcome the anguish of her physical reality. She watched her younger brothers surpass her in strength, joining their father on this expeditions she yearned for. Loneliness began to infect her heart that ached for adventure, but fate had cruelly denied her that path.\n\nStill she persisted, even in her pain... tirelessly striking the same tree day after day for years.\n\nHumans barely had the lifespan to master the arcane arts—which at the time were incredibly complex without shortcuts. Her Mother, an arcane practitioner, taught her daughter the methods of utilizing magic for mundane tasks: heating water kettles and stirring up a gentle whirlpool to do laundry. While practicing these humble homecrafts, Fayto remembered that feeling, the tingling surge that ran through her limbs.\n\nOne day, as she swung her dulled blade against that ancient tree, she poured every ounce of her yearning and willpower into her strike. The familiar surge ran through her as the explosive energy flooded her body, exactly as it had done alongside her Mother. In a thunderous crash, the mighty tree toppled.\n\nFrom that day forward, she pursued that elusive feeling. She trained relentlessly until she mastered the art of \"internal magic\" which would be known later as ki. Soon after that she joined her father's adventures at last, growing and developing until she embarked on her own journeys, making a name for herself wherever she went \"Fayto, the female adventurer.\"\n\nTo this day, adventurers still practice the skills Fayto Zhelti perfected long ago—a martial art born of determination and control of ones self, leveling the playing field for all who practice it. Following Fayto's example, Adventurers continue to train—leaping to extraordinary heights, molding mana to extend their reach, projecting their aura like iron... all while maintaining perfect composure. Although the ancient martial art remains nameless, its teaches are diligently passed down to every aspiring adventurer, serving as a solid foundation for future development.",
+        "descriptionHtml": "<p>Legends have it that Fayto Zhelti was the first true adventurer, a spirited young girl from a humble town in the Kingdom of Alpinum. &nbsp;Her Father was an explorer and Fayto dreamed of following in his footsteps.</p><p>Yet, as childhood began to fade away, a painful realization crawled within her heart: &nbsp;the incredibly physical feats of strength her father effortlessly performed always lay just beyond grasp. &nbsp;No amount of blood, sweat or tears could overcome the anguish of her physical reality. &nbsp;She watched her younger brothers surpass her in strength, joining their father on this expeditions she yearned for. &nbsp;Loneliness began to infect her heart that ached for adventure, but fate had cruelly denied her that path.</p><p>Still she persisted, even in her pain... tirelessly striking the same tree day after day for years.</p><p>Humans barely had the lifespan to master the arcane arts—which at the time were incredibly complex without shortcuts. &nbsp;Her Mother, an arcane practitioner, taught her daughter the methods of utilizing magic for mundane tasks: &nbsp;heating water kettles and stirring up a gentle whirlpool to do laundry. &nbsp;While practicing these humble homecrafts, Fayto remembered that feeling, the tingling surge that ran through her limbs.</p><p>One day, as she swung her dulled blade against that ancient tree, she poured every ounce of her yearning and willpower into her strike. &nbsp;The familiar surge ran through her as the explosive energy flooded her body, exactly as it had done alongside her Mother. &nbsp;In a thunderous crash, the mighty tree toppled.</p><p>From that day forward, she pursued that elusive feeling. &nbsp;She trained relentlessly until she mastered the art of \"internal magic\" which would be known later as ki. &nbsp;Soon after that she joined her father's adventures at last, growing and developing until she embarked on her own journeys, making a name for herself wherever she went \"Fayto, the female adventurer.\"</p><p>To this day, adventurers still practice the skills Fayto Zhelti perfected long ago—a martial art born of determination and control of ones self, leveling the playing field for all who practice it. &nbsp;Following Fayto's example, Adventurers continue to train—leaping to extraordinary heights, molding mana to extend their reach, projecting their aura like iron... all while maintaining perfect composure. &nbsp; Although the ancient martial art remains nameless, its teaches are diligently passed down to every aspiring adventurer, serving as a solid foundation for future development.</p>",
+        "guideText": "The adventurer is a generalist class that has a bit of everything. One of the main draws of the adventurer is their options in picking their proficiencies, being the only tier 1 class that can choose a specialized weapon and heavy armor.\n\nPower Jump is an anti-air tool that lets you hit enemies in the air even if you only have melee weapons. It is even better if you can fly, as you can use power jump as a cheap way to gain altitude.\n\nMana Razor gives you increased range on your attacks. If you're using a melee weapon with this, you'll need to be aware that turning your attacks into ranged attacks does mean you'll provoke attacks of opportunity. It only affects your basic melee attacks, but you can still use your abilities on enemies within your normal range.\n\nSteel Aura is a defensive tool that can be very powerful when attacked by a large group of grunts. With 3 additional guard, you will most likely take only 1 damage from light attacks from those enemies, though you'll still need to be wary of heavy attacks.\n\nYour Secret Art: Efficient Spirit Control is a simple mana reduction ability. If you do not have any other secret arts yet, then don't be afraid to use this whenever you would spend 2 or more mana on something.",
+        "guideHtml": "<p>The adventurer is a generalist class that has a bit of everything. One of the main draws of the adventurer is their options in picking their proficiencies, being the only tier 1 class that can choose a specialized weapon and heavy armor.</p><p>Power Jump is an anti-air tool that lets you hit enemies in the air even if you only have melee weapons. It is even better if you can fly, as you can use power jump as a cheap way to gain altitude.</p><p>Mana Razor gives you increased range on your attacks. If you're using a melee weapon with this, you'll need to be aware that turning your attacks into ranged attacks does mean you'll provoke attacks of opportunity. It only affects your basic melee attacks, but you can still use your abilities on enemies within your normal range.</p><p>Steel Aura is a defensive tool that can be very powerful when attacked by a large group of grunts. With 3 additional guard, you will most likely take only 1 damage from light attacks from those enemies, though you'll still need to be wary of heavy attacks.</p><p>Your Secret Art: Efficient Spirit Control is a simple mana reduction ability. If you do not have any other secret arts yet, then don't be afraid to use this whenever you would spend 2 or more mana on something.</p>",
+        "difficulty": "1",
+        "role1": "Utility",
+        "role2": "Striker",
+        "requirements": "None",
+        "skills": "You gain +5 skill points to spend on any non crafting skill. You can exchange any skill point for 2 expertise points, but must spend them in these skills.",
+        "heart": "You gain +1 to Fitness, Cunning, Reason, Awareness or Presence.",
+        "soul": "You gain +1 to Focus, Power, Agility or Toughness.",
+        "tier": "1",
+        "imageSmUrl": "https://cdn.angelssword.com/ttrpg/assets/831bb1aa-a02e-4f35-b53d-d54e8ddad363-Adventurer_Plus_-_raw.lg.webp",
+        "imageLgUrl": "https://cdn.angelssword.com/ttrpg/assets/831bb1aa-a02e-4f35-b53d-d54e8ddad363-Adventurer_Plus_-_raw.lg.webp",
+        "imageAlignment": "top",
+        "keyAbility": {
+          "name": "Adventurer Essentials",
+          "benefit1": "You gain proficiency in 1 common weapon group. In addition, you gain proficiency in 1 common or specialized weapon groups.",
+          "benefit2": "You gain proficiency in 1 armor category of your choosing. Alternatively, you may pick the shield or greatshield.",
+          "benefit3": "You may use Presence Concealment.",
+          "benefit4": ""
+        },
+        "abilities": [
+          {
+            "id": "power-jump",
+            "name": "Power Jump",
+            "descriptionText": "You jump up to 60ft vertically straight up into the air. You can additionally move 5ft horizontally afterwards. Unless flying, you automatically land straight down from your position at the end of your turn or for 0 AP, this falling movement does not provoke attacks of opportunity and you don’t take fall damage from it. If you land inside an occupied square, you are shunted 5ft into an empty square (your original one if possible).\n\nYou cannot make any non-teleport movement actions while in the air unless you’re flying, but can still take other actions (such as attacking) while airborne.",
+            "descriptionHtml": "<p>You jump up to 60ft vertically straight up into the air.&nbsp; You can additionally move 5ft horizontally afterwards.&nbsp; Unless flying, you automatically land straight down from your position at the end of your turn or for 0 AP, this falling movement does not provoke attacks of opportunity and you don’t take fall damage from it. If you land inside an occupied square, you are shunted 5ft into an empty square (your original one if possible).</p><p>You cannot make any non-teleport movement actions while in the air unless you’re flying, but can still take other actions (such as attacking) while airborne.</p>",
+            "costLabel": "0 AP, 1 Mana",
+            "apCost": "0",
+            "rpCost": "",
+            "manaCost": "1",
+            "otherCosts": "",
+            "range": "Self",
+            "keywords": "Jump,Circuit",
+            "requirement": ""
+          },
+          {
+            "id": "mana-razor",
+            "name": "Mana Razor",
+            "descriptionText": "Until the end of your turn you gain Mana Razor granting your basic melee attacks an additional 30ft range. Augmenting melee attacks with this ability makes them into ranged attacks. If using a Two-Handed melee weapon with Mana Razor, gain an additional 45ft range instead.\n\nOvercharge: You may spend 1 mana to have this also affect basic ranged attacks and to remove the Quick keyword from it.",
+            "descriptionHtml": "<p>Until the end of your turn you gain <strong>Mana Razor</strong> granting your basic melee attacks an additional 30ft range. Augmenting melee attacks with this ability makes them into ranged attacks. If using a Two-Handed melee weapon with Mana Razor, gain an additional 45ft range instead.</p><p><strong>Overcharge</strong>: You may spend 1 mana to have this also affect basic ranged attacks and to remove the Quick keyword from it.</p>",
+            "costLabel": "0 AP",
+            "apCost": "0",
+            "rpCost": "",
+            "manaCost": "",
+            "otherCosts": "",
+            "range": "Self",
+            "keywords": "Overcharge,Quick",
+            "requirement": ""
+          },
+          {
+            "id": "steel-aura",
+            "name": "Steel Aura",
+            "descriptionText": "You gain Steel Aura, granting you 3 additional guard, but you can no longer use any RP actions besides Block and actions with the Rage keyword. You can end this effect at any time for 0 RP. This effect ends at the start of your next turn.",
+            "descriptionHtml": "<p>You gain <strong>Steel Aura</strong>, granting you 3 additional guard, but you can no longer use any RP actions besides Block and actions with the Rage keyword.&nbsp;You can end this effect at any time for 0 RP.&nbsp;This effect ends at the start of your next turn.</p>",
+            "costLabel": "0 RP, 2 Mana",
+            "apCost": "",
+            "rpCost": "0",
+            "manaCost": "2",
+            "otherCosts": "",
+            "range": "Self",
+            "keywords": "Aura,Rage,Circuit",
+            "requirement": ""
+          },
+          {
+            "id": "secret-art--efficient-spirit-control",
+            "name": "Secret Art: Efficient Spirit Control",
+            "descriptionText": "You reduce the cost of your next non-healing keyword action by 2 mana. This cannot reduce the mana cost below 0.\n\nAlso resets your Circuits, allowing abilities with the Circuit keyword to be used for their reduced mana cost once more.",
+            "descriptionHtml": "<p>You reduce the cost of your next non-healing keyword action by 2 mana. This cannot reduce the mana cost below 0.</p><p>Also resets your Circuits, allowing abilities with the Circuit keyword to be used for their reduced mana cost once more.</p>",
+            "costLabel": "0 RP",
+            "apCost": "",
+            "rpCost": "0",
+            "manaCost": "",
+            "otherCosts": "",
+            "range": "Self",
+            "keywords": "Secret Art",
+            "requirement": ""
+          }
+        ]
+      }
+    ]
+  },
+  "versionManifest": {
+    "schema": 1,
+    "defaultVersion": "0.13.0",
+    "latestKnownVersion": "0.13.0",
+    "officialManualUrl": "https://rpg.angelssword.com/game/online-manual",
+    "versions": [
+      {
+        "id": "0.13.0",
+        "label": "0.13.0 - Lyrian Chronicles",
+        "status": "api",
+        "local": false,
+        "updates": [
+          "Races",
+          "NEW:- Sylph, a wind aligned fae subrace.",
+          "Phoenix rebirth now removes all buffs/debuffs.",
+          "Slime Body mana cost reduced from 1→0.",
+          "Fading Counter mana cost reduced from 1→0.",
+          "Blinding Dust now has the circuit keyword.",
+          "Faerie Flash II slightly updated to account for abilities potentially resetting Faerie Flash.",
+          "Classes"
+        ]
+      }
+    ]
+  }
+}

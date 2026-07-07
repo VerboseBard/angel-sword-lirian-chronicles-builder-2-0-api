@@ -21090,11 +21090,15 @@ The app cannot verify this requirement. Has the GM approved it for this characte
 
   // src/js/data-mapper.js
   var REQUIRED_COLLECTIONS = ["races", "ancestries", "classes", "abilities", "breakthroughs", "items"];
+  var REQUIRED_DETAIL_COLLECTIONS = ["races", "ancestries", "classes"];
   function asObject(value) {
     return value && typeof value === "object" && !Array.isArray(value) ? value : null;
   }
+  function hasCollections(payload, keys) {
+    return keys.every((key) => Array.isArray(payload?.[key]));
+  }
   function hasRequiredCollections(payload) {
-    return REQUIRED_COLLECTIONS.every((key) => Array.isArray(payload?.[key]));
+    return hasCollections(payload, REQUIRED_COLLECTIONS);
   }
   function normalizeGameData(payload, fallbackVersion = "") {
     const data = asObject(payload);
@@ -21108,7 +21112,7 @@ The app cannot verify this requirement. Has the GM approved it for this characte
   }
   function normalizeDetailData(payload, fallbackData) {
     const detail = asObject(payload);
-    if (detail && hasRequiredCollections(detail)) {
+    if (detail && hasCollections(detail, REQUIRED_DETAIL_COLLECTIONS)) {
       return {
         ...detail,
         version: String(detail.version || fallbackData.version || "api").trim()
