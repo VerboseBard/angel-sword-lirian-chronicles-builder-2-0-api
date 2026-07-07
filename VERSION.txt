@@ -1,0 +1,6 @@
+Lyrian Chronicles Character Builder - Beta Version 2.0 API Build
+Promoted from the reviewed Beta 1.9 new-player downtime UX build.
+Includes the Beta 1.6 disabled-by-default API provider handoff layer.
+Includes a disabled-by-default security placeholder for future official backend/auth work.
+Focus: preserve the 1.9 crafting and gathering workflows while preparing the build
+for later official API integration without breaking static/local use.

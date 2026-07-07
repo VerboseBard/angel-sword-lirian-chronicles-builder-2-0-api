@@ -1,0 +1,18 @@
+{
+  "name": "angel-sword-lirian-chronicles-builder",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Web-ready Angel Sword Lyrian Chronicles character builder with disabled-by-default API/security handoff layer.",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/js/main.js --bundle --format=iife --global-name=LyrianApp --target=es2020 --outfile=assets/app.bundle.js",
+    "start": "node scripts/server.mjs",
+    "serve": "node scripts/server.mjs",
+    "audit:minmax": "node scripts/audit-minmax-cascades.mjs",
+    "test": "npm run build && node scripts/test-cross-browser.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.5",
+    "playwright": "^1.60.0"
+  }
+}

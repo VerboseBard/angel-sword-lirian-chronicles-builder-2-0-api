@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lyrian Chronicles Character Builder - Beta 2.0 API Build</title>
+  <link rel="icon" type="image/png" href="assets/lyrian-symbol.png">
+  <script src="assets/api-config.js"></script>
+  <script src="assets/security-config.js"></script>
+  <script src="assets/lyrian-form-map.js"></script>
+  <script src="assets/lyrian-data.js"></script>
+  <script src="assets/lyrian-detail-data.js"></script>
+  <script src="assets/versions/manifest.js"></script>
+  <script src="assets/pdf-lib.min.js"></script>
+  <script src="assets/xlsx.full.min.js"></script>
+  <script src="assets/jszip.min.js"></script>
+  <link rel="stylesheet" href="./src/css/main.css?v=2.0.0-api-handoff-20260707">
+</head>
+<body>
+  <section id="builder-view" class="builder-view">
+    <div class="builder-shell">
+      <aside class="builder-sidebar-panel builder-panel">
+        <div class="builder-sidebar-header">
+          <div class="builder-sidebar-logo" aria-hidden="true"></div>
+          <section class="version-manager" aria-label="Game version manager">
+            <div class="builder-build-version" aria-label="Builder build version">
+              <span>Builder build</span>
+              <strong>Beta 2.0 API Build</strong>
+            </div>
+            <label for="game-version-select">Select game version</label>
+            <select id="game-version-select"></select>
+            <div id="version-update-list" class="version-update-list" aria-live="polite"></div>
+            <div id="version-progress" class="version-progress" hidden>
+              <div>
+                <span id="version-progress-label">Checking for updates</span>
+                <strong id="version-progress-percent">0%</strong>
+              </div>
+              <span class="version-progress-track"><span id="version-progress-bar" class="version-progress-bar"></span></span>
+            </div>
+            <button id="version-check-button" type="button">Check for Updates</button>
+            <button id="version-download-button" type="button" hidden>Download New Version</button>
+            <div id="version-connection" class="version-connection">Web build. Published updates arrive here.</div>
+          </section>
+          <p class="eyebrow">Guided Character Builder</p>
+          <h1>Lyrian Chronicles</h1>
+          <p class="builder-intro">Build your character in a guided step-by-step flow, then continue directly into the interactive Lyrian sheet. Your portrait, name, race choices, classes, breakthroughs, and gear all carry forward into the live play view.</p>
+        </div>
+
+        <div id="builder-status-pill" class="status-pill">Builder ready</div>
+        <button id="builder-start-over-sidebar" class="tool-button tool-button-warning builder-sidebar-start-over is-hidden" type="button">Reset Character</button>
+
+        <div class="builder-tool-grid">
+          <button class="tool-button" id="builder-save-browser" type="button">Save to Browser</button>
+          <button class="tool-button" id="builder-load-browser" type="button">Load Saved</button>
+          <button class="tool-button" id="builder-export-character" type="button">Export Character</button>
+          <button class="tool-button" id="builder-import-character" type="button">Import Character</button>
+        </div>
+
+        <nav id="builder-step-nav" class="builder-step-nav" aria-label="Builder steps"></nav>
+      </aside>
+
+      <main class="builder-stage-panel">
+        <section class="identity-card builder-panel builder-identity-banner">
+          <button id="portrait-trigger" class="portrait-frame" type="button" aria-label="Add portrait">
+            <img id="builder-portrait-image" alt="" class="is-hidden">
+            <span id="builder-portrait-placeholder" class="portrait-placeholder">Add portrait</span>
+          </button>
+
+          <div class="identity-fields">
+            <label>
+              Character Name
+              <input id="builder-name-header" class="builder-inline-input" type="text" placeholder="Enter your character name">
+            </label>
+            <div class="identity-chips">
+              <span id="builder-race-chip" class="identity-chip">Primary race pending</span>
+              <span id="builder-ancestry-chip" class="identity-chip">Ancestry pending</span>
+            </div>
+          </div>
+        </section>
+
+        <div class="builder-stage-header">
+          <div>
+            <p class="eyebrow">Builder Step</p>
+            <h2 id="builder-step-title">Choose a Primary Race</h2>
+            <p id="builder-step-lead" class="builder-step-lead"></p>
+          </div>
+
+          <div class="builder-progress-box">
+            <span id="builder-progress-text">Step 1 of 9</span>
+            <button id="builder-next-top" class="tool-button" type="button">Next</button>
+            <button id="builder-sheet-shortcut-top" class="tool-button builder-sheet-shortcut" type="button">Continue to Character Sheet</button>
+          </div>
+        </div>
+
+        <section class="builder-summary-panel builder-stage-summary">
+          <h2>Current Build</h2>
+          <div id="builder-summary" class="summary-grid"></div>
+        </section>
+
+        <section id="builder-step-content" class="builder-step-content"></section>
+
+        <footer class="builder-controls">
+          <button id="builder-back" class="tool-button" type="button">Back</button>
+          <button id="builder-next" class="tool-button" type="button">Next</button>
+        </footer>
+      </main>
+
+      <aside class="builder-detail-panel builder-panel">
+        <div id="builder-detail-card" class="builder-detail-card"></div>
+      </aside>
+    </div>
+  </section>
+
+  <div id="sheet-view" class="app-shell is-hidden">
+    <main class="sheet-stage">
+      <div class="sheet-toolbar">
+        <button id="return-to-builder" class="sheet-symbol-button" type="button" aria-label="Return to builder">
+          <img src="assets/lyrian-symbol.png" alt="Lyrian symbol">
+        </button>
+
+        <div class="sheet-toolbar-copy">
+          <p class="eyebrow">Play Sheet</p>
+          <h2 id="sheet-toolbar-name">Interactive Character Sheet</h2>
+          <p>Jump back into the builder with the Lyrian symbol whenever you want to revise the character. The dashboard below is the main live play surface.</p>
+        </div>
+
+        <div class="sheet-toolbar-status">
+          <div id="status-pill" class="status-pill">Ready</div>
+          <div class="action-grid sheet-toolbar-actions">
+            <button class="tool-button" id="save-browser" type="button">Save to Browser</button>
+            <button class="tool-button" id="load-browser" type="button">Load Saved</button>
+            <button class="tool-button" id="export-json" type="button">Export Character</button>
+            <button class="tool-button" id="import-json" type="button">Import Character</button>
+            <button class="tool-button" id="recalc-basics" type="button">Recalc Basics</button>
+            <button class="tool-button" id="clear-sheet" type="button">Clear Sheet</button>
+          </div>
+        </div>
+      </div>
+
+      <section class="play-dashboard" aria-label="Play dashboard">
+        <div class="play-command-strip">
+          <div id="play-header-card" class="play-panel play-header-card"></div>
+        </div>
+
+        <div class="play-overview-strip" data-play-mode-panel="combat" hidden>
+          <div class="play-overview-main">
+            <div id="play-main-stat-strip" class="play-main-stat-strip"></div>
+            <div id="play-secondary-grid" class="play-secondary-grid"></div>
+            <div class="play-resource-zone">
+              <div class="play-resource-and-health-row">
+                <div id="play-resource-grid" class="play-top-resource-strip"></div>
+                <div id="play-hit-points" class="play-hit-points"></div>
+              </div>
+              <div class="play-resource-animation" aria-hidden="true">
+                <svg viewBox="0 0 900 110" preserveAspectRatio="none">
+                  <defs>
+                    <radialGradient id="resource-fire-gradient" cx="50%" cy="50%" r="58%">
+                      <stop offset="0%" stop-color="#fff8ba"></stop>
+                      <stop offset="42%" stop-color="#ffcf33"></stop>
+                      <stop offset="74%" stop-color="#ff6b26"></stop>
+                      <stop offset="100%" stop-color="#b71919" stop-opacity="0.1"></stop>
+                    </radialGradient>
+                    <linearGradient id="resource-shield-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#f7fbff"></stop>
+                      <stop offset="48%" stop-color="#89d8ff"></stop>
+                      <stop offset="100%" stop-color="#1260a8"></stop>
+                    </linearGradient>
+                    <filter id="resource-glow" x="-60%" y="-60%" width="220%" height="220%">
+                      <feGaussianBlur stdDeviation="4" result="blur"></feGaussianBlur>
+                      <feMerge>
+                        <feMergeNode in="blur"></feMergeNode>
+                        <feMergeNode in="SourceGraphic"></feMergeNode>
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <text class="resource-lane-label" x="34" y="25">Mana</text>
+                  <text class="resource-lane-label" x="398" y="25">AP</text>
+                  <text class="resource-lane-label" x="748" y="25">RP</text>
+                  <line class="resource-ground-line" x1="34" y1="92" x2="866" y2="92"></line>
+
+                  <g class="resource-wizard">
+                    <path d="M62 56 L82 56 L92 91 L52 91 Z" fill="#1f6bb2"></path>
+                    <circle cx="72" cy="47" r="10" fill="#ffe2b0"></circle>
+                    <path d="M57 43 L72 12 L88 43 Z" fill="#ffcf33"></path>
+                    <path d="M58 43 Q72 35 88 43" fill="none" stroke="#fff8ba" stroke-width="3"></path>
+                    <line x1="92" y1="41" x2="112" y2="72" stroke="#ffe08a" stroke-width="4" stroke-linecap="round"></line>
+                    <circle cx="111" cy="40" r="6" fill="#8ee7ff" filter="url(#resource-glow)"></circle>
+                  </g>
+
+                  <g class="resource-fireball-tail">
+                    <path d="M118 57 C88 48 72 62 48 52 C76 70 94 77 121 66 Z" fill="#ff6b26" opacity="0.65"></path>
+                    <path d="M126 59 C100 55 88 65 66 62 C91 73 108 77 132 67 Z" fill="#ffcf33" opacity="0.9"></path>
+                  </g>
+                  <g class="resource-fireball" filter="url(#resource-glow)">
+                    <circle cx="140" cy="61" r="14" fill="url(#resource-fire-gradient)"></circle>
+                    <circle cx="134" cy="56" r="5" fill="#fff8ba"></circle>
+                  </g>
+
+                  <g class="resource-runner-impact" filter="url(#resource-glow)">
+                    <circle cx="500" cy="61" r="23" fill="#ffcf33" opacity="0.58"></circle>
+                    <path d="M500 27 L509 51 L535 43 L516 62 L538 79 L510 75 L500 99 L490 74 L462 82 L484 62 L465 43 L492 51 Z" fill="#fff8ba" opacity="0.88"></path>
+                    <path d="M470 62 L440 51 M524 58 L553 44 M500 39 L500 14" stroke="#ff6b26" stroke-width="5" stroke-linecap="round" opacity="0.8"></path>
+                  </g>
+
+                  <g class="resource-swordsman">
+                    <path d="M760 59 L742 91 L782 91 Z" fill="#7b4a28"></path>
+                    <circle cx="760" cy="47" r="10" fill="#ffd6a0"></circle>
+                    <path d="M748 39 Q760 29 773 39" fill="#2c1c14"></path>
+                    <line x1="742" y1="58" x2="706" y2="41" stroke="#e9f7ff" stroke-width="5" stroke-linecap="round"></line>
+                    <line x1="742" y1="58" x2="716" y2="46" stroke="#77d7ff" stroke-width="2" stroke-linecap="round"></line>
+                    <path d="M786 72 C824 60 842 74 866 58" fill="none" stroke="#fff8ba" stroke-width="4" stroke-linecap="round" opacity="0.55"></path>
+                  </g>
+                  <path class="resource-sword-swipe" d="M490 50 C520 25 574 28 602 54" fill="none" stroke="#f7fbff" stroke-width="8" stroke-linecap="round"></path>
+
+                  <g class="resource-explosion" filter="url(#resource-glow)">
+                    <circle cx="740" cy="60" r="36" fill="#ff6b26" opacity="0.82"></circle>
+                    <circle cx="740" cy="60" r="22" fill="#ffcf33"></circle>
+                    <path d="M740 12 L753 44 L788 30 L768 60 L802 78 L762 77 L750 106 L732 76 L694 88 L715 61 L686 35 L725 45 Z" fill="#fff8ba" opacity="0.85"></path>
+                  </g>
+                  <g class="resource-blast-wave">
+                    <path d="M748 61 C754 44 766 28 789 10 C783 35 773 49 758 66 Z" fill="#ffcf33" opacity="0.72"></path>
+                    <path d="M758 66 C779 45 796 25 812 0" fill="none" stroke="#ff6b26" stroke-width="6" stroke-linecap="round" opacity="0.78"></path>
+                  </g>
+                  <g class="resource-smoke">
+                    <circle cx="710" cy="72" r="10" fill="#bfc9d8"></circle>
+                    <circle cx="741" cy="76" r="14" fill="#dce4ec"></circle>
+                    <circle cx="768" cy="70" r="9" fill="#aab8c8"></circle>
+                  </g>
+
+                  <g class="resource-watcher">
+                    <path d="M802 60 L786 92 L820 92 Z" fill="#275f44"></path>
+                    <circle cx="803" cy="49" r="10" fill="#ffdbad"></circle>
+                    <path d="M790 45 Q803 35 816 45" fill="#3a2416"></path>
+                    <circle cx="797" cy="49" r="1.6" fill="#1b2130"></circle>
+                    <circle cx="808" cy="49" r="1.6" fill="#1b2130"></circle>
+                  </g>
+                  <g class="resource-shield" filter="url(#resource-glow)">
+                    <path d="M770 58 Q794 43 818 58 L813 91 Q794 103 775 91 Z" fill="url(#resource-shield-gradient)" stroke="#e9f7ff" stroke-width="3"></path>
+                    <path d="M794 48 L794 99" stroke="#f7fbff" stroke-width="2" opacity="0.75"></path>
+                  </g>
+                  <g class="resource-shield-spark">
+                    <path d="M755 51 L734 44 L745 61 L726 67 L750 72" fill="none" stroke="#fff8ba" stroke-width="5" stroke-linecap="round"></path>
+                    <path d="M762 75 L742 84 L765 87" fill="none" stroke="#ffcf33" stroke-width="4" stroke-linecap="round"></path>
+                  </g>
+                </svg>
+              </div>
+              <div id="play-utility-grid" class="play-utility-grid"></div>
+            </div>
+          </div>
+
+          <div class="play-overview-side play-progress-column">
+            <div id="play-derived-grid" class="play-derived-grid play-tracker-strip"></div>
+          </div>
+
+          <section class="play-support-card-section play-defense-strip-section">
+            <div>
+              <p class="eyebrow">Defenses</p>
+              <h3>Saving Throws &amp; Reactions</h3>
+            </div>
+            <div id="play-saves" class="play-support-card-grid play-defense-line"></div>
+          </section>
+
+          <section class="play-support-card-section play-senses-section">
+            <div>
+              <p class="eyebrow">Senses</p>
+              <h3>Awareness Checks</h3>
+            </div>
+            <div id="play-senses" class="play-support-card-grid"></div>
+          </section>
+        </div>
+
+        <section class="play-panel play-quick-roll-bar" data-play-mode-panel="combat" hidden>
+          <div class="play-quick-roll-bar-copy">
+            <p class="eyebrow">Quick Rolls</p>
+            <h3>Fast Checks</h3>
+            <p>Keep the most common movement, defense, and awareness rolls one click away during play.</p>
+          </div>
+          <div class="play-quick-roll-controls">
+            <div id="play-quick-roll-feedback" class="play-inline-warning" hidden></div>
+            <div id="play-roll-actions" class="play-roll-actions"></div>
+            <div class="play-quick-roll-tools" aria-label="Sheet tools">
+              <button id="play-full-restore" type="button">Full Restore</button>
+              <button id="play-sync-derived" type="button">Sync Derived Stats</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="play-crafting" class="play-crafting-gathering-dashboard" data-play-mode-panel="crafting" hidden></section>
+        <section id="play-gathering" class="play-crafting-gathering-dashboard" data-play-mode-panel="gathering" hidden></section>
+
+        <div class="play-layout-grid" data-play-mode-panel="combat" hidden>
+          <section class="play-panel play-center-column">
+            <div>
+              <p class="eyebrow">Skills</p>
+              <h3>Compact Skill Board</h3>
+              <p>Each skill already includes the affiliated sub stat, trained skill points, and expertise. Click the bonus to roll the full check automatically.</p>
+            </div>
+            <div id="play-skills" class="play-skills play-skill-groups"></div>
+          </section>
+
+          <section class="play-panel play-right-column">
+            <div class="play-tab-header">
+              <div>
+                <p class="eyebrow">Action Workspace</p>
+                <h3>Actions, Abilities, Inventory, Proficiencies, Breakthroughs, and Notes</h3>
+              </div>
+              <nav id="play-tab-nav" class="play-tab-nav" aria-label="Play tabs">
+                <button type="button" data-play-tab="actions">Actions</button>
+                <button type="button" data-play-tab="abilities">Abilities</button>
+                <button type="button" data-play-tab="inventory">Inventory</button>
+                <button type="button" data-play-tab="proficiencies">Proficiencies</button>
+                <button type="button" data-play-tab="breakthroughs">Breakthroughs</button>
+                <button type="button" data-play-tab="notes">Notes</button>
+              </nav>
+            </div>
+
+            <section class="play-tab-panel" data-play-tab-panel="actions">
+              <div class="play-inline-actions">
+                <button id="play-restore-turn" type="button">Recover AP</button>
+                <button id="play-clear-log" type="button">Clear Log</button>
+              </div>
+              <div id="play-action-feedback" class="play-inline-warning" hidden></div>
+              <div id="play-basic-actions" class="play-action-group"></div>
+            </section>
+
+            <section class="play-tab-panel is-hidden" data-play-tab-panel="abilities">
+              <div id="play-quick-abilities" class="play-action-stack"></div>
+            </section>
+
+            <section class="play-tab-panel is-hidden" data-play-tab-panel="inventory">
+              <div id="play-inventory" class="play-compact-list"></div>
+            </section>
+
+            <section class="play-tab-panel is-hidden" data-play-tab-panel="proficiencies">
+              <div id="play-proficiencies" class="play-training-stack"></div>
+            </section>
+
+            <section class="play-tab-panel is-hidden" data-play-tab-panel="breakthroughs">
+              <div id="play-breakthroughs" class="play-breakthrough-list"></div>
+            </section>
+
+            <section class="play-tab-panel is-hidden" data-play-tab-panel="notes">
+              <div class="play-subpanel">
+                <p class="eyebrow">Player Notes</p>
+                <h4>Session Journal</h4>
+                <textarea id="play-player-notes" class="play-player-notes" placeholder="Track scene notes, reminders, NPC details, current objectives, or anything you want to keep handy mid-session."></textarea>
+                <p class="play-field-note">These notes autosave after you pause typing.</p>
+              </div>
+              <div id="play-notes" class="play-training-stack"></div>
+              <div class="play-subpanel play-combat-log-panel">
+                <p class="eyebrow">Combat Log</p>
+                <div id="play-log" class="play-log"></div>
+              </div>
+            </section>
+          </section>
+
+          <section class="play-panel play-reference-column">
+            <div id="play-reference-detail" class="play-reference-detail" hidden></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <div id="sheet-stack" class="sheet-stack is-hidden" hidden aria-hidden="true"></div>
+  </div>
+
+  <div id="dice-flight-layer" class="dice-flight-layer" aria-hidden="true"></div>
+  <div id="sheet-dice-tray" class="dice-tray is-hidden" aria-label="Dice roller"></div>
+
+  <div id="roll-overlay" class="roll-overlay is-hidden" aria-live="polite">
+    <div class="roll-overlay-card">
+      <p id="roll-overlay-label" class="eyebrow">Roll</p>
+      <div class="roll-die" id="roll-die">
+        <img id="roll-die-preview" class="roll-die-preview is-hidden" alt="">
+        <div id="roll-dice-preview-grid" class="roll-dice-preview-grid is-hidden" aria-hidden="true"></div>
+        <span id="roll-overlay-die-type">d20</span>
+        <strong id="roll-overlay-face">20</strong>
+      </div>
+      <p id="roll-overlay-breakdown" class="roll-overlay-breakdown"></p>
+      <strong id="roll-overlay-total" class="roll-overlay-total"></strong>
+    </div>
+  </div>
+
+  <div id="sheet-modal" class="sheet-modal is-hidden" hidden aria-hidden="true">
+    <div class="sheet-modal-backdrop" data-sheet-modal-close></div>
+    <div class="sheet-modal-card" role="dialog" aria-modal="true" aria-labelledby="sheet-modal-title">
+      <div class="sheet-modal-head">
+        <div class="sheet-modal-copy">
+          <p id="sheet-modal-eyebrow" class="eyebrow">Character Tools</p>
+          <h3 id="sheet-modal-title">Sheet Actions</h3>
+          <p id="sheet-modal-lead">Choose how you want to save, load, export, or manage the current character.</p>
+        </div>
+        <button id="sheet-modal-close" class="sheet-modal-close" type="button" aria-label="Close modal">&times;</button>
+      </div>
+      <div id="sheet-modal-content" class="sheet-modal-content"></div>
+    </div>
+  </div>
+
+  <input id="import-file" type="file" accept=".json,.pdf,.xlsx,.xls,application/json,application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" hidden>
+  <input id="portrait-file" type="file" accept="image/*" hidden>
+
+  <script src="assets/export-assets.js"></script>
+  <script src="assets/vendor/three.min.js"></script>
+  <script src="assets/vendor/GLTFLoader.js"></script>
+  <script>window.LYRIAN_DISABLE_LEGACY_GLB_DICE = true;</script>
+  <script src="assets/dice-3d/dice-3d-embedded.js"></script>
+  <script src="assets/dice-3d/new-angelsword-dice-face-art.384-webp.js?v=new-angelsword-384-webp-test-1"></script>
+  <script src="assets/dice-3d/lyrian-accurate-dice.js?v=alpha4-new-angelsword-sidecar-27-d4-triangle-pivot"></script>
+  <script src="assets/app.bundle.js?v=2.0.0-api-handoff-20260707"></script>
+</body>
+</html>
