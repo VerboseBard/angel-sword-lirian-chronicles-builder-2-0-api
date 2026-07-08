@@ -6,9 +6,10 @@ public rules data, and ships with a disabled-by-default provider layer ready
 for an official API. See [NOTICE.md](NOTICE.md) for ownership and data
 provenance.
 
-This build combines the reviewed Beta 1.9 player experience (builder, live
-play sheet, guided crafting and gathering wizards) with the API handoff layer
-first prepared in the Beta 1.6 API build.
+This build combines the reviewed Beta 1.9 player experience plus the Beta
+1.91 tester-feedback hotpatch (builder, live play sheet, equipment shopping,
+guided crafting and gathering wizards) with the API handoff layer first
+prepared in the Beta 1.6 API build.
 
 ## Quick Start
 
@@ -59,6 +60,9 @@ tested, and waiting for a real endpoint.
   equipment, abilities — including rare-but-legal cascading unlock paths,
   which are deliberately preserved rather than blocked.
 - Live play sheet: resources, actions, effects, inventory, notes, play log.
+- Beta 1.91 feedback fixes: clearable builder choices, equipment category
+  filters, weapon proficiency hints, sticky remaining Clim, and stacked Food
+  Unit purchase/consume controls.
 - Guided crafting wizard (choose recipe → gather materials → check support →
   roll points → resolve craft) and gathering wizard (choose node → check
   access → roll strikes → resolve gather), with soft GM-facing warnings

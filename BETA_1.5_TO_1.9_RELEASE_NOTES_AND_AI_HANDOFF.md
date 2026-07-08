@@ -1,6 +1,6 @@
 # Beta 1.5 To Beta 1.9 Release Notes And AI Handoff
 
-Last updated: 2026-07-07
+Last updated: 2026-07-08
 
 This document summarizes what changed from the stable Beta 1.5 baseline through Beta 1.9, and how those changes connect to the AI/API handoff material that started in the Beta 1.6 API build.
 
@@ -202,6 +202,40 @@ New regression tests from that session (now part of this build's suite):
 - A breakthrough general-XP spending assertion (Exp 5200 -> 5050, Spirit
   Core 1400 -> 1550 for a 150-cost purchase past the creation budget).
 - A compact locked breakthrough card layout assertion.
+
+## Beta 1.91 Hotpatch Feedback Fixes (2026-07-08, Synced Into 2.0)
+
+After Beta 1.91 was published to the live GitHub Pages link, its feedback
+hotpatch was ported into this Beta 2.0 API build so the API-ready package does
+not fall behind the public player build.
+
+Player-facing fixes carried into 2.0:
+
+- Builder choice controls now expose a `Clear` button after a dropdown/text
+  choice is selected. This covers Demon bonus mode/weapon choices, Human
+  racial language/stat/weapon choices, Ryujin elemental mastery, and the
+  other shared builder-choice controls. Racial skill pools still use their
+  plus/minus allocation controls.
+- Race and ancestry inspection now stays aligned with the selected race, so
+  switching to Demon/Youkai/etc. does not leave the right-side Step 2 panel on
+  an unrelated ancestry such as Ancient Marionette.
+- Imported/final sheet class-level hydration no longer grants an extra tier 2
+  class ability level from a level-1 unlocked class row.
+- Equipment shopping adds category/resource dropdown filters, sort controls,
+  weapon proficiency hints, and a sticky remaining-Clim summary while
+  scrolling through items.
+- Food Units, Pine Units, Iron Units, and Alchemy Units are generated as
+  buyable equipment/resource entries where missing from the static item data.
+- Food Units are priced and purchased per unit, with `+1`, `+5`, `+10`, `+50`,
+  and `+100` purchase buttons instead of only a 100-Clim block.
+- Food Units stack into one inventory card. The live sheet inventory card has
+  amount input plus `Consume` and `Add` controls for exact table adjustments.
+
+Validation carried forward from the live hotpatch:
+
+- Focused Food Units purchase/inventory smoke test.
+- Focused Human/Ryujin/Demon-adjacent builder-choice clear smoke test.
+- Full `npm.cmd test` cross-browser suite before live Beta 1.91 deployment.
 
 ## Promotion To Beta 2.0 API Build
 

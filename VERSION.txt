@@ -15,6 +15,15 @@ clearer no-yield messaging, and three new functional regression tests
 locked card layout). Verified by 1.9's own suite before the port and this
 build's full suite after it.
 
+1.91 hotpatch sync (2026-07-08): ported the beta tester feedback hotpatch
+from the live Beta 1.91 static build into this API build. Includes clearable
+racial/builder choice controls, safer class-level hydration, corrected
+ancestry inspection after race changes, equipment category/resource filters,
+weapon proficiency hints, sticky remaining Clim while shopping, buyable
+Food/Pine/Iron/Alchemy resource units, Food Units priced per unit with
++1/+5/+10/+50/+100 purchasing, and single-card Food Unit inventory
+consume/add controls. Static/API behavior must remain unchanged.
+
 API handoff kit (2026-07-07): local mock of the expected official endpoint
 (/builder/game-data on the dev server), payload validator and sample payload,
 API-mode + static-fallback regression tests, AI_INTEGRATION_TASK.md task brief,
