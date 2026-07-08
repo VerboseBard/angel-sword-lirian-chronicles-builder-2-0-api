@@ -84,7 +84,7 @@ See `combat-access-crafting-audit.md` for the current review of potion access, a
 
 Crafting and gathering are now guided downtime workflows in the Beta 1.9/2.0 UI. They support recipe selection, material needs, purchase helpers, tool/facility/class checks, crafting points, gathering node setup, access warnings, strike rolls, and inventory/result handling.
 
-Known remaining risk: the gathering workflow still needs deeper functional regression tests matching the crafting outcome test. Several gathering node presets remain GM drafts where the rules do not provide exact HP, Node Points, Lucky Points, yields, or required abilities.
+The gathering workflow now has a functional outcome-resolution regression test (`runGatheringNoYieldResolutionAssertion`), matching the crafting outcome test, and gathering attempts can no longer be double-finished. Remaining risk: several gathering node presets are still GM drafts where the rules do not provide exact HP, Node Points, Lucky Points, yields, or required abilities.
 
 ## Dice Risks
 

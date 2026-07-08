@@ -198,10 +198,21 @@ const phrases = [name];
 export function getBreakthroughBudgetState(excludeId = "") {
       const selected = getSelectedBreakthroughRecords().filter((entry) => entry.id !== excludeId);
 const spent = selected.reduce((total, entry) => total + Math.max(0, parseNumericCost(entry.cost)), 0);
-const remaining = BREAKTHROUGH_CREATION_BUDGET - spent;
+const creationSpent = Math.min(BREAKTHROUGH_CREATION_BUDGET, spent);
+const creationRemaining = Math.max(0, BREAKTHROUGH_CREATION_BUDGET - spent);
+const generalSpent = Math.max(0, spent - BREAKTHROUGH_CREATION_BUDGET);
+const expBankText = cleanText(state.fields.Exp);
+const generalRemaining = expBankText
+        ? Math.max(0, toNumber(expBankText, 0))
+        : Math.max(0, STARTING_CLASS_EXP - getSelectedClassProgress().reduce((total, entry) => total + entry.cost, 0));
+const remaining = creationRemaining + generalRemaining;
       return {
         budget: BREAKTHROUGH_CREATION_BUDGET,
         spent,
+        creationSpent,
+        creationRemaining,
+        generalSpent,
+        generalRemaining,
         remaining,
         selected
       };

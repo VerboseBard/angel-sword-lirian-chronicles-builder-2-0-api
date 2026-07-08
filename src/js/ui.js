@@ -11498,6 +11498,7 @@ const raw = {
       raw.craftingWizardStep = clamp(Math.floor(toNumber(raw.craftingWizardStep, 0)), 0, CRAFTING_WIZARD_STEPS.length - 1);
       raw.craftedOutcomePending = Boolean(raw.craftedOutcomePending);
       raw.gatheringWizardStep = clamp(Math.floor(toNumber(raw.gatheringWizardStep, 0)), 0, GATHERING_WIZARD_STEPS.length - 1);
+      raw.lastGatheringOutcome = raw.lastGatheringOutcome && typeof raw.lastGatheringOutcome === "object" ? raw.lastGatheringOutcome : null;
       return raw;
     }
 function setCraftingField(fieldName, value) {
@@ -11588,7 +11589,8 @@ function loadGatheringTemplate(templateId = GATHERING_DEFAULT_TEMPLATE_ID) {
         gatheringYieldQuantity: template.yieldQuantity,
         gatheringLuckyYieldName: template.luckyYieldName,
         gatheringLuckyYieldQuantity: template.luckyYieldQuantity,
-        gatheringNotes: template.note
+        gatheringNotes: template.note,
+        lastGatheringOutcome: null
       };
       state.ui.playMode = "gathering";
       appendPlayLog("Gathering Node Loaded", [
@@ -11632,7 +11634,8 @@ function loadGatheringResourceDraft(resourceName = "", nodeType = "") {
         gatheringYieldQuantity: profile.yieldQuantity,
         gatheringLuckyYieldName: profile.luckyYieldName,
         gatheringLuckyYieldQuantity: profile.luckyYieldQuantity,
-        gatheringNotes: profile.note
+        gatheringNotes: profile.note,
+        lastGatheringOutcome: null
       };
       state.ui.playMode = "gathering";
       appendPlayLog("Gathering Resource Draft Loaded", [
@@ -11970,6 +11973,7 @@ function resetGatheringAttempt() {
       state.play.crafting.gatheringStrikeDiceRemaining = crafting.gatheringHpRemaining > 0 ? crafting.gatheringStrikeDiceMax : 0;
       state.play.crafting.gatheringQueuedDice = "";
       state.play.crafting.gatheringActiveAction = "reset";
+      state.play.crafting.lastGatheringOutcome = null;
       appendPlayLog("Gathering Attempt Reset", [
         `Node: ${crafting.gatheringNodeName}`,
         "NP, LP, queued dice, and strike dice were reset. Node HP was not changed."
@@ -11978,8 +11982,22 @@ function resetGatheringAttempt() {
       renderPlayDashboard();
       setStatus("Reset the current gathering attempt.");
     }
+function getCurrentGatheringOutcome(crafting = getCraftingTrackerState()) {
+      const outcome = crafting.lastGatheringOutcome;
+      if (!outcome || typeof outcome !== "object") {
+        return null;
+      }
+      return normalizePhrase(outcome.nodeName) === normalizePhrase(crafting.gatheringNodeName)
+        ? outcome
+        : null;
+    }
 function finishGatheringAttempt() {
       const crafting = getCraftingTrackerState();
+      const existingOutcome = getCurrentGatheringOutcome(crafting);
+      if (existingOutcome) {
+        setStatus("This gathering attempt is already resolved. Repeat this node or pick a new node before finishing again.");
+        return;
+      }
       const readiness = getGatheringReadiness(crafting, getPlayInventoryEntries());
       if (!readiness.canGather) {
         const missing = [
@@ -11993,8 +12011,11 @@ function finishGatheringAttempt() {
         setStatus("This node is already depleted.");
         return;
       }
-      const clearedNode = crafting.gatheringNodeTarget > 0 && crafting.gatheringNodeProgress >= crafting.gatheringNodeTarget;
-      const clearedLucky = clearedNode && crafting.gatheringLuckyTarget > 0 && crafting.gatheringLuckyProgress >= crafting.gatheringLuckyTarget;
+      const nodeProgressBefore = crafting.gatheringNodeProgress;
+      const luckyProgressBefore = crafting.gatheringLuckyProgress;
+      const hpBefore = crafting.gatheringHpRemaining;
+      const clearedNode = crafting.gatheringNodeTarget > 0 && nodeProgressBefore >= crafting.gatheringNodeTarget;
+      const clearedLucky = clearedNode && crafting.gatheringLuckyTarget > 0 && luckyProgressBefore >= crafting.gatheringLuckyTarget;
       state.play = mergePlayState(state.play);
       const gained = [];
       if (clearedNode) {
@@ -12009,13 +12030,31 @@ function finishGatheringAttempt() {
           gained.push(`${crafting.gatheringLuckyYieldQuantity} ${crafting.gatheringLuckyYieldName}`);
         }
       }
-      const nextHp = Math.max(0, crafting.gatheringHpRemaining - 1);
+      const nextHp = Math.max(0, hpBefore - 1);
       state.play.crafting.gatheringHpRemaining = nextHp;
       state.play.crafting.gatheringNodeProgress = 0;
       state.play.crafting.gatheringLuckyProgress = 0;
       state.play.crafting.gatheringStrikeDiceRemaining = nextHp > 0 ? crafting.gatheringStrikeDiceMax : 0;
       state.play.crafting.gatheringQueuedDice = "";
       state.play.crafting.gatheringActiveAction = "finish";
+      state.play.crafting.gatheringWizardStep = GATHERING_WIZARD_STEPS.length - 1;
+      state.play.crafting.lastGatheringOutcome = {
+        nodeName: crafting.gatheringNodeName,
+        nodeTarget: crafting.gatheringNodeTarget,
+        nodeProgress: nodeProgressBefore,
+        luckyTarget: crafting.gatheringLuckyTarget,
+        luckyProgress: luckyProgressBefore,
+        hpBefore,
+        hpAfter: nextHp,
+        hpMax: crafting.gatheringHpMax,
+        healthLabel: getGatheringHealthLabel(crafting),
+        clearedNode,
+        clearedLucky,
+        gained,
+        baseYield: `${crafting.gatheringYieldQuantity} ${crafting.gatheringYieldName}`,
+        luckyYield: `${crafting.gatheringLuckyYieldQuantity} ${crafting.gatheringLuckyYieldName}`,
+        at: new Date().toISOString()
+      };
       appendPlayLog("Gathering Attempt Finished", [
         `Node: ${crafting.gatheringNodeName}`,
         `NP cleared: ${clearedNode ? "Yes" : "No"}`,
@@ -12025,7 +12064,9 @@ function finishGatheringAttempt() {
       ]);
       persistWorkingState();
       renderPlayDashboard();
-      setStatus(gained.length ? `Gathered ${gained.join(" and ")}.` : "Gathering attempt finished with no yield.");
+      setStatus(gained.length
+        ? `Gathered ${gained.join(" and ")}.`
+        : `Gathering attempt finished with no yield because Node Points did not reach ${crafting.gatheringNodeTarget}.`);
     }
 function addCraftingPoints() {
       const crafting = getCraftingTrackerState();
@@ -13269,6 +13310,7 @@ function renderCraftingSessionPanel(crafting, options = {}) {
 function renderGatheringNodePanel(crafting, inventory = []) {
       const template = GATHERING_NODE_TEMPLATES[crafting.gatheringTemplateId] || GATHERING_NODE_TEMPLATES[GATHERING_DEFAULT_TEMPLATE_ID];
       const readiness = getGatheringReadiness(crafting, inventory);
+      const typeKey = getGatheringNodeTypeKey(crafting.gatheringNodeType || template.nodeType);
       const discoveryText = cleanText(crafting.gatheringDiscovery || template.discovery);
       const noteText = cleanText(crafting.gatheringNotes || template.note);
       const healthLabel = getGatheringHealthLabel(crafting);
@@ -13287,9 +13329,7 @@ function renderGatheringNodePanel(crafting, inventory = []) {
           </div>
           <div class="play-gathering-node-grid">
             <div class="play-gathering-node-core">
-              <div class="play-gathering-node-icon" aria-hidden="true">
-                <span></span>
-              </div>
+              ${renderGatheringNodeIcon(typeKey)}
               <strong>${escapeHtml(crafting.gatheringNodeName || "Resource Node")}</strong>
               <span>${escapeHtml(`HP ${crafting.gatheringHpRemaining} / ${crafting.gatheringHpMax}`)}</span>
             </div>
@@ -13317,6 +13357,51 @@ function renderGatheringNodePanel(crafting, inventory = []) {
             <p>${escapeHtml(readiness.canGather ? "This character appears ready to attempt the node. GM rulings still apply." : "This character may need the missing tool, class ability, or GM permission before formal gathering rewards apply.")}</p>
             <p>Discovery is a normal d20 skill check. Gathering uses strike dice after the GM declares a usable node.</p>
           </div>
+        </div>
+      `;
+    }
+function renderGatheringNodeIcon(typeKey = "") {
+      const key = getGatheringNodeTypeKey(typeKey);
+      const label = GATHERING_NODE_TYPES[key]?.label || "Gathering";
+      const icons = {
+        mining: `
+          <path d="M31 74 C38 55 52 42 72 35" />
+          <path d="M61 28 L82 49" />
+          <path d="M70 25 C78 29 84 35 88 43" />
+          <path d="M24 81 L41 66" />
+          <path d="M36 86 L76 86 L88 72 L71 58 L44 61 Z" />
+          <path d="M51 72 L67 70" />
+        `,
+        farming: `
+          <path d="M56 88 L56 45" />
+          <path d="M56 53 C42 50 34 40 31 28 C45 27 54 35 56 53 Z" />
+          <path d="M57 59 C72 57 82 48 85 35 C70 34 60 43 57 59 Z" />
+          <path d="M25 88 C34 76 43 70 56 68 C69 70 78 76 87 88" />
+          <path d="M29 76 C38 69 47 65 56 64 C65 65 74 69 83 76" />
+          <path d="M35 64 C42 60 49 58 56 58 C63 58 70 60 77 64" />
+        `,
+        foraging: `
+          <path d="M35 80 C45 66 52 51 55 30" />
+          <path d="M55 37 C40 31 30 23 25 13 C42 11 54 20 55 37 Z" />
+          <path d="M52 54 C70 51 82 42 88 27 C69 24 56 35 52 54 Z" />
+          <path d="M43 70 C31 70 22 64 17 53 C30 48 40 54 43 70 Z" />
+          <path d="M55 80 C64 72 73 69 85 70" />
+          <path d="M47 58 C41 52 34 49 25 48" />
+        `,
+        husbandry: `
+          <path d="M56 35 C66 35 74 43 74 55 C74 71 65 84 56 84 C47 84 38 71 38 55 C38 43 46 35 56 35 Z" />
+          <path d="M45 53 C49 58 53 60 56 60 C59 60 63 58 67 53" />
+          <path d="M56 60 L56 83" />
+          <path d="M34 29 C30 21 32 14 39 11 C45 17 46 25 41 33" />
+          <path d="M78 29 C82 21 80 14 73 11 C67 17 66 25 71 33" />
+          <path d="M29 88 C37 83 46 81 56 81 C66 81 75 83 83 88" />
+        `
+      };
+      return `
+        <div class="play-gathering-node-icon is-${escapeHtml(key)}" aria-label="${escapeHtml(`${label} node icon`)}" role="img">
+          <svg class="play-gathering-node-svg" viewBox="0 0 112 112" focusable="false" aria-hidden="true">
+            ${icons[key] || icons.mining}
+          </svg>
         </div>
       `;
     }
@@ -13944,6 +14029,7 @@ function getGatheringWizardStepWarnings(stepIndex, crafting, inventory) {
       const warnings = [];
       const stepId = GATHERING_WIZARD_STEPS[stepIndex]?.id || "";
       const readiness = getGatheringReadiness(crafting, inventory);
+      const lastOutcome = getCurrentGatheringOutcome(crafting);
       if (stepId === "readiness" && !readiness.canGather) {
         const missing = [
           readiness.hasTool ? "" : `tool (${crafting.gatheringTool || "GM-required tool"})`,
@@ -13952,14 +14038,26 @@ function getGatheringWizardStepWarnings(stepIndex, crafting, inventory) {
         warnings.push(`Missing ${missing}. Use the GM override below if the table allows the attempt anyway.`);
       }
       if (stepId === "strikes") {
-        if (crafting.gatheringHpRemaining <= 0) {
+        if (lastOutcome) {
+          warnings.push(lastOutcome.gained?.length
+            ? "This attempt has already been resolved. Continue to Resolve Gather to review what was awarded."
+            : "This attempt has already been resolved with no yield. Continue to Resolve Gather to review the result and choose the next node.");
+        } else if (crafting.gatheringHpRemaining <= 0) {
           warnings.push("This node is depleted. Pick a new node from step 1.");
         } else if (crafting.gatheringStrikeDiceRemaining <= 0) {
           warnings.push("No strike dice remain for this attempt. Continue to Finish to resolve it.");
         }
       }
-      if (stepId === "finish" && crafting.gatheringNodeTarget > 0 && crafting.gatheringNodeProgress < crafting.gatheringNodeTarget) {
-        warnings.push(`Node Points are at ${crafting.gatheringNodeProgress} / ${crafting.gatheringNodeTarget}. Finishing now will not award the base yield.`);
+      if (stepId === "finish") {
+        if (lastOutcome) {
+          if (lastOutcome.gained?.length) {
+            warnings.push(`Last attempt already awarded ${lastOutcome.gained.join(" and ")}.`);
+          } else {
+            warnings.push(`Last attempt earned no yield because Node Points were ${lastOutcome.nodeProgress} / ${lastOutcome.nodeTarget} when it was finished.`);
+          }
+        } else if (crafting.gatheringNodeTarget > 0 && crafting.gatheringNodeProgress < crafting.gatheringNodeTarget) {
+          warnings.push(`Node Points are at ${crafting.gatheringNodeProgress} / ${crafting.gatheringNodeTarget}. Finishing now will not award the base yield.`);
+        }
       }
       return warnings;
     }
@@ -14026,26 +14124,48 @@ function renderGatheringWizardFinishStep(crafting, inventory) {
       const clearedNode = crafting.gatheringNodeTarget > 0 && crafting.gatheringNodeProgress >= crafting.gatheringNodeTarget;
       const clearedLucky = clearedNode && crafting.gatheringLuckyTarget > 0 && crafting.gatheringLuckyProgress >= crafting.gatheringLuckyTarget;
       const depleted = crafting.gatheringHpRemaining <= 0;
+      const lastOutcome = getCurrentGatheringOutcome(crafting);
+      const hasOutcome = Boolean(lastOutcome);
+      const outcomeGained = Array.isArray(lastOutcome?.gained) ? lastOutcome.gained : [];
+      const outcomeDepleted = hasOutcome && toNumber(lastOutcome.hpAfter, crafting.gatheringHpRemaining) <= 0;
+      const resultTitle = hasOutcome
+        ? (outcomeGained.length ? "Attempt Resolved / Yield Awarded" : "Attempt Resolved / No Yield")
+        : (clearedNode ? "Ready to Finish / Yield Earned" : "Ready to Finish / No Yield Yet");
+      const resultMessage = hasOutcome
+        ? (outcomeGained.length
+          ? `This attempt already awarded ${outcomeGained.join(" and ")}. Progress bars were reset after resolution.`
+          : `This attempt already finished with no gathered material because Node Points were ${lastOutcome.nodeProgress} / ${lastOutcome.nodeTarget}${lastOutcome.luckyTarget ? ` and Lucky Points were ${lastOutcome.luckyProgress} / ${lastOutcome.luckyTarget}` : ""} when it was resolved. Progress bars were reset afterward.`)
+        : (clearedNode
+          ? `Finishing now awards ${crafting.gatheringYieldQuantity} ${crafting.gatheringYieldName}${clearedLucky ? ` and ${crafting.gatheringLuckyYieldQuantity} ${crafting.gatheringLuckyYieldName}` : ""}.`
+          : "Node Points are not cleared yet. You can still finish, but the base yield will not be awarded.");
+      const afterMessage = hasOutcome
+        ? (outcomeDepleted
+          ? "The node lost its final HP and is depleted. Pick a new node to keep gathering."
+          : "The node still has HP. Repeat this node to make another attempt, or pick a new node.")
+        : "Finish Attempt consumes 1 node HP, awards any cleared yield tracks, then resets NP/LP for the next attempt.";
       return `
         <div class="play-wizard-complete">
           <div class="play-recipe-selected-summary">
-            <strong>${escapeHtml(crafting.gatheringNodeName || "Resource Node")}</strong>
-            <span>${escapeHtml(`Node Points ${crafting.gatheringNodeProgress} / ${crafting.gatheringNodeTarget} | Lucky Points ${crafting.gatheringLuckyProgress} / ${crafting.gatheringLuckyTarget}`)}</span>
+            <strong>${escapeHtml(resultTitle)}</strong>
+            <span>${escapeHtml(crafting.gatheringNodeName || "Resource Node")}</span>
+            <span>${escapeHtml(hasOutcome
+              ? `Resolved at NP ${lastOutcome.nodeProgress} / ${lastOutcome.nodeTarget} | LP ${lastOutcome.luckyProgress} / ${lastOutcome.luckyTarget} | ${lastOutcome.healthLabel || getGatheringHealthLabel(crafting)} ${lastOutcome.hpAfter} / ${lastOutcome.hpMax}`
+              : `Node Points ${crafting.gatheringNodeProgress} / ${crafting.gatheringNodeTarget} | Lucky Points ${crafting.gatheringLuckyProgress} / ${crafting.gatheringLuckyTarget}`)}</span>
           </div>
           <p class="play-recipe-inferred-note">
-            ${escapeHtml(clearedNode
-              ? `Finishing now awards ${crafting.gatheringYieldQuantity} ${crafting.gatheringYieldName}${clearedLucky ? ` and ${crafting.gatheringLuckyYieldQuantity} ${crafting.gatheringLuckyYieldName}` : ""}.`
-              : "Node Points are not cleared yet. You can still finish, but the base yield will not be awarded.")}
+            ${escapeHtml(resultMessage)}
           </p>
+          <p class="play-recipe-inferred-note">${escapeHtml(afterMessage)}</p>
           <div class="play-wizard-outcome-row">
-            <button type="button" class="play-wizard-outcome-success" data-crafting-action="gather-finish" ${readiness.canGather && !depleted ? "" : "disabled"}>Finish Attempt</button>
-            <button type="button" class="secondary" data-crafting-action="reset-session">Reset Attempt</button>
+            ${hasOutcome
+              ? `<button type="button" class="play-wizard-outcome-success" disabled>Attempt Resolved</button>`
+              : `<button type="button" class="play-wizard-outcome-success" data-crafting-action="gather-finish" ${readiness.canGather && !depleted ? "" : "disabled"}>Finish Attempt</button>`}
+            <button type="button" class="secondary" data-crafting-action="gather-reset" ${hasOutcome ? "disabled" : ""}>Reset Attempt</button>
           </div>
           <div class="play-wizard-controls">
-            <button type="button" class="play-wizard-continue" data-gathering-wizard-repeat ${depleted ? "disabled" : ""}>Repeat This Node</button>
+            <button type="button" class="play-wizard-continue" data-gathering-wizard-repeat ${hasOutcome ? (outcomeDepleted ? "disabled" : "") : (depleted ? "disabled" : "")}>Repeat This Node</button>
             <button type="button" class="play-wizard-continue" data-gathering-wizard-new-node>Pick A New Node</button>
           </div>
-          ${depleted ? `<p class="play-recipe-inferred-note">This node is depleted. Pick a new node to keep gathering.</p>` : ""}
         </div>
       `;
     }
@@ -14944,6 +15064,13 @@ const nextSpirit = Math.max(0, currentSpirit + amount);
       state.builder.autoExpBank = expWasAuto ? String(nextExp) : "";
       state.builder.autoSpiritCore = spiritWasAuto ? String(nextSpirit) : "";
     }
+function applyBreakthroughExpDelta(beforeBudget, beforeClassBudget = getClassUnlockBudgetState()) {
+      const afterBudget = getBreakthroughBudgetState();
+      const delta = Math.floor(toNumber(afterBudget.generalSpent, 0) - toNumber(beforeBudget?.generalSpent, 0));
+      if (delta) {
+        applyClassExpDelta(delta, beforeClassBudget);
+      }
+    }
 function syncClassSelectionsToFields() {
       CLASS_ROWS.forEach((row) => {
         updateFieldValue(`Class${row}`, "");
@@ -14961,7 +15088,8 @@ const row = CLASS_ROWS[index];
         updateFieldValue(`Cost${row}`, String(progressEntry.cost));
       });
 const budget = getClassUnlockBudgetState();
-const nextSpiritCore = String(budget.spentExp);
+const breakthroughBudget = getBreakthroughBudgetState();
+const nextSpiritCore = String(budget.spentExp + breakthroughBudget.generalSpent);
 const currentSpiritCore = cleanText(state.fields["Spirit Core"]);
       if (!currentSpiritCore || currentSpiritCore === cleanText(state.builder.autoSpiritCore)) {
         updateFieldValue("Spirit Core", nextSpiritCore);
@@ -15730,24 +15858,30 @@ function renderElementalAffinityBreakthroughCard(entry, { budget, requirementSta
       const cost = Math.max(0, parseNumericCost(entry.cost));
       const overBudget = cost > budget.remaining;
       const locked = !requirementStatus.met || overBudget || !availableOptions.length;
+      const expanded = state.builder.inspected.breakthrough === entry.id || selectedElements.length > 0 || !locked;
       const note = !requirementStatus.met
         ? `Prerequisites not met. ${requirementStatus.reasons.join(" ")}`
         : (overBudget
-          ? `Unavailable: costs ${cost} breakthrough EXP, but only ${budget.remaining} remains.`
+          ? `Unavailable: costs ${cost} EXP, but only ${budget.remaining} remains across creation breakthrough EXP and normal XP.`
           : (!availableOptions.length ? "Every available element has already been chosen." : "Choose an element, then add this breakthrough purchase."));
       const statusText = selectedElements.length ? `Selected x${selectedElements.length}` : (locked ? "Locked" : "");
       const cardClasses = [
         "builder-option-card",
         "breakthrough-option-card",
         "builder-elemental-affinity-card",
+        expanded ? "is-expanded" : "is-compact",
         selectedElements.length ? "selected" : "",
         locked ? "locked" : ""
       ].filter(Boolean).join(" ");
       const selectId = "elemental-affinity-pick";
+      const wrapperOpen = expanded
+        ? `<div class="builder-equipment-inspect">`
+        : `<button type="button" class="builder-equipment-inspect" data-builder-action="inspect-breakthrough" data-id="${escapeHtml(entry.id)}">`;
+      const wrapperClose = expanded ? "</div>" : "</button>";
 
       return `
         <div class="${cardClasses}">
-          <div class="builder-equipment-inspect">
+          ${wrapperOpen}
             ${(entry.imageSmUrl || entry.imageLgUrl)
               ? `<img src="${escapeHtml(entry.imageSmUrl || entry.imageLgUrl)}" alt="${escapeHtml(entry.name)}">`
               : renderBreakthroughArt(entry)}
@@ -15758,8 +15892,8 @@ function renderElementalAffinityBreakthroughCard(entry, { budget, requirementSta
               </div>
               ${renderCardMeta([entry.cost ? `Cost ${entry.cost}` : "", entry.requirements].filter(Boolean))}
               <p>${escapeHtml(cleanText(entry.description).slice(0, 180))}</p>
-              ${note ? `<p class="builder-option-note">${escapeHtml(note)}</p>` : ""}
-              ${selectedElements.length ? `
+              ${expanded && note ? `<p class="builder-option-note">${escapeHtml(note)}</p>` : ""}
+              ${expanded && selectedElements.length ? `
                 <div class="selected-chip-list">
                   ${selectedElements.map((element) => `
                     <span class="selected-chip">
@@ -15769,7 +15903,7 @@ function renderElementalAffinityBreakthroughCard(entry, { budget, requirementSta
                   `).join("")}
                 </div>
               ` : ""}
-              <div class="builder-inline-action-row">
+              ${expanded ? `<div class="builder-inline-action-row">
                 <label class="builder-filter-field" for="${selectId}">
                   <span>Element</span>
                   <select id="${selectId}" class="builder-inline-input" data-elemental-affinity-select ${availableOptions.length ? "" : "disabled"}>
@@ -15778,9 +15912,9 @@ function renderElementalAffinityBreakthroughCard(entry, { budget, requirementSta
                   </select>
                 </label>
                 <button type="button" data-builder-action="add-elemental-affinity" data-id="${escapeHtml(entry.id)}" ${locked ? "disabled" : ""}>Add Elemental Affinity</button>
-              </div>
+              </div>` : ""}
             </div>
-          </div>
+          ${wrapperClose}
         </div>
       `;
     }
@@ -15791,24 +15925,30 @@ function renderRepeatableUniqueBreakthroughCard(entry, { budget, requirementStat
       const cost = Math.max(0, parseNumericCost(entry.cost));
       const overBudget = cost > budget.remaining;
       const locked = !requirementStatus.met || overBudget || (!availableOptions.length && !config.allowCustom);
+      const expanded = state.builder.inspected.breakthrough === entry.id || selectedChoices.length > 0 || !locked;
       const note = !requirementStatus.met
         ? `Prerequisites not met. ${requirementStatus.reasons.join(" ")}`
         : (overBudget
-          ? `Unavailable: costs ${cost} breakthrough EXP, but only ${budget.remaining} remains.`
+          ? `Unavailable: costs ${cost} EXP, but only ${budget.remaining} remains across creation breakthrough EXP and normal XP.`
           : (!availableOptions.length && !config.allowCustom ? "Every available option has already been chosen." : "Choose an option, then add this breakthrough purchase."));
       const statusText = selectedChoices.length ? `Selected x${selectedChoices.length}` : (locked ? "Locked" : "");
       const cardClasses = [
         "builder-option-card",
         "breakthrough-option-card",
         "builder-repeatable-choice-card",
+        expanded ? "is-expanded" : "is-compact",
         selectedChoices.length ? "selected" : "",
         locked ? "locked" : ""
       ].filter(Boolean).join(" ");
       const selectId = `${entry.id}-repeatable-pick`;
+      const wrapperOpen = expanded
+        ? `<div class="builder-equipment-inspect">`
+        : `<button type="button" class="builder-equipment-inspect" data-builder-action="inspect-breakthrough" data-id="${escapeHtml(entry.id)}">`;
+      const wrapperClose = expanded ? "</div>" : "</button>";
 
       return `
         <div class="${cardClasses}">
-          <div class="builder-equipment-inspect">
+          ${wrapperOpen}
             ${(entry.imageSmUrl || entry.imageLgUrl)
               ? `<img src="${escapeHtml(entry.imageSmUrl || entry.imageLgUrl)}" alt="${escapeHtml(entry.name)}">`
               : renderBreakthroughArt(entry)}
@@ -15819,8 +15959,8 @@ function renderRepeatableUniqueBreakthroughCard(entry, { budget, requirementStat
               </div>
               ${renderCardMeta([entry.cost ? `Cost ${entry.cost}` : "", entry.requirements].filter(Boolean))}
               <p>${escapeHtml(cleanText(entry.description).slice(0, 180))}</p>
-              ${note ? `<p class="builder-option-note">${escapeHtml(note)}</p>` : ""}
-              ${selectedChoices.length ? `
+              ${expanded && note ? `<p class="builder-option-note">${escapeHtml(note)}</p>` : ""}
+              ${expanded && selectedChoices.length ? `
                 <div class="selected-chip-list">
                   ${selectedChoices.map((choice) => `
                     <span class="selected-chip">
@@ -15830,7 +15970,7 @@ function renderRepeatableUniqueBreakthroughCard(entry, { budget, requirementStat
                   `).join("")}
                 </div>
               ` : ""}
-              <div class="builder-inline-action-row">
+              ${expanded ? `<div class="builder-inline-action-row">
                 <label class="builder-filter-field" for="${selectId}">
                   <span>${escapeHtml(config.selectLabel)}</span>
                   <select id="${selectId}" class="builder-inline-input" data-repeatable-breakthrough-select ${availableOptions.length || config.allowCustom ? "" : "disabled"}>
@@ -15846,9 +15986,9 @@ function renderRepeatableUniqueBreakthroughCard(entry, { budget, requirementStat
                   </label>
                 ` : ""}
                 <button type="button" data-builder-action="add-repeatable-breakthrough-choice" data-id="${escapeHtml(entry.id)}" ${locked ? "disabled" : ""}>${escapeHtml(config.addLabel || `Add ${entry.name}`)}</button>
-              </div>
+              </div>` : ""}
             </div>
-          </div>
+          ${wrapperClose}
         </div>
       `;
     }
@@ -15857,20 +15997,26 @@ function renderStackableBreakthroughCard(entry, { budget, requirementStatus }) {
       const cost = Math.max(0, parseNumericCost(entry.cost));
       const overBudget = cost > budget.remaining;
       const locked = !requirementStatus.met || overBudget;
+      const expanded = state.builder.inspected.breakthrough === entry.id || count > 0 || !locked;
       const note = !requirementStatus.met
         ? `Prerequisites not met. ${requirementStatus.reasons.join(" ")}`
-        : (overBudget ? `Unavailable: costs ${cost} breakthrough EXP, but only ${budget.remaining} remains.` : "Add another purchase of this repeatable breakthrough.");
+        : (overBudget ? `Unavailable: costs ${cost} EXP, but only ${budget.remaining} remains across creation breakthrough EXP and normal XP.` : "Add another purchase of this repeatable breakthrough.");
       const cardClasses = [
         "builder-option-card",
         "breakthrough-option-card",
         "builder-repeatable-choice-card",
+        expanded ? "is-expanded" : "is-compact",
         count ? "selected" : "",
         locked && !count ? "locked" : ""
       ].filter(Boolean).join(" ");
+      const wrapperOpen = expanded
+        ? `<div class="builder-equipment-inspect">`
+        : `<button type="button" class="builder-equipment-inspect" data-builder-action="inspect-breakthrough" data-id="${escapeHtml(entry.id)}">`;
+      const wrapperClose = expanded ? "</div>" : "</button>";
 
       return `
         <div class="${cardClasses}">
-          <div class="builder-equipment-inspect">
+          ${wrapperOpen}
             ${(entry.imageSmUrl || entry.imageLgUrl)
               ? `<img src="${escapeHtml(entry.imageSmUrl || entry.imageLgUrl)}" alt="${escapeHtml(entry.name)}">`
               : renderBreakthroughArt(entry)}
@@ -15881,13 +16027,13 @@ function renderStackableBreakthroughCard(entry, { budget, requirementStatus }) {
               </div>
               ${renderCardMeta([entry.cost ? `Cost ${entry.cost}` : "", entry.requirements].filter(Boolean))}
               <p>${escapeHtml(cleanText(entry.description).slice(0, 180))}</p>
-              ${note ? `<p class="builder-option-note">${escapeHtml(note)}</p>` : ""}
-              <div class="builder-inline-action-row">
+              ${expanded && note ? `<p class="builder-option-note">${escapeHtml(note)}</p>` : ""}
+              ${expanded ? `<div class="builder-inline-action-row">
                 <button type="button" data-builder-action="remove-stackable-breakthrough" data-id="${escapeHtml(entry.id)}" ${count ? "" : "disabled"}>Remove One</button>
                 <button type="button" data-builder-action="add-stackable-breakthrough" data-id="${escapeHtml(entry.id)}" ${locked ? "disabled" : ""}>Add ${escapeHtml(entry.name)}</button>
-              </div>
+              </div>` : ""}
             </div>
-          </div>
+          ${wrapperClose}
         </div>
       `;
     }
@@ -16194,8 +16340,9 @@ const funds = getStartingFundsState();
             <p>Only breakthroughs that fit the current race, ancestry, and already-selected prerequisite breakthroughs are shown here.</p>
           </div>
           <div class="selected-chip-list">
-            <span class="selected-chip">Breakthrough EXP: ${budget.spent} / ${budget.budget}</span>
-            <span class="selected-chip">Remaining: ${budget.remaining}</span>
+            <span class="selected-chip">Creation Breakthrough EXP: ${budget.creationSpent} / ${budget.budget}</span>
+            <span class="selected-chip">Normal XP Spent: ${budget.generalSpent}</span>
+            <span class="selected-chip">Available: ${budget.remaining}</span>
             <span class="selected-chip">Remaining Clim: ${funds.availableClim}</span>
           </div>
           ${renderBuilderChoiceSection("breakthroughs", "Breakthrough Choices")}
@@ -16233,7 +16380,7 @@ const note = needsGmApproval
                 : (!requirementStatus.met
                   ? `Prerequisites not met. ${requirementStatus.reasons.join(" ")}`
                   : (overBudget
-                    ? `Unavailable: costs ${cost} breakthrough EXP, but only ${budget.remaining} remains.`
+                    ? `Unavailable: costs ${cost} EXP, but only ${budget.remaining} remains across creation breakthrough EXP and normal XP.`
                     : (selected && requirementStatus.gmApproved ? "Added with recorded GM approval." : "")));
 const statusText = selected
                 ? (requirementStatus.gmApproved ? "Selected (GM approved)" : "Selected")
@@ -17008,14 +17155,26 @@ const nextCost = Math.max(0, parseNumericCost(record.cost));
           if (Array.isArray(state.builder.gmApprovedBreakthroughIds)) {
             state.builder.gmApprovedBreakthroughIds = state.builder.gmApprovedBreakthroughIds.filter((entryId) => entryId !== record.id);
           }
-          setStatus(`${record.name} costs ${nextCost} breakthrough EXP, but only ${budget.remaining} remains in the creation pool.`);
+          setStatus(`${record.name} costs ${nextCost} EXP, but only ${budget.remaining} remains across creation breakthrough EXP and normal XP.`);
           renderBuilder();
           return;
         }
       }
+      const beforeBudget = getBreakthroughBudgetState();
+      const beforeClassBudget = getClassUnlockBudgetState();
       toggleSelection("selectedBreakthroughIds", id, 0, "breakthrough");
+      applyBreakthroughExpDelta(beforeBudget, beforeClassBudget);
       syncBuilderSelectionsIntoSheet();
       setStatus("Updated breakthrough selections.");
+      renderBuilder();
+    }
+function inspectBuilderBreakthrough(id) {
+      const record = lookup.breakthroughs.resolve(id);
+      if (!record) {
+        return;
+      }
+      state.builder.inspected.breakthrough = record.id;
+      setStatus(`Viewing ${record.name}.`);
       renderBuilder();
     }
 function addElementalAffinitySelection(elementValue) {
@@ -17042,11 +17201,13 @@ function addElementalAffinitySelection(elementValue) {
       const nextCost = Math.max(0, parseNumericCost(record.cost));
       const budget = getBreakthroughBudgetState();
       if (nextCost > budget.remaining) {
-        setStatus(`${record.name} costs ${nextCost} breakthrough EXP, but only ${budget.remaining} remains in the creation pool.`);
+        setStatus(`${record.name} costs ${nextCost} EXP, but only ${budget.remaining} remains across creation breakthrough EXP and normal XP.`);
         renderBuilder();
         return;
       }
+      const beforeClassBudget = getClassUnlockBudgetState();
       setSelectedElementalAffinityElements([...selected, element]);
+      applyBreakthroughExpDelta(budget, beforeClassBudget);
       syncBuilderSelectionsIntoSheet();
       setStatus(`Added Elemental Affinity: ${element}.`);
       renderBuilder();
@@ -17057,9 +17218,12 @@ function removeElementalAffinitySelection(elementValue) {
         return;
       }
       const removeKey = getElementalMasteryCanonicalKey(element);
+      const beforeBudget = getBreakthroughBudgetState();
+      const beforeClassBudget = getClassUnlockBudgetState();
       const nextElements = getSelectedElementalAffinityElements()
         .filter((entry) => getElementalMasteryCanonicalKey(entry) !== removeKey);
       setSelectedElementalAffinityElements(nextElements);
+      applyBreakthroughExpDelta(beforeBudget, beforeClassBudget);
       syncBuilderSelectionsIntoSheet();
       setStatus(`Removed Elemental Affinity: ${element}.`);
       renderBuilder();
@@ -17093,11 +17257,13 @@ function addRepeatableBreakthroughChoice(id, selectedValue, customValue = "") {
       const nextCost = Math.max(0, parseNumericCost(record.cost));
       const budget = getBreakthroughBudgetState();
       if (nextCost > budget.remaining) {
-        setStatus(`${record.name} costs ${nextCost} breakthrough EXP, but only ${budget.remaining} remains in the creation pool.`);
+        setStatus(`${record.name} costs ${nextCost} EXP, but only ${budget.remaining} remains across creation breakthrough EXP and normal XP.`);
         renderBuilder();
         return;
       }
+      const beforeClassBudget = getClassUnlockBudgetState();
       setSelectedRepeatableBreakthroughChoices(config, [...selected, value]);
+      applyBreakthroughExpDelta(budget, beforeClassBudget);
       syncBuilderSelectionsIntoSheet();
       setStatus(`Added ${record.name}: ${value}.`);
       renderBuilder();
@@ -17109,8 +17275,11 @@ function removeRepeatableBreakthroughChoice(id, value) {
         return;
       }
       const removeKey = normalizePhrase(value);
+      const beforeBudget = getBreakthroughBudgetState();
+      const beforeClassBudget = getClassUnlockBudgetState();
       const nextChoices = getSelectedRepeatableBreakthroughChoices(config).filter((entry) => normalizePhrase(entry) !== removeKey);
       setSelectedRepeatableBreakthroughChoices(config, nextChoices);
+      applyBreakthroughExpDelta(beforeBudget, beforeClassBudget);
       syncBuilderSelectionsIntoSheet();
       setStatus(`Removed ${record.name}: ${value}.`);
       renderBuilder();
@@ -17130,11 +17299,13 @@ function addStackableBreakthroughPurchase(id) {
       const nextCost = Math.max(0, parseNumericCost(record.cost));
       const budget = getBreakthroughBudgetState();
       if (nextCost > budget.remaining) {
-        setStatus(`${record.name} costs ${nextCost} breakthrough EXP, but only ${budget.remaining} remains in the creation pool.`);
+        setStatus(`${record.name} costs ${nextCost} EXP, but only ${budget.remaining} remains across creation breakthrough EXP and normal XP.`);
         renderBuilder();
         return;
       }
+      const beforeClassBudget = getClassUnlockBudgetState();
       state.builder.selectedBreakthroughIds = [...(state.builder.selectedBreakthroughIds || []), record.id];
+      applyBreakthroughExpDelta(budget, beforeClassBudget);
       syncBuilderSelectionsIntoSheet();
       setStatus(`Added ${record.name}.`);
       renderBuilder();
@@ -17148,7 +17319,10 @@ function removeStackableBreakthroughPurchase(id) {
       if (index < 0) {
         return;
       }
+      const beforeBudget = getBreakthroughBudgetState();
+      const beforeClassBudget = getClassUnlockBudgetState();
       state.builder.selectedBreakthroughIds.splice(index, 1);
+      applyBreakthroughExpDelta(beforeBudget, beforeClassBudget);
       clearIrrelevantBuilderChoices();
       syncBuilderSelectionsIntoSheet();
       setStatus(`Removed one ${record.name}.`);
@@ -18762,6 +18936,8 @@ const id = trigger.dataset.id;
           setBuilderAncestry(id);
         } else if (action === "toggle-breakthrough") {
           toggleBuilderBreakthrough(id);
+        } else if (action === "inspect-breakthrough") {
+          inspectBuilderBreakthrough(id);
         } else if (action === "add-elemental-affinity") {
           const card = trigger.closest(".builder-elemental-affinity-card");
           const select = card?.querySelector("[data-elemental-affinity-select]");
@@ -19315,7 +19491,7 @@ const action = actionButton.dataset.craftingAction;
           return;
         }
         const gatheringActionKey = GATHERING_ACTION_BY_CRAFTING_ACTION[action];
-        if (gatheringActionKey) {
+        if (gatheringActionKey && action !== "gather-finish" && action !== "gather-reset") {
           setGatheringActiveAction(gatheringActionKey, { render: true });
         }
         if (action === "roll-die") {

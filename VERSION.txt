@@ -5,6 +5,16 @@ Includes a disabled-by-default security placeholder for future official backend/
 Focus: preserve the 1.9 crafting and gathering workflows while preparing the build
 for later official API integration without breaking static/local use.
 
+1.9 fix sync (2026-07-07, after the handoff kit): ported the Beta 1.9
+post-promotion fix session into this build - gathering outcome resolution
+guard (no double-finish, resolved-state Resolve Gather step), breakthrough
+EXP overflow into normal XP with Spirit Core accounting, compact locked
+breakthrough cards with inspect-to-expand, per-type gathering node SVG icons,
+clearer no-yield messaging, and three new functional regression tests
+(gathering no-yield resolution, breakthrough general-XP spending, compact
+locked card layout). Verified by 1.9's own suite before the port and this
+build's full suite after it.
+
 API handoff kit (2026-07-07): local mock of the expected official endpoint
 (/builder/game-data on the dev server), payload validator and sample payload,
 API-mode + static-fallback regression tests, AI_INTEGRATION_TASK.md task brief,

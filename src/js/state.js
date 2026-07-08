@@ -143,7 +143,8 @@ export function createDefaultState() {
             gatheringYieldQuantity: 500,
             gatheringLuckyYieldName: "Dark Iron",
             gatheringLuckyYieldQuantity: 500,
-            gatheringNotes: ""
+            gatheringNotes: "",
+            lastGatheringOutcome: null
           },
           diceTray: {
             isOpen: false,

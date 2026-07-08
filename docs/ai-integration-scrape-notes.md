@@ -75,6 +75,9 @@ Preserve these behaviors:
 - GM overrides can allow table rulings without pretending the missing rule support exists.
 - Node draft cards must remain readable; no clipped or overlapping card rows.
 - Craft outcome resolution must not duplicate inventory/log entries when clicked repeatedly.
+- Gathering outcome resolution must not double-award: once an attempt is finished, the Resolve Gather step shows the recorded outcome, Finish/Reset are disabled, and play continues through Repeat This Node or Pick A New Node.
+- Breakthrough purchases past the creation budget spend normal XP: the Exp field is decremented and Spirit Core incremented, the budget chips show Creation Breakthrough EXP / Normal XP Spent / Available, and removing the purchase refunds the XP.
+- Locked breakthrough cards render compact with an inspect-to-expand action; unlocking or selecting them expands the full controls.
 
 ## Recent Import And Export Fixes To Preserve
 

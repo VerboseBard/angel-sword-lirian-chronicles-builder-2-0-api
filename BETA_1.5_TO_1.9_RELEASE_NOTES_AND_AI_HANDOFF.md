@@ -168,6 +168,41 @@ For any future AI/developer working from 1.9 or a promoted API build:
 5. Read `docs/test-behavior-map.md` before changing tests.
 6. Preserve the 1.9 downtime UX decisions unless the owner explicitly revises them.
 
+## Beta 1.9 Post-Promotion Fixes (2026-07-07, Synced Into 2.0)
+
+After the 2.0 promotion snapshot was taken, Beta 1.9 received one more fix
+session. Those changes were reviewed, verified by 1.9's own full test run,
+and then synced into this 2.0 build (see the git history: the sync is its own
+tagged commit). What that session added:
+
+- Gathering outcome resolution guard: finishing a gathering attempt now
+  records a `lastGatheringOutcome` snapshot, blocks double-finishing, renders
+  the Resolve Gather step in a resolved state (explains yield or no-yield,
+  progress reset, node depletion), disables Finish/Reset once resolved, and
+  routes forward through Repeat This Node / Pick A New Node. This mirrors the
+  crafting outcome guard from Beta 1.8.
+- Breakthrough EXP overflow: breakthrough purchases beyond the creation
+  budget now spend from normal XP. The budget panel shows Creation
+  Breakthrough EXP / Normal XP Spent / Available; the Exp field is
+  decremented and Spirit Core incremented through `applyBreakthroughExpDelta`
+  across every add/remove path (toggle, elemental affinity, repeatable,
+  stackable).
+- Compact locked breakthrough cards: locked elemental-affinity, repeatable,
+  and stackable breakthrough cards render compact (2-line clamp, no choice
+  controls) with an inspect action to expand them.
+- Per-type gathering node icons: mining, farming, foraging, and husbandry
+  nodes render dedicated SVG icons with per-type card styling.
+- Clearer no-yield messaging when finishing a gathering attempt below the
+  Node Point target.
+
+New regression tests from that session (now part of this build's suite):
+
+- `runGatheringNoYieldResolutionAssertion` - the first functional gathering
+  wizard test, closing the long-standing backlog item.
+- A breakthrough general-XP spending assertion (Exp 5200 -> 5050, Spirit
+  Core 1400 -> 1550 for a 150-cost purchase past the creation budget).
+- A compact locked breakthrough card layout assertion.
+
 ## Promotion To Beta 2.0 API Build
 
 The recommended promoted package is a new copy, not an overwrite of the historical 1.6 API folder:

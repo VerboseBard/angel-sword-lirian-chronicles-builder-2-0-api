@@ -244,6 +244,57 @@ const browsers = [
     await page.reload({ waitUntil: 'load' });
   }
 
+  async function runGatheringNoYieldResolutionAssertion(page) {
+    await page.evaluate(() => localStorage.clear());
+    await page.reload({ waitUntil: 'load' });
+    await page.locator('[data-builder-action="pick-race"]').filter({ hasText: 'Human' }).first().click();
+    await page.click('#builder-sheet-shortcut-top');
+    await page.waitForSelector('[data-play-mode="gathering"]', { timeout: 5000 });
+    await page.click('[data-play-mode="gathering"]');
+    await page.waitForSelector('#play-gathering .play-wizard-shell h3', { timeout: 5000 });
+
+    await page.locator('#play-gathering [data-crafting-field="gatheringHpMax"]').first().fill('1');
+    await page.locator('#play-gathering [data-crafting-field="gatheringHpRemaining"]').first().fill('1');
+    await page.click('#play-gathering [data-gathering-wizard-continue]');
+    await page.locator('#play-gathering [data-gathering-gm-override]').first().check();
+    await page.click('#play-gathering [data-gathering-wizard-continue]');
+    await page.waitForFunction(() => document.querySelector('#play-gathering .play-wizard-shell h3')?.textContent?.trim() === 'Roll Strikes');
+
+    await page.click('#play-gathering [data-crafting-action="gather-finish"]');
+    await page.waitForFunction(() => document.querySelector('#play-gathering .play-wizard-shell h3')?.textContent?.trim() === 'Resolve Gather');
+
+    const result = await page.evaluate(() => {
+      const panel = document.querySelector('#play-gathering');
+      const text = panel?.textContent?.replace(/\s+/g, ' ').trim() || '';
+      const resolvedButton = Array.from(panel?.querySelectorAll('button') || [])
+        .find((button) => button.textContent.trim() === 'Attempt Resolved');
+      return {
+        hasNoYieldTitle: text.includes('Attempt Resolved / No Yield'),
+        explainsNoYield: /Node Points were 0 \/ \d+/.test(text),
+        explainsReset: text.includes('Progress bars were reset afterward'),
+        explainsDepleted: text.includes('The node lost its final HP and is depleted. Pick a new node'),
+        resolvedButtonDisabled: Boolean(resolvedButton?.disabled),
+        repeatDisabled: Boolean(panel?.querySelector('[data-gathering-wizard-repeat]')?.disabled),
+        newNodeAvailable: Boolean(panel?.querySelector('[data-gathering-wizard-new-node]'))
+      };
+    });
+
+    if (
+      !result.hasNoYieldTitle ||
+      !result.explainsNoYield ||
+      !result.explainsReset ||
+      !result.explainsDepleted ||
+      !result.resolvedButtonDisabled ||
+      !result.repeatDisabled ||
+      !result.newNodeAvailable
+    ) {
+      throw new Error(`Gathering no-yield resolution regression failed: ${JSON.stringify(result)}`);
+    }
+
+    await page.evaluate(() => localStorage.clear());
+    await page.reload({ waitUntil: 'load' });
+  }
+
   function buildTestApiConfigScript(overrides = {}) {
     const config = {
       schema: 1,
@@ -343,6 +394,7 @@ const browsers = [
   async function runRulesRegressionAssertions(page) {
     await runSpreadsheetVisibleGridImportAssertion(page);
     await runCraftingOutcomeResolutionAssertion(page);
+    await runGatheringNoYieldResolutionAssertion(page);
 
     await page.locator('[data-builder-action="pick-race"]').filter({ hasText: 'Human' }).first().click();
     await page.click('[data-step-index="7"]');
@@ -1106,6 +1158,95 @@ const browsers = [
       repeatableElementalUnlockResult.electromancer.locked
     ) {
       throw new Error(`Repeatable Elemental Affinity unlock regression failed: ${JSON.stringify(repeatableElementalUnlockResult)}`);
+    }
+
+    await page.evaluate(() => {
+      localStorage.clear();
+      localStorage.setItem('lyrian-chronicles-character-suite-v2', JSON.stringify({
+        ui: { mode: 'builder', gameVersion: '0.13.0' },
+        fields: { Name: 'Breakthrough General XP Tester', Exp: '5200', 'Spirit Core': '1400' },
+        builder: {
+          selectedRaceId: 'human',
+          selectedBreakthroughIds: ['early-ascension'],
+          inspected: { breakthrough: 'elemental-affinity' }
+        }
+      }));
+    });
+    await page.reload({ waitUntil: 'load' });
+    await page.click('[data-step-index="5"]');
+    await page.waitForSelector('.builder-elemental-affinity-card [data-elemental-affinity-select]', { timeout: 5000 });
+    await page.selectOption('[data-elemental-affinity-select]', 'Fire');
+    await page.click('[data-builder-action="add-elemental-affinity"]');
+    await page.waitForFunction(() => {
+      const saved = JSON.parse(localStorage.getItem('lyrian-chronicles-character-suite-v2') || '{}');
+      return saved.fields?.Exp === '5050'
+        && saved.fields?.['Spirit Core'] === '1550'
+        && saved.fields?.BName?.includes('Elemental Affinity: Fire');
+    });
+
+    const breakthroughGeneralXpResult = await page.evaluate(() => {
+      const saved = JSON.parse(localStorage.getItem('lyrian-chronicles-character-suite-v2') || '{}');
+      const cardText = document.querySelector('.builder-elemental-affinity-card')?.textContent?.replace(/\s+/g, ' ').trim() || '';
+      const chipText = [...document.querySelectorAll('.selected-chip-list .selected-chip')]
+        .map((entry) => entry.textContent.replace(/\s+/g, ' ').trim())
+        .join(' | ');
+      return {
+        exp: saved.fields?.Exp || '',
+        spiritCore: saved.fields?.['Spirit Core'] || '',
+        bName: saved.fields?.BName || '',
+        cardText,
+        chipText
+      };
+    });
+
+    if (
+      breakthroughGeneralXpResult.exp !== '5050' ||
+      breakthroughGeneralXpResult.spiritCore !== '1550' ||
+      !breakthroughGeneralXpResult.bName.includes('Elemental Affinity: Fire') ||
+      !breakthroughGeneralXpResult.cardText.includes('Selected x1') ||
+      !breakthroughGeneralXpResult.chipText.includes('Normal XP Spent: 150')
+    ) {
+      throw new Error(`Breakthrough general XP spending regression failed: ${JSON.stringify(breakthroughGeneralXpResult)}`);
+    }
+
+    await page.evaluate(() => {
+      localStorage.clear();
+      localStorage.setItem('lyrian-chronicles-character-suite-v2', JSON.stringify({
+        ui: { mode: 'builder', gameVersion: '0.13.0' },
+        fields: { Name: 'Locked Breakthrough Layout Tester' },
+        builder: {
+          selectedRaceId: 'human',
+          inspected: { breakthrough: 'bully' }
+        }
+      }));
+    });
+    await page.reload({ waitUntil: 'load' });
+    await page.click('[data-step-index="5"]');
+    await page.waitForSelector('.builder-repeatable-choice-card', { timeout: 5000 });
+
+    const compactLockedBreakthroughResult = await page.evaluate(() => {
+      const card = [...document.querySelectorAll('.builder-repeatable-choice-card')]
+        .find((entry) => entry.textContent.includes('Blend In II'));
+      const rect = card?.getBoundingClientRect();
+      return card ? {
+        found: true,
+        height: Math.round(rect.height),
+        width: Math.round(rect.width),
+        compact: card.classList.contains('is-compact'),
+        locked: card.classList.contains('locked'),
+        hasChoiceControls: Boolean(card.querySelector('.builder-inline-action-row')),
+        text: card.textContent.replace(/\s+/g, ' ').trim()
+      } : { found: false };
+    });
+
+    if (
+      !compactLockedBreakthroughResult.found ||
+      !compactLockedBreakthroughResult.locked ||
+      !compactLockedBreakthroughResult.compact ||
+      compactLockedBreakthroughResult.hasChoiceControls ||
+      compactLockedBreakthroughResult.height > 180
+    ) {
+      throw new Error(`Compact locked breakthrough layout regression failed: ${JSON.stringify(compactLockedBreakthroughResult)}`);
     }
 
     const elementalAffinityId = 'elemental-affinity';
