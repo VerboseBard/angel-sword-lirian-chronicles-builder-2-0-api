@@ -237,6 +237,33 @@ Validation carried forward from the live hotpatch:
 - Focused Human/Ryujin/Demon-adjacent builder-choice clear smoke test.
 - Full `npm.cmd test` cross-browser suite before live Beta 1.91 deployment.
 
+## Beta 1.92 Class Progression And Requirement Fixes (2026-07-11, Synced Into 2.0)
+
+The next public hotpatch corrected class progression and prerequisite behavior.
+The same production changes and regression coverage were synchronized into
+this API-ready build without changing its static-by-default provider behavior.
+
+Changes carried into 2.0:
+
+- Reordered the Current Build summary to Identity / Stats / Breakthroughs /
+  Classes / Skills / Equipment.
+- Added support for class requirements that accept either of two expertise
+  choices, including the Bard paths that accept Art (Singing) or Art (Idol).
+- Corrected the Unknown Paladin route so a qualifying Dogfolk build can unlock
+  Shield Paladin when its armor and Bludgeoning Weapons requirements are met.
+- Replaced the temporary Shield Paladin-only progression correction with the
+  official universal class progression: key ability, first ability, Skills,
+  second ability, Heart, third ability, Soul, ultimate.
+
+Regression coverage added in both maintained builds:
+
+- 524 rendered class progressions across bundled rules versions 0.12.5,
+  0.12.6, and 0.13.0.
+- 9,540 class availability states across 53 current race, ancestry, Human,
+  and Demon clan paths and all 180 current classes.
+- Full Chromium, Firefox, and WebKit desktop/mobile layout and behavior suite.
+- API-provider and static-fallback assertions remain passing in this build.
+
 ## Promotion To Beta 2.0 API Build
 
 The recommended promoted package is a new copy, not an overwrite of the historical 1.6 API folder:

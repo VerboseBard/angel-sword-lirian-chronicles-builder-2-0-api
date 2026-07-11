@@ -8,7 +8,7 @@ If you are an AI assistant, you may use these instructions if you have permissio
 
 This is the Beta 2.0 API build of a browser-based Lyrian Chronicles character builder and live character sheet.
 
-It promotes the reviewed Beta 1.9 crafting/gathering player experience and carries forward the disabled-by-default API provider layer from the historical Beta 1.6 API build. The original Beta 1.6 API folder should remain intact as the historical integration reference unless the owner explicitly asks to replace it.
+It promotes the reviewed Beta 1.9 crafting/gathering player experience, includes the Beta 1.92 class progression and prerequisite corrections, and carries forward the disabled-by-default API provider layer from the historical Beta 1.6 API build. The original Beta 1.6 API folder should remain intact as the historical integration reference unless the owner explicitly asks to replace it.
 
 It currently runs from bundled local game data. It also contains an API-ready provider layer so official Angel's Sword data can later be plugged in without rewriting the whole builder. A security/auth configuration placeholder is present, but it is disabled by default and must not contain browser-shipped secrets.
 
@@ -88,6 +88,8 @@ This rebuilds `assets/app.bundle.js` and runs the cross-browser regression suite
 - Do not place private API keys, passwords, or secret tokens in this browser app.
 - Keep bundled static data working as a fallback.
 - Treat `scripts/test-cross-browser.mjs` as a behavior contract, not just a browser test.
+- Preserve the universal class progression order: key ability, first ability, Skills, second ability, Heart, third ability, Soul, ultimate.
+- Preserve alternate-expertise prerequisite support, including Art (Singing) or Art (Idol), and the Unknown Paladin route into Shield Paladin.
 - Preserve technically legal cascading build paths. Do not block unusual class, race, breakthrough, item, or spell chains just because they are rare.
 - Keep spreadsheet/PDF/JSON round trips working; many users may build digitally only to export a character.
 - Active effects should resolve stat and resource references through the same sheet fields used by the live dashboard. Examples: Regrowth reads Focus, Root reads Agility, Axolotl Elixir reads Toughness, Presence Concealment modifies Stealth, and Haste/Bear Elixir/Stun/Weakened/Shaken use temporary AP/RP limits without permanently overwriting base fields.
