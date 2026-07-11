@@ -959,6 +959,53 @@ const browsers = [
       localStorage.clear();
       localStorage.setItem('lyrian-chronicles-character-suite-v2', JSON.stringify({
         ui: { mode: 'builder', gameVersion: '0.13.0' },
+        fields: { Name: 'Dogfolk Paladin Tester' },
+        builder: {
+          selectedRaceId: 'chimera',
+          selectedAncestryId: 'dogfolk',
+          selectedBreakthroughIds: [
+            'the-unknown-paladin',
+            'light-armor-training',
+            'medium-armor-training',
+            'weapon-training'
+          ],
+          choiceSelections: {
+            'breakthrough-weapon-training-groups': 'Bludgeoning Weapons'
+          }
+        }
+      }));
+    });
+    await page.reload({ waitUntil: 'load' });
+    await page.click('[data-step-index="6"]');
+    await page.waitForSelector('.builder-option-card', { timeout: 5000 });
+
+    const unknownPaladinRequirementResult = await page.evaluate(() => {
+      const getClassCardState = (name) => {
+        const card = [...document.querySelectorAll('.builder-option-card')]
+          .find((entry) => entry.querySelector('strong')?.textContent?.trim() === name);
+        return card ? {
+          found: true,
+          locked: card.classList.contains('locked'),
+          labels: card.querySelector('.builder-option-meta')?.textContent?.replace(/\s+/g, ' ').trim() || '',
+          note: card.querySelector('.builder-option-note')?.textContent?.replace(/\s+/g, ' ').trim() || ''
+        } : { found: false };
+      };
+      return {
+        shieldPaladin: getClassCardState('Shield Paladin')
+      };
+    });
+
+    if (
+      !unknownPaladinRequirementResult.shieldPaladin.found ||
+      unknownPaladinRequirementResult.shieldPaladin.locked
+    ) {
+      throw new Error(`The Unknown Paladin human requirement regression failed: ${JSON.stringify(unknownPaladinRequirementResult)}`);
+    }
+
+    await page.evaluate(() => {
+      localStorage.clear();
+      localStorage.setItem('lyrian-chronicles-character-suite-v2', JSON.stringify({
+        ui: { mode: 'builder', gameVersion: '0.13.0' },
         fields: { Name: 'Mage Cascade Tester' },
         builder: {
           selectedRaceId: 'human',
