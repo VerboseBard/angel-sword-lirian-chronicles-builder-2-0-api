@@ -90,6 +90,7 @@ This rebuilds `assets/app.bundle.js` and runs the cross-browser regression suite
 - Treat `scripts/test-cross-browser.mjs` as a behavior contract, not just a browser test.
 - Preserve the universal class progression order: key ability, first ability, Skills, second ability, Heart, third ability, Soul, ultimate.
 - Preserve alternate-expertise prerequisite support, including Art (Singing) or Art (Idol), and the Unknown Paladin route into Shield Paladin.
+- Preserve class-granted proficiency prompts. The Classes step must resolve all 25 selectable weapon, armor, and shield grants across the 16 configured classes; multi-pick grants such as Fighter must remain distinct.
 - Preserve technically legal cascading build paths. Do not block unusual class, race, breakthrough, item, or spell chains just because they are rare.
 - Keep spreadsheet/PDF/JSON round trips working; many users may build digitally only to export a character.
 - Active effects should resolve stat and resource references through the same sheet fields used by the live dashboard. Examples: Regrowth reads Focus, Root reads Agility, Axolotl Elixir reads Toughness, Presence Concealment modifies Stealth, and Haste/Bear Elixir/Stun/Weakened/Shaken use temporary AP/RP limits without permanently overwriting base fields.

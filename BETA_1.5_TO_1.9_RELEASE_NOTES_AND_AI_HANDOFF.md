@@ -264,6 +264,19 @@ Regression coverage added in both maintained builds:
 - Full Chromium, Firefox, and WebKit desktop/mobile layout and behavior suite.
 - API-provider and static-fallback assertions remain passing in this build.
 
+## Beta 1.92 Selectable Class Proficiency Fix (2026-07-13, Synced Into 2.0)
+
+Class key abilities that grant a selectable proficiency now create choices in
+the Classes step and write the resolved result into the character's tracked
+proficiencies. This includes common, specialized, melee, ranged, armor, shield,
+and fixed either/or grants. Fighter's five common weapon groups are distinct,
+and the later Armorsmith Heart choice remains gated to the correct class level.
+
+The source audit currently covers 25 selectable grants across 16 classes,
+including the reported Acolyte and Fighter paths. The regression suite checks
+the source catalog against the handled class list so newly introduced wording
+cannot silently omit another proficiency prompt.
+
 ## Promotion To Beta 2.0 API Build
 
 The recommended promoted package is a new copy, not an overwrite of the historical 1.6 API folder:
