@@ -1,6 +1,22 @@
-# Beta 2.1 Release Notes
+# Beta 2.11 Patch Notes
 
-Beta 2.1 promotes the reviewed responsive public builder into the Mirane and Quick Build release.
+Beta 2.11 is the mobile performance and iPhone layout hotpatch for the Beta 2.1 Mirane and Quick Build release. Public URLs, deployment paths, save keys, and bundled game-data version identifiers remain unchanged.
+
+## Mobile startup performance
+
+- Reduced the measured first-load payload from about 20.4 MB to 6.4 MB by loading PDF, spreadsheet, embedded export, and 3D dice tools only when they are used.
+- Removed the duplicate rules-data download by starting directly from the current bundled `0.13.0` data.
+- Improved the throttled phone startup measurement from about 48 seconds to 15 seconds in the local regression profile.
+- Preserved PDF and spreadsheet import/export, direct-file startup, and full 3D dice behavior through on-demand runtime loading.
+
+## iPhone layout fixes
+
+- Builder steps, play-sheet pages, and character tabs now wrap inside the viewport instead of being clipped in horizontal rails.
+- Crafting and Gathering wizard steps remain fully visible and use the complete phone width.
+- Current Build summary cards stack cleanly on narrow screens.
+- Builder navigation controls no longer stick over and obscure page content.
+- The floating dice control is smaller, moves to the right in the character sheet, and stays out of Crafting and Gathering workspaces.
+- Added explicit narrow-width containment and fresh asset cache keys so iPhones receive the corrected layout without changing the site address.
 
 ## Character starts
 
@@ -20,4 +36,4 @@ Beta 2.1 promotes the reviewed responsive public builder into the Mirane and Qui
 
 ## Validation target
 
-The release is expected to pass the cross-browser suite in Chromium, Firefox, and WebKit at wide desktop, desktop, and phone layouts, plus all Standard/Mirane package and class-progression audits.
+Beta 2.11 passes the complete cross-browser suite in Chromium, Firefox, and WebKit at wide desktop, desktop, and phone layouts, plus targeted 320 px, 390 px, and 430 px mobile-width checks and all Standard/Mirane package and class-progression audits.

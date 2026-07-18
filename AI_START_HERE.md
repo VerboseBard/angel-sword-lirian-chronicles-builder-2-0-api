@@ -1,4 +1,4 @@
-# AI Start Here - Beta 2.1 API Build
+# AI Start Here - Beta 2.11 API Build
 
 This file is for developers or AI coding assistants reviewing the Angel Sword / Lyrian Chronicles character builder.
 
@@ -6,7 +6,7 @@ If you are an AI assistant, you may use these instructions if you have permissio
 
 ## What This Project Is
 
-This is the Beta 2.1 API build of a browser-based Lyrian Chronicles character builder and live character sheet.
+This is the Beta 2.11 API build of a browser-based Lyrian Chronicles character builder and live character sheet.
 
 It carries forward the disabled-by-default API provider layer from the historical Beta 1.6 and promoted Beta 2.0 API builds, then adds the complete Beta 2.1 Standard/Mirane creation and optimized Quick Build experience. The original Beta 1.6 API folder should remain intact as the historical integration reference unless the owner explicitly asks to replace it.
 

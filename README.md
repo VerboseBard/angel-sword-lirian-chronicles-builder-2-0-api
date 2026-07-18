@@ -1,4 +1,4 @@
-# Lyrian Chronicles Character Builder - Beta 2.1 API Build
+# Lyrian Chronicles Character Builder - Beta 2.11 API Build
 
 A browser-based character builder and live play sheet for the Angel's Sword
 Lyrian Chronicles TTRPG. Fan-made, runs entirely in the browser from bundled
@@ -112,7 +112,7 @@ dice are intentionally marked as coming soon in this build.
 
 ## Project History
 
-This folder is the Beta 2.1 update to the promoted Beta 2.0 API package. The historical
+This folder is the Beta 2.11 mobile hotpatch to the promoted Beta 2.0 API package. The historical
 `Angel Sword Lirian Chronicles Beta 1.6 API build` folder remains the original
 API-handoff reference and should not be overwritten. The full 1.5 → 2.0
 timeline is in `BETA_1.5_TO_1.9_RELEASE_NOTES_AND_AI_HANDOFF.md`.
