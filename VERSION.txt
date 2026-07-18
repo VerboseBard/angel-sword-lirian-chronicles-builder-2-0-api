@@ -1,4 +1,4 @@
-Lyrian Chronicles Character Builder - Beta Version 2.1 API Build
+Lyrian Chronicles Character Builder - Beta Version 2.11 API Build
 Promoted from the reviewed Beta 1.9 new-player downtime UX build.
 Includes the Beta 1.6 disabled-by-default API provider handoff layer.
 Includes a disabled-by-default security placeholder for future official backend/auth work.
@@ -37,3 +37,11 @@ Slimefolk, Dullahan, Spiderfolk, newcomer class descriptions, and current
 responsive/mobile tests.
 The API provider, mock endpoint, validator, static fallback, and disabled
 security placeholder remain intact and are covered by the full test suite.
+
+2.11 mobile hotpatch (2026-07-18): reduced the initial phone payload by
+deferring PDF, spreadsheet, export-asset, and 3D dice runtimes until they are
+used; removed the duplicate startup rules-data download; hardened iPhone
+widths and wrapping; made builder, sheet, character-tab, crafting, and
+gathering navigation fully visible; removed overlapping sticky controls; and
+kept the floating dice control out of the crafting/gathering workspaces.
+Public URLs, deployment paths, save keys, and game-data versions are unchanged.

@@ -1,8 +1,8 @@
-Angels Sword Beta 2.1 API Build
+Angels Sword Beta 2.11 API Build
 
 PUBLIC / LOCAL TEST BUILD
 
-Beta 2.1 adds Standard and Mirane starts, twelve optimized race-aware Quick Builds, Slimefolk, newcomer class guidance, current responsive/mobile behavior, and Mirane-aware equipment and crafting rules to the promoted private API build.
+Beta 2.11 keeps the Beta 2.1 Standard/Mirane and Quick Build features while improving phone startup speed and correcting iPhone clipping, overlap, and full-width layout problems.
 
 The API and security hooks are present for future official integration, but they are off by default. This build should behave like the static/local character builder unless a developer intentionally enables API mode.
 
@@ -43,4 +43,4 @@ When reporting a bug, include:
 - Whether you were in Combat, Crafting, or Gathering mode.
 
 ---
-Lyrian Chronicles Character Builder - Beta Version 2.1 API Build
+Lyrian Chronicles Character Builder - Beta Version 2.11 API Build

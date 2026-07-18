@@ -77,7 +77,7 @@ async function handleApi(request, response, pathname) {
       mode: "local-server",
       projectRoot: PROJECT_ROOT,
       campaignPrototype: true,
-      message: "Beta 2.1 API Build local development server is connected."
+      message: "Beta 2.11 API Build local development server is connected."
     });
   }
 
@@ -235,7 +235,7 @@ async function start() {
     try {
       await listenOnPort(server, port);
       const url = `http://${HOST}:${port}/`;
-      console.log(`Lyrian Beta 2.1 API Build running at ${url}`);
+      console.log(`Lyrian Beta 2.11 API Build running at ${url}`);
       console.log(`Mock official API endpoint: ${url}builder/game-data (add ?version=<id> for other bundled versions)`);
       console.log("Close this terminal window to stop the local development server.");
       openBrowser(url);
