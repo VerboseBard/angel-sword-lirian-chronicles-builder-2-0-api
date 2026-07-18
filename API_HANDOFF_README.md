@@ -2,9 +2,9 @@
 
 These instructions can be given to a developer or run through an AI coding assistant such as Codex, Gemini, Claude, or another tool, as long as that AI has permission to read and edit this project folder. The AI should read this file first, then read `docs/api-integration-plan.md`, before changing code.
 
-This is the Beta 2.0 API-ready build of the Lyrian Chronicles character builder.
+This is the Beta 2.1 API-ready build of the Lyrian Chronicles character builder.
 
-The app currently works from bundled local game data. API mode is prepared but disabled by default. This folder combines the reviewed Beta 1.9 crafting/gathering experience, the Beta 1.92 tester-feedback hotpatch, and the API handoff scaffolding first prepared in Beta 1.6.
+The app currently works from bundled local game data. API mode is prepared but disabled by default. This folder combines the Beta 2.1 Standard/Mirane and Quick Build experience with the API handoff scaffolding first prepared in Beta 1.6 and promoted in Beta 2.0.
 
 The historical `Angel Sword Lirian Chronicles Beta 1.6 API build` folder remains the original API reference. Do not overwrite it unless the project owner explicitly asks.
 

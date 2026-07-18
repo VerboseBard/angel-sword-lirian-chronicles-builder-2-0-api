@@ -1,4 +1,4 @@
-# Lyrian Chronicles Character Builder - Beta 2.0 API Build
+# Lyrian Chronicles Character Builder - Beta 2.1 API Build
 
 A browser-based character builder and live play sheet for the Angel's Sword
 Lyrian Chronicles TTRPG. Fan-made, runs entirely in the browser from bundled
@@ -6,11 +6,10 @@ public rules data, and ships with a disabled-by-default provider layer ready
 for an official API. See [NOTICE.md](NOTICE.md) for ownership and data
 provenance.
 
-This build combines the reviewed Beta 1.9 player experience plus the Beta
-1.92 tester-feedback hotpatch (builder, live play sheet, class progression,
-class prerequisites, equipment shopping,
-guided crafting and gathering wizards) with the API handoff layer first
-prepared in the Beta 1.6 API build.
+This build combines the complete Beta 2.1 Standard/Mirane builder, optimized
+Quick Build packages, responsive live sheet, and crafting/gathering rules with
+the disabled-by-default API handoff layer first prepared in the Beta 1.6 API
+build and promoted in Beta 2.0.
 
 ## Quick Start
 
@@ -56,6 +55,13 @@ tested, and waiting for a real endpoint.
 | Ownership, game-content provenance, licensing | `NOTICE.md` |
 
 ## What The App Does
+
+- Standard Play and Mirane Expedition starts across guided and Quick Build,
+  including campaign restrictions, pricing, crafting, and character review.
+- Twelve optimized, race-aware Quick Build packages with complete legal class
+  paths, skills, breakthroughs, equipment, Slimefolk, and newcomer guidance.
+- Eighteen Quick Build species choices, including featured Slimefolk, Dullahan,
+  and Wolf-folk options arranged as six complete desktop rows.
 
 - Full character builder: race, ancestry, classes, breakthroughs, skills,
   equipment, abilities — including rare-but-legal cascading unlock paths,
@@ -106,7 +112,7 @@ dice are intentionally marked as coming soon in this build.
 
 ## Project History
 
-This folder is the promoted Beta 2.0 package. The historical
+This folder is the Beta 2.1 update to the promoted Beta 2.0 API package. The historical
 `Angel Sword Lirian Chronicles Beta 1.6 API build` folder remains the original
 API-handoff reference and should not be overwritten. The full 1.5 → 2.0
 timeline is in `BETA_1.5_TO_1.9_RELEASE_NOTES_AND_AI_HANDOFF.md`.

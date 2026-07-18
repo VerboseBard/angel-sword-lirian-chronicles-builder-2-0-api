@@ -1,6 +1,6 @@
 # Known Risks And Questions
 
-This document lists the main handoff risks for the Beta 2.0 API build.
+This document lists the main handoff risks for the Beta 2.1 API build.
 
 Beta 2.0 combines the reviewed Beta 1.9 crafting/gathering UX with the disabled-by-default API provider layer first prepared in Beta 1.6. Treat the original Beta 1.6 API folder as the historical reference, not as a folder to overwrite.
 
