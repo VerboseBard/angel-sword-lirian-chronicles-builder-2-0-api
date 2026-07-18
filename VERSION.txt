@@ -1,4 +1,4 @@
-Lyrian Chronicles Character Builder - Beta Version 2.0 API Build
+Lyrian Chronicles Character Builder - Beta Version 2.1 API Build
 Promoted from the reviewed Beta 1.9 new-player downtime UX build.
 Includes the Beta 1.6 disabled-by-default API provider handoff layer.
 Includes a disabled-by-default security placeholder for future official backend/auth work.
@@ -29,3 +29,11 @@ API handoff kit (2026-07-07): local mock of the expected official endpoint
 API-mode + static-fallback regression tests, AI_INTEGRATION_TASK.md task brief,
 docs/api-mode-ownership-map.md, and a data-mapper fix so valid detail data
 (races/ancestries/classes shape) is no longer discarded in API mode.
+
+2.1 feature sync (2026-07-15): updated the private API build with the complete
+Standard/Mirane start system, campaign-aware pricing and crafting, retirement
+and retraining review guidance, twelve optimized race-aware Quick Builds,
+Slimefolk, Dullahan, Spiderfolk, newcomer class descriptions, and current
+responsive/mobile tests.
+The API provider, mock endpoint, validator, static fallback, and disabled
+security placeholder remain intact and are covered by the full test suite.
